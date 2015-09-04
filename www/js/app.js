@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+angular.module('cdr', ['ionic','cdr.newRates','cdr.dailyRates'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -17,3 +17,59 @@ angular.module('starter', ['ionic'])
     }
   });
 })
+
+
+.config(function($stateProvider, $urlRouterProvider){
+
+  $urlRouterProvider.otherwise('/sideMenu/test');
+
+  $stateProvider
+
+  .state('menu',{
+    url: '/sideMenu',
+    abstract: true,
+    templateUrl: 'templates/sideMenu.html',
+    controller: 'dailyRatesCtrl'
+  })
+
+  .state('popOver',{
+    url: '/popOver',
+    abstract: true,
+    templateUrl: 'templates/popOver.html',
+    controller: 'dailyRatesCtrl'
+  })
+
+  .state('menu.test',{
+    url: '/test',
+    views : {
+      'sideMenu' : {
+        templateUrl: 'templates/test.html',
+        controller: 'dailyRatesCtrl'
+      }
+    }
+  })
+
+  .state('menu.dailyRates',{
+    url: '/dailyRates',
+    views : {
+      'sideMenu' : {
+        templateUrl: 'templates/dailyRates.html',
+        controller: 'dailyRatesCtrl'
+      }
+    }
+  })
+
+  .state('menu.newRates',{
+    url: '/newRates',
+    views : {
+      'sideMenu' : {
+        templateUrl: 'templates/newRates.html',
+        controller: 'newRatesCtrl'
+      }
+    }
+  })
+
+});
+
+
+

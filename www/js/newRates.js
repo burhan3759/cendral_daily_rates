@@ -1,7 +1,5 @@
-angular.module('cdr.editRates', [])
+angular.module('cdr.newRates', [])
 
-.controller('editRatesCtrl',function($scope, $window){
-
-	$scope.name = JSON.parse($window.localStorage['name'] || '{}'); 
+.controller('newRatesCtrl',function($scope){
 
 })
