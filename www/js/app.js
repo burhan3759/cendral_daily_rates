@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('cdr', ['ionic','cdr.newRates','cdr.dailyRates'])
+angular.module('cdr', ['ionic','cdr.newRates','cdr.dailyRates', 'cdr.AppCtrl'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -21,7 +21,7 @@ angular.module('cdr', ['ionic','cdr.newRates','cdr.dailyRates'])
 
 .config(function($stateProvider, $urlRouterProvider){
 
-  $urlRouterProvider.otherwise('/test');
+  $urlRouterProvider.otherwise('/dailyRates');
 
   $stateProvider
 
@@ -38,10 +38,10 @@ angular.module('cdr', ['ionic','cdr.newRates','cdr.dailyRates'])
     controller: 'dailyRatesCtrl'
   })
 
-  .state('test',{
-    url: '/test',
-    templateUrl: 'templates/test.html',
-    controller: 'dailyRatesCtrl'
+  .state('sign-in',{
+    url: '/SignIn',
+    templateUrl: 'templates/sign-in.html',
+    controller: 'AppCtrl'
   })
 
   .state('dailyRates',{
