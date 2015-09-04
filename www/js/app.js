@@ -21,7 +21,7 @@ angular.module('cdr', ['ionic','cdr.newRates','cdr.dailyRates'])
 
 .config(function($stateProvider, $urlRouterProvider){
 
-  $urlRouterProvider.otherwise('/sideMenu/test');
+  $urlRouterProvider.otherwise('/test');
 
   $stateProvider
 
@@ -34,42 +34,61 @@ angular.module('cdr', ['ionic','cdr.newRates','cdr.dailyRates'])
 
   .state('popOver',{
     url: '/popOver',
-    abstract: true,
     templateUrl: 'templates/popOver.html',
     controller: 'dailyRatesCtrl'
   })
 
-  .state('menu.test',{
+  .state('test',{
     url: '/test',
-    views : {
-      'sideMenu' : {
-        templateUrl: 'templates/test.html',
-        controller: 'dailyRatesCtrl'
-      }
-    }
+    templateUrl: 'templates/test.html',
+    controller: 'dailyRatesCtrl'
   })
 
-  .state('menu.dailyRates',{
+  .state('dailyRates',{
     url: '/dailyRates',
-    views : {
-      'sideMenu' : {
-        templateUrl: 'templates/dailyRates.html',
-        controller: 'dailyRatesCtrl'
-      }
-    }
+    templateUrl: 'templates/dailyRates.html',
+    controller: 'dailyRatesCtrl'
   })
 
-  .state('menu.newRates',{
+  .state('newRates',{
     url: '/newRates',
-    views : {
-      'sideMenu' : {
-        templateUrl: 'templates/newRates.html',
-        controller: 'newRatesCtrl'
-      }
-    }
+    templateUrl: 'templates/newRates.html',
+    controller: 'newRatesCtrl'
   })
 
-});
+
+  // .state('popOver.test',{
+  //   url: '/test',
+  //   views : {
+  //     'popOver' : {
+  //       templateUrl: 'templates/test.html',
+  //       controller: 'dailyRatesCtrl'
+  //     }
+  //   }
+  // })
+
+  // .state('popOver.dailyRates',{
+  //   url: '/dailyRates',
+  //   views : {
+  //     'popOver' : {
+  //       templateUrl: 'templates/dailyRates.html',
+  //       controller: 'dailyRatesCtrl'
+  //     }
+  //   }
+  // })
+
+  // .state('menu.newRates',{
+  //   url: '/newRates',
+  //   views : {
+  //     'sideMenu' : {
+  //       templateUrl: 'templates/newRates.html',
+  //       controller: 'newRatesCtrl'
+  //     }
+  //   }
+  // })
+
+})
+
 
 
 

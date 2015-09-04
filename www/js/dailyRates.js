@@ -3,7 +3,7 @@ angular.module('cdr.dailyRates', [])
 .controller('dailyRatesCtrl',function($scope, $ionicPopover){
 
 	//pop over
-
+	document.body.classList.add('platform-ios');
 	$ionicPopover.fromTemplateUrl('templates/popOver.html', {
 		scope: $scope
 	}).then(function(popover) {
