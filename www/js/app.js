@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('cdr', ['ionic','cdr.newRates','cdr.dailyRates', 'cdr.AppCtrl'])
+angular.module('cdr', ['ionic', 'cdr.AppCtrl'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -21,71 +21,15 @@ angular.module('cdr', ['ionic','cdr.newRates','cdr.dailyRates', 'cdr.AppCtrl'])
 
 .config(function($stateProvider, $urlRouterProvider){
 
-  $urlRouterProvider.otherwise('/dailyRates');
+  $urlRouterProvider.otherwise('/About');
 
   $stateProvider
 
-  .state('menu',{
-    url: '/sideMenu',
-    abstract: true,
-    templateUrl: 'templates/sideMenu.html',
-    controller: 'dailyRatesCtrl'
-  })
-
-  .state('popOver',{
-    url: '/popOver',
-    templateUrl: 'templates/popOver.html',
-    controller: 'dailyRatesCtrl'
-  })
-
-  .state('sign-in',{
-    url: '/SignIn',
-    templateUrl: 'templates/sign-in.html',
+  .state('About',{
+    url: '/About',
+    templateUrl: 'templates/About.html',
     controller: 'AppCtrl'
   })
-
-  .state('dailyRates',{
-    url: '/dailyRates',
-    templateUrl: 'templates/dailyRates.html',
-    controller: 'dailyRatesCtrl'
-  })
-
-  .state('newRates',{
-    url: '/newRates',
-    templateUrl: 'templates/newRates.html',
-    controller: 'newRatesCtrl'
-  })
-
-
-  // .state('popOver.test',{
-  //   url: '/test',
-  //   views : {
-  //     'popOver' : {
-  //       templateUrl: 'templates/test.html',
-  //       controller: 'dailyRatesCtrl'
-  //     }
-  //   }
-  // })
-
-  // .state('popOver.dailyRates',{
-  //   url: '/dailyRates',
-  //   views : {
-  //     'popOver' : {
-  //       templateUrl: 'templates/dailyRates.html',
-  //       controller: 'dailyRatesCtrl'
-  //     }
-  //   }
-  // })
-
-  // .state('menu.newRates',{
-  //   url: '/newRates',
-  //   views : {
-  //     'sideMenu' : {
-  //       templateUrl: 'templates/newRates.html',
-  //       controller: 'newRatesCtrl'
-  //     }
-  //   }
-  // })
 
 })
 

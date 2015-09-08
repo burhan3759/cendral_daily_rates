@@ -1,6 +1,6 @@
 angular.module('cdr.AppCtrl', [])
 
-.controller('AppCtrl',function(){
+.controller('AppCtrl', function(){
 
-
+	
 })
