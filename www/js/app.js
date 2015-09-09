@@ -21,13 +21,55 @@ angular.module('cdr', ['ionic', 'cdr.AppCtrl'])
 
 .config(function($stateProvider, $urlRouterProvider){
 
-  $urlRouterProvider.otherwise('/About');
+  $urlRouterProvider.otherwise('/Home/Rates');
 
   $stateProvider
 
-  .state('About',{
+  .state('HomeTabs',{
+    url: '/Home',
+    abstract: true,
+    templateUrl: 'templates/HomeTabs.html',
+    controller: 'AppCtrl'
+  })
+
+  .state('HomeTabs.Rates',{
+    url: '/Rates',
+      views: {
+        'Rates':{
+          templateUrl: 'templates/Rates.html',
+          controller: 'AppCtrl'      
+        }
+      }
+  })
+  .state('HomeTabs.About',{
     url: '/About',
-    templateUrl: 'templates/About.html',
+      views: {
+        'About': {
+          templateUrl: 'templates/About.html',
+          controller: 'AppCtrl'
+        }
+      }
+  })
+
+  .state('UpdateRates',{
+    url: '/UpdateRates',
+    templateUrl: 'templates/UpdateRates.html',
+    controller: 'AppCtrl'
+  })
+  .state('Users',{
+    url: '/Users',
+    templateUrl: 'templates/Users.html',
+    controller: 'AppCtrl'
+  })
+
+  .state('SignIn',{
+    url: '/SignIn',
+    templateUrl: 'templates/SignIn.html',
+    controller: 'AppCtrl'
+  })
+  .state('SignOut',{
+    url: '/SignOut',
+    templateUrl: 'templates/SignOut.html',
     controller: 'AppCtrl'
   })
 
