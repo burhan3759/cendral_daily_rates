@@ -1,0 +1,29 @@
+<!-- Need to change the view this is accidently created for modal view -->
+<ion-modal-view class="padding">
+    <ion-header-bar class="bar-balanced">
+		<h1 class="title">Sign Up</h1>
+	</ion-header-bar>
+    <ion-content class="padding">
+        <form>
+            <ion-list>
+                <label class="item item-input">
+                    <span class="input-label">Name</span>
+                    <input type="text" placeholder="Ali.." ng-model="data.name">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Username</span>
+                    <input type="text" placeholder="enter username..." ng-model="data.username">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Password</span>
+                    <input type="password" placeholder="At least 6 characters" ng-model="data.password">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Confirm Password</span>
+                    <input type="password" placeholder="At least 6 characters" ng-model="data.confirm_password">
+                </label>
+            </ion-list>
+            <button class="button button-stable button-block button-dark" ng-click="signup()">Sign Up</button>
+        </form>
+    </ion-content>
+</ion-modal-view>

@@ -67,9 +67,9 @@ angular.module('cdr', ['ionic', 'cdr.AppCtrl'])
     templateUrl: 'templates/SignIn.html',
     controller: 'AppCtrl'
   })
-  .state('SignOut',{
-    url: '/SignOut',
-    templateUrl: 'templates/SignOut.html',
+  .state('SignUp',{
+    url: '/SignUp',
+    templateUrl: 'templates/SignUp.html',
     controller: 'AppCtrl'
   })
 
