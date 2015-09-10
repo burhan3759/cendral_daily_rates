@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('cdr', ['ionic', 'cdr.AppCtrl'])
+angular.module('cdr', ['ionic', 'cdr.AppCtrl', 'cdr.RatesCtrl'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -37,7 +37,7 @@ angular.module('cdr', ['ionic', 'cdr.AppCtrl'])
       views: {
         'Rates':{
           templateUrl: 'templates/Rates.html',
-          controller: 'AppCtrl'      
+          controller: 'RatesCtrl'      
         }
       }
   })
@@ -51,15 +51,23 @@ angular.module('cdr', ['ionic', 'cdr.AppCtrl'])
       }
   })
 
-  .state('UpdateRates',{
+  .state('HomeTabs.UpdateRates',{
     url: '/UpdateRates',
-    templateUrl: 'templates/UpdateRates.html',
-    controller: 'AppCtrl'
+      views: {
+        'UpdateRates': {
+        templateUrl: 'templates/UpdateRates.html',
+        controller: 'AppCtrl'
+        }
+      }
   })
-  .state('Users',{
+  .state('HomeTabs.Users',{
     url: '/Users',
-    templateUrl: 'templates/Users.html',
-    controller: 'AppCtrl'
+      views: {
+        'Users': {
+          templateUrl: 'templates/Users.html',
+          controller: 'AppCtrl'      
+        }
+      }
   })
 
   .state('SignIn',{
