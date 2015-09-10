@@ -2,20 +2,32 @@ angular.module('cdr.AppCtrl', [])
 
 .controller('AppCtrl', function($scope, $ionicModal){
 
-	$scope.naviBar = '#00CB25';
-
 	//Sign In modal - this is the code for open a modal and hide it - using a template not script
 	$ionicModal.fromTemplateUrl('templates/SignIn.html', {
 	scope: $scope,
 	animation: 'slide-in-up'
 	}).then(function(modal) {
-	$scope.modal = modal;
+	$scope.modalSI = modal;
 	});
-	$scope.openModal = function() {
-	$scope.modal.show();
+	$scope.signIn = function() {
+	$scope.modalSI.show();
 	};
 	$scope.closeModal = function() {
-	$scope.modal.hide();
+	$scope.modalSI.hide();
+	};
+
+	//Sign Up modal - this is the code for open a modal and hide it - using a template not script
+	$ionicModal.fromTemplateUrl('templates/SignUp.html', {
+	scope: $scope,
+	animation: 'slide-in-up'
+	}).then(function(modal) {
+	$scope.modalSU = modal;
+	});
+	$scope.signUp = function() {
+	$scope.modalSU.show();
+	};
+	$scope.closeSignUp = function() {
+	$scope.modalSU.hide();
 	};
 
 	//this 'data' is and object -use for to get Sign Up and In done
