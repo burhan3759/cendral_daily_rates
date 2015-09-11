@@ -4,6 +4,8 @@ angular.module('cdr.RatesCtrl', [])
 
 	// object variable for update rates page
 	$scope.rates = {};
+	// bolean variable created bcus to makesure the data only been retrive once when user enter the page - not everytime
+	var bol = false;
 
 	//this id is dynamic will change everytime we add new currency
 	var getID;	
@@ -18,6 +20,7 @@ angular.module('cdr.RatesCtrl', [])
 				// Execute any logic that should take place after the object is saved.
 	 			console.log('New object created with objectId: ' + rates.id);
 	 			getID = rates.id;
+	 			bol = false;
 			},
 			error: function(rates, error) {
 			    // Execute any logic that should take place if the save fails.
@@ -27,12 +30,35 @@ angular.module('cdr.RatesCtrl', [])
 		});
 	}
 
+	$scope.updateRates = function(data){
+		console.log("updateRates: id: " + data.id);
+		$scope.update = {'name': data.name, 'amount':data.amount, 'sell':data.sell, 'buy':data.buy};
+		var update_Rates = Parse.Object.extend("Rates");
+		var update_rates = new Parse.Query(update_Rates);
+		update_rates.equalTo("objectId",data.id);
+		update_rates.first({
+		  success: function(results) {
+		    // console.log("Successfully retrieved " + results.length);
+		    // alert("Successfully retrieved " + results.length);
+		    // Do something with the returned Parse.Object values
+		    results.set("currency", $scope.update);
+		    results.save();
+		    console.log("saved");
+
+		  },
+		  error: function(error) {
+		    alert("Error: " + error.code + " " + error.message);
+		  }
+		})
+		data.edit = false;
+		bol = false;
+		console.log("after update: " + bol);
+	}
+
 	// This is obj arr created to store all data that been retrieved from data base - to store data temporaryly if user add currency
 	$scope.arr = [];
-	// bolean variable created bcus to makesure the data only been retrive once when user enter the page - not everytime
-	var bol = false;
-
-	if(!bol){
+	console.log("bfore load: " + bol);
+	if(bol === false){
 		var getRates = Parse.Object.extend("Rates");
 		var get_rates = new Parse.Query(getRates);
 		get_rates.find({
@@ -61,6 +87,8 @@ angular.module('cdr.RatesCtrl', [])
 		bol = true;
 	}else{	}
 
+	console.log("after load: " + bol);
+
 
 	// function to add currency it will add inside and array - to save in database function is been implement on html page it self
 	$scope.addCurrency = function(data){
@@ -79,32 +107,7 @@ angular.module('cdr.RatesCtrl', [])
 	}
 
 	$scope.editRates = function(data){
-		console.log("change to true");
 		data.edit = true;
 	}
 	
-
-	$scope.updateRates = function(data){
-		console.log("updateRates: id: " + data.id);
-		$scope.update = {'name': data.name, 'amount':data.amount, 'sell':data.sell, 'buy':data.buy};
-		var update_Rates = Parse.Object.extend("Rates");
-		var update_rates = new Parse.Query(update_Rates);
-		update_rates.equalTo("objectId",data.id);
-		update_rates.first({
-		  success: function(results) {
-		    // console.log("Successfully retrieved " + results.length);
-		    // alert("Successfully retrieved " + results.length);
-		    // Do something with the returned Parse.Object values
-		    results.set("currency", $scope.update);
-		    results.save();
-		    console.log("saved");
-
-		  },
-		  error: function(error) {
-		    alert("Error: " + error.code + " " + error.message);
-		  }
-		})
-		data.edit = false;
-	}
-
 })
