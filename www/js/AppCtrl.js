@@ -77,4 +77,8 @@ angular.module('cdr.AppCtrl', [])
 	  });
 	};
 
+	$scope.signOut = function(){
+		Parse.User.logOut();
+	}
+
 })
