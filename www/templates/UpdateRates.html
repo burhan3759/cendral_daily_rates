@@ -9,12 +9,28 @@
 	  		</div>
 		</div>
 		<div class="list" collection-repeat="rate in arr">
-			<label class="item item-input item-clear ">
+			<label class="item item-input item-clear" ng-if="!rate.edit">
 				<span class="input-label">{{rate.name}}</span>
 				<span class="input-label">{{rate.amount}}</span>
 				<span class="input-label">{{rate.sell}}</span>
 				<span class="input-label">{{rate.buy}}</span>
+				<button class="button button-clear button-small button-assertive" ng-click="editRates(rate)">
+					Update
+				</button>
 			</label>
+			<div class="item item-input item-clear" ng-if="rate.edit"> 
+			<label>
+				<div class="item-input">
+					<input type="text" placeholder="Name: {{rate.name}}" ng-model="rate.name">
+				  	<input type="text" placeholder="Amount: {{rate.amount}}" ng-model="rate.amount">
+				  	<input type="text" placeholder="Sell: {{rate.sell}}" ng-model="rate.sell">
+				  	<input type="text" placeholder="Buy: {{rate.buy}}" ng-model="rate.buy">
+			  	</div>
+			</label>
+			<button class="button button-clear button-small button-balanced" ng-click="updateRates(rate)">
+					Save Update
+			</button>
+			</div>
 		</div>
 
 		<label class="item item-input">
