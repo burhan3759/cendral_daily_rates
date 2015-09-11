@@ -15,27 +15,28 @@
 
 			<!-- Table Body -->
 			<tbody>
-
-				<tr >
+			<!-- <div ng-repeat="rate in arr"> -->
+				<tr ng-repeat="rate in arr">
 					<td>
-						USA
+						{{rate.name}}
 					</td>
 					<td>
 						<label class="item item-input item-clear">
-					    	<input type="text" placeholder="1" style="font-color: dark;">
+					    	<input type="text" placeholder="{{rate.amount}}">
 					  	</label>
 					</td>
 					<td>
 						<label class="item item-input item-clear">
-					    	<input type="text" placeholder="4.20">
+					    	<input type="text" placeholder="{{rate.sell}}">
 					  	</label>
 					</td>
 					<td>
 						<label class="item item-input item-clear">
-					    	<input type="text" placeholder="3.50">
+					    	<input type="text" placeholder="{{rate.buy}}">
 					  	</label>
 					</td>
 				</tr><!-- Table Row -->
+			<!-- </div> -->
 			</tbody>
 			<!-- Table Body -->
 		</table>

@@ -8,7 +8,7 @@
 	    		<span class="input-label">BUY</span>
 	  		</div>
 		</div>
-		<div class="list" collection-repeat="rate in arr">
+		<div class="list" ng-repeat="rate in arr">
 			<label class="item item-input item-clear" ng-if="!rate.edit">
 				<span class="input-label">{{rate.name}}</span>
 				<span class="input-label">{{rate.amount}}</span>
