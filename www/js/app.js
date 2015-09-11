@@ -16,6 +16,9 @@ angular.module('cdr', ['ionic', 'cdr.AppCtrl', 'cdr.RatesCtrl'])
       StatusBar.styleDefault();
     }
   });
+
+  // Parse init - need to have this to connect with parse
+  Parse.initialize("8YYdqFMM0CnMuGTcxyn6Wa9Cebww5UA8e36ULGop", "vwEv6sBBmDWRZcarJDZzbLRPVliLA62Y9DBiOnTU");
 })
 
 
@@ -56,7 +59,7 @@ angular.module('cdr', ['ionic', 'cdr.AppCtrl', 'cdr.RatesCtrl'])
       views: {
         'UpdateRates': {
         templateUrl: 'templates/UpdateRates.html',
-        controller: 'AppCtrl'
+        controller: 'RatesCtrl'
         }
       }
   })

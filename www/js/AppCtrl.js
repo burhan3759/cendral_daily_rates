@@ -12,7 +12,7 @@ angular.module('cdr.AppCtrl', [])
 	$scope.signIn = function() {
 	$scope.modalSI.show();
 	};
-	$scope.closeModal = function() {
+	$scope.closeSignIn = function() {
 	$scope.modalSI.hide();
 	};
 
@@ -33,6 +33,9 @@ angular.module('cdr.AppCtrl', [])
 	//this 'data' is and object -use for to get Sign Up and In done
 	$scope.data = {};
 
+	// by default the category is set to "Staff"
+	$scope.data.category = "Staff";
+
 	//Sign Up function 
 	$scope.signup = function(){
 	 
@@ -42,11 +45,13 @@ angular.module('cdr.AppCtrl', [])
 	  user.set("username", $scope.data.username);
 	  user.set("password", $scope.data.password);
 	  user.set("confirm_password", $scope.data.confrim_password);
+	  user.set("category", $scope.data.category);
 	 
 	  user.signUp(null, {
 	    success: function(user) {
 	      // Hooray! Let them use the app now.
 	      alert("success!");
+	      $scope.closeSignUp();
 	    },
 	    error: function(user, error) {
 	      // Show the error message somewhere and let the user try again.
@@ -63,6 +68,7 @@ angular.module('cdr.AppCtrl', [])
 	      // Do stuff after successful login.
 	      console.log(user);
 	      alert("success!");
+	      $scope.closeSignIn();
 	    },
 	    error: function(user, error) {
 	      // The login failed. Check error to see why.
