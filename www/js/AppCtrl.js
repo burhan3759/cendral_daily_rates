@@ -1,6 +1,6 @@
 angular.module('cdr.AppCtrl', [])
 
-.controller('AppCtrl', function($scope, $ionicModal){
+.controller('AppCtrl', function($scope, $ionicModal, $state, $ionicPopup, $ionicHistory, $ionicViewService, $window){
 
 	//Sign In modal - this is the code for open a modal and hide it - using a template not script
 	$ionicModal.fromTemplateUrl('templates/SignIn.html', {
@@ -66,8 +66,9 @@ angular.module('cdr.AppCtrl', [])
 	  Parse.User.logIn($scope.data.username, $scope.data.password, {
 	    success: function(user) {
 	      // Do stuff after successful login.
-	      console.log(user);
-	      alert("success!");
+	      // $state.reload();
+	      // console.log("refresh");
+	      $window.location.reload(true);
 	      $scope.closeSignIn();
 	    },
 	    error: function(user, error) {
@@ -77,10 +78,40 @@ angular.module('cdr.AppCtrl', [])
 	  });
 	};
 
+    $scope.loggedIn = function() {
+      user = Parse.User.current();
+      if (user) {
+      	// // $state.reload();
+      	// console.log("refresh");
+        return true;
+      } else {
+        return false;
+      }
+    };
+
 	//logout function 
 	$scope.signOut = function(){
 		Parse.User.logOut();
 	}
+
+
+	// A confirm dialog to logout
+	$scope.showPopup = function() {
+		$state.go('HomeTabs.Rates');
+
+		var confirmPopup = $ionicPopup.confirm({
+		 title: 'Sign Out',
+		 template: 'Are you sure you want to Sign Out?'
+		});
+		confirmPopup.then(function(res) {
+		 if(res) {
+		   	Parse.User.logOut();  
+		   	// $window.location.reload(true);
+		   	// $state.go('HomeTabs.Rates');
+		 } else {	}
+		});
+	};
+
 
 	//get all user 
 	var bol = false;
@@ -103,7 +134,7 @@ angular.module('cdr.AppCtrl', [])
 	            	category: data.get('category')
 	            });
 		      // alert(object.id + ' - ' + object.get('currency').name + "\n");
-		      console.log(data.get('name'));
+		      // console.log(data.get('name'));
 		    }
 		  },
 		  error: function(error) {
@@ -113,7 +144,7 @@ angular.module('cdr.AppCtrl', [])
 		bol = true;
 	}else{	}
 
-
+	// all function related to delete user
 	$scope.deleteUser = function(uid){
 		var delUsers = Parse.Object.extend("User");
 		var del_users = new Parse.Query(getUsers);
@@ -156,5 +187,7 @@ angular.module('cdr.AppCtrl', [])
 	$scope.onItemDelete = function(item) {
 	$scope.items.splice($scope.items.indexOf(item), 1);
 	};
+
+
 
 })
