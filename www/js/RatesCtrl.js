@@ -52,12 +52,10 @@ angular.module('cdr.RatesCtrl', [])
 		})
 		data.edit = false;
 		bol = false;
-		console.log("after update: " + bol);
 	}
 
 	// This is obj arr created to store all data that been retrieved from data base - to store data temporaryly if user add currency
 	$scope.arr = [];
-	console.log("bfore load: " + bol);
 	if(bol === false){
 		var getRates = Parse.Object.extend("Rates");
 		var get_rates = new Parse.Query(getRates);
@@ -87,7 +85,11 @@ angular.module('cdr.RatesCtrl', [])
 		bol = true;
 	}else{	}
 
-	console.log("after load: " + bol);
+	// if no changes but accidently press update rates - currently unnessecary
+	// $scope.cancel = function(data){
+	// 	data.edit = false;
+	// 	bol = false;
+	// }
 
 
 	// function to add currency it will add inside and array - to save in database function is been implement on html page it self

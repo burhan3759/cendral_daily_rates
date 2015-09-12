@@ -77,8 +77,64 @@ angular.module('cdr.AppCtrl', [])
 	  });
 	};
 
+	//logout function 
 	$scope.signOut = function(){
 		Parse.User.logOut();
 	}
+
+	//get all user 
+	var bol = false;
+	$scope.users = [];
+	if(bol === false){
+		var getUsers = Parse.Object.extend("User");
+		var get_users = new Parse.Query(getUsers);
+		get_users.find({
+		  success: function(results) {
+		    // console.log("Successfully retrieved " + results.length);
+		    // alert("Successfully retrieved " + results.length);
+		    // Do something with the returned Parse.Object values
+
+		    for (var i = 0; i < results.length; i++) {
+		    	var data = results[i]
+			    $scope.users.push({
+			    	id: data.id,
+	            	name: data.get('name'),
+	            	username: data.get('username'),
+	            	category: data.get('category')
+	            });
+		      // alert(object.id + ' - ' + object.get('currency').name + "\n");
+		      console.log(data.get('name'));
+		    }
+		  },
+		  error: function(error) {
+		    alert("Error: " + error.code + " " + error.message);
+		  }
+		})
+		bol = true;
+	}else{	}
+
+
+	$scope.deleteUser = function(uid){
+		var delUsers = Parse.Object.extend("User");
+		var del_users = new Parse.Query(getUsers);
+		del_users.equalTo("objectId", uid);
+		del.destroy({
+		  success: function(myObject) {
+		    // The object was deleted from the Parse Cloud.
+		    alert("Successfully deleted");
+		  },
+		  error: function(myObject, error) {
+		    // The delete failed.
+		    // error is a Parse.Error with an error code and message.
+		  }
+		});
+	}
+
+	$scope.editBtnText = 'Edit';
+    $scope.toggleDelete = function() {
+      $scope.isDeletingItems = !$scope.isDeletingItems;
+      $scope.isReorderingItems = false;
+      $scope.editBtnText = ($scope.isDeletingItems ? 'Done' : 'Edit');
+    };
 
 })

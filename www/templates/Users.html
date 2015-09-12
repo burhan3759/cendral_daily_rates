@@ -1,5 +1,28 @@
 <ion-view view-title="Users">
 	<ion-content class="padding">
-		<h1>Users</h1>
+		<div class="card">
+	  		<div class="item item-input item-divider">
+				<span class="input-label">Name</span>	    		
+	    		<span class="input-label">Username</span>
+	    		<span class="input-label">Category</span>
+<!-- 	    		  <button class="button button-clear item item-icon-right" href="#">
+				    <i class="icon ion-trash-b" ng-model="shouldShowDelete"></i>
+				  </button> -->
+	  		</div>
+		  	<div class="item item-input item-wrap" ng-repeat="user in users">
+			  	<span class="input-label">{{user.name}}</span>
+			  	<span class="input-label">{{user.username}}</span>
+			  	<span class="input-label">{{user.category}}</span>
+			</div>
+		</div>
+	<ion-list show-delete="isDeletingItems">
+	  <ion-item>
+	    <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+	    Hello, list item!
+	  </ion-item>
+	</ion-list>
+	<button ng-click="toggleDelete()">
+	  {{editBtnText}}
+	<button>
 	</ion-content>
 </ion-view>
