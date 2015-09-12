@@ -1,0 +1,26 @@
+<ion-nav-bar class="bar-balanced">
+	<ion-nav-buttons side="right">
+	  <a class="button" ng-click="signIn()">Sign In</a>
+    <a class="button" ng-click="signUp()">Create User</a>
+    <a class="button" ng-click="signOut()">Sign Out</a>
+	</ion-nav-buttons>
+</ion-nav-bar>
+
+<ion-tabs class="tabs-dark tabs-striped tabs-color-light">
+	<!-- Rates -->
+  <ion-tab title="Home" icon-on="ion-ios-home" icon-off="ion-ios-home-outline" href="/Home/Rates">
+  	<ion-nav-view name="Rates"></ion-nav-view>
+  </ion-tab>
+  <!-- Update Rates -->
+  <ion-tab title="Update Rates" icon="ion-edit" href="/Home/UpdateRates">
+    <ion-nav-view name="UpdateRates"></ion-nav-view>
+  </ion-tab>
+  <!-- Users -->
+  <ion-tab title="Users" icon-on="ion-ios-people" icon-off="ion-ios-people-outline" href="/Home/Users">
+    <ion-nav-view name="Users"></ion-nav-view>
+  </ion-tab>
+  <!-- About -->
+  <ion-tab title="About" icon-on="ion-ios-information" icon-off="ion-ios-information-outline" href="/Home/About">
+    <ion-nav-view name="About"></ion-nav-view>
+  </ion-tab>
+</ion-tabs>

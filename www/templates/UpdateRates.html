@@ -1,0 +1,47 @@
+<ion-view view-title="Update Rates">
+	<ion-content class="padding">
+		<div class="card">
+	  		<div class="item item-input item-divider">
+	    		<span class="input-label">CURRENCY</span>
+	    		<span class="input-label">AMOUNT</span>
+	    		<span class="input-label">SELL</span>
+	    		<span class="input-label">BUY</span>
+	  		</div>
+		</div>
+		<div class="list" ng-repeat="rate in arr">
+			<label class="item item-input item-clear" ng-if="!rate.edit">
+				<span class="input-label">{{rate.name}}</span>
+				<span class="input-label">{{rate.amount}}</span>
+				<span class="input-label">{{rate.sell}}</span>
+				<span class="input-label">{{rate.buy}}</span>
+				<button class="button button-clear button-small button-assertive" ng-click="editRates(rate)">
+					Update
+				</button>
+			</label>
+			<div class="item item-input item-clear" ng-if="rate.edit"> 
+			<label>
+				<div class="item-input">
+					<input type="text" placeholder="Name: {{rate.name}}" ng-model="rate.name">
+				  	<input type="text" placeholder="Amount: {{rate.amount}}" ng-model="rate.amount">
+				  	<input type="text" placeholder="Sell: {{rate.sell}}" ng-model="rate.sell">
+				  	<input type="text" placeholder="Buy: {{rate.buy}}" ng-model="rate.buy">
+			  	</div>
+			</label>
+			<button class="button button-clear button-balanced" ng-click="updateRates(rate)">
+					Save Update
+			</button>
+<!-- 			<button class="button button-clear button-big button-assertive" ng-click="cancel(rate)">
+				Cancel
+			</button> -->
+			</div>
+		</div>
+
+		<label class="item item-input">
+		  	<input type="text" placeholder="Currency Name" ng-model="rates.name">
+		  	<input type="text" placeholder="Amount" ng-model="rates.amount">
+		  	<input type="text" placeholder="Sell" ng-model="rates.sell">
+		  	<input type="text" placeholder="Buy" ng-model="rates.buy">
+		</label>
+		<button class="button button-icon icon ion-plus-circled" ng-click="save(); addCurrency(rates)"></button>
+	</ion-content>
+</ion-view>

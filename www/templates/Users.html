@@ -1,0 +1,48 @@
+<ion-view view-title="Users">
+	<ion-content class="padding">
+		<div class="card">
+	  		<div class="item item-input item-divider">
+				<span class="input-label">Name</span>	    		
+	    		<span class="input-label">Username</span>
+	    		<span class="input-label">Category</span>
+<!-- 	    		  <button class="button button-clear item item-icon-right" href="#">
+				    <i class="icon ion-trash-b" ng-model="shouldShowDelete"></i>
+				  </button> -->
+	  		</div>
+		  	<div class="item item-input item-wrap" ng-repeat="user in users">
+			  	<span class="input-label">{{user.name}}</span>
+			  	<span class="input-label">{{user.username}}</span>
+			  	<span class="input-label">{{user.category}}</span>
+			</div>
+		</div>
+<!-- 	<ion-list show-delete="isDeletingItems">
+	  <ion-item>
+	    <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+	    Hello, list item!
+	  </ion-item>
+	</ion-list>
+
+	<button ng-click="toggleDelete()">
+	  {{editBtnText}}
+	<button> -->
+
+
+        <button class="button button-icon icon ion-ios-minus-outline" ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>
+
+        <button class="button" ng-click="data.showDelete = false; data.showReorder = !data.showReorder">
+            Reorder
+        </button>
+
+      <ion-list show-delete="data.showDelete" show-reorder="data.showReorder">
+
+        <ion-item ng-repeat="user in users" class="item-remove-animate">
+          Name: {{ user.name }} Username: {{ user.username }} Category: {{ user.category }}
+          <ion-delete-button class="ion-minus-circled" 
+                             ng-click="onItemDelete(item)">
+          </ion-delete-button>
+          <ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)"></ion-reorder-button>
+        </ion-item>
+      </ion-list>
+
+	</ion-content>
+</ion-view>
