@@ -137,4 +137,24 @@ angular.module('cdr.AppCtrl', [])
       $scope.editBtnText = ($scope.isDeletingItems ? 'Done' : 'Edit');
     };
 
+	$scope.data = {
+	showDelete: false
+	};
+
+	$scope.edit = function(item) {
+	alert('Edit Item: ' + item.id);
+	};
+	$scope.share = function(item) {
+	alert('Share Item: ' + item.id);
+	};
+
+	$scope.moveItem = function(item, fromIndex, toIndex) {
+	$scope.items.splice(fromIndex, 1);
+	$scope.items.splice(toIndex, 0, item);
+	};
+
+	$scope.onItemDelete = function(item) {
+	$scope.items.splice($scope.items.indexOf(item), 1);
+	};
+
 })
