@@ -1,6 +1,6 @@
 angular.module('cdr.AppCtrl', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $state, $ionicPopup, $ionicHistory, $ionicViewService, $window){
+.controller('AppCtrl', function($scope, $ionicModal, $state, $ionicPopup, $ionicHistory, $window){
 
 	//Sign In modal - this is the code for open a modal and hide it - using a template not script
 	$ionicModal.fromTemplateUrl('templates/SignIn.html', {

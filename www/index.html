@@ -30,7 +30,12 @@
   </head>
 
   <body ng-app="cdr">
-
+    <ion-nav-bar class="bar-balanced" ng-controller="AppCtrl">
+        <ion-nav-buttons side="left">
+          <a class="button" ng-click="signIn()" ng-if="!loggedIn()">Sign In</a>
+          <a class="button" ng-click="showPopup()" ng-if="loggedIn()">Sign Out</a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
     <ion-nav-view>
     </ion-nav-view>
 
