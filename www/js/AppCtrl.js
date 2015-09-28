@@ -144,29 +144,34 @@ angular.module('cdr.AppCtrl', [])
 		bol = true;
 	}else{	}
 
+	$scope.refresh = function(){
+		$window.location.reload(true);
+	}
+
 	// all function related to delete user
 	$scope.deleteUser = function(uid){
 		var delUsers = Parse.Object.extend("User");
-		var del_users = new Parse.Query(getUsers);
+		var del_users = new Parse.Query(delUsers);
 		del_users.equalTo("objectId", uid);
-		del.destroy({
-		  success: function(myObject) {
-		    // The object was deleted from the Parse Cloud.
-		    alert("Successfully deleted");
-		  },
-		  error: function(myObject, error) {
-		    // The delete failed.
-		    // error is a Parse.Error with an error code and message.
-		  }
+		del_users.first({
+			success: function(user) {
+				user.destroy({
+				  success: function(myObject) {
+				    // The object was deleted from the Parse Cloud.
+				    // alert("Successfully deleted");
+				  },
+				  error: function(myObject, error) {
+				    // The delete failed.
+				    // error is a Parse.Error with an error code and message.
+				  }
+				});
+			},
+			error: function(myObject, error) {
+				    // The delete failed.
+				    // error is a Parse.Error with an error code and message.
+			}
 		});
 	}
-
-	$scope.editBtnText = 'Edit';
-    $scope.toggleDelete = function() {
-      $scope.isDeletingItems = !$scope.isDeletingItems;
-      $scope.isReorderingItems = false;
-      $scope.editBtnText = ($scope.isDeletingItems ? 'Done' : 'Edit');
-    };
 
 	$scope.data = {
 	showDelete: false
@@ -180,14 +185,18 @@ angular.module('cdr.AppCtrl', [])
 	};
 
 	$scope.moveItem = function(item, fromIndex, toIndex) {
-	$scope.items.splice(fromIndex, 1);
-	$scope.items.splice(toIndex, 0, item);
+	$scope.users.splice(fromIndex, 1);
+	$scope.users.splice(toIndex, 0, item);
 	};
 
 	$scope.onItemDelete = function(item) {
-	$scope.items.splice($scope.items.indexOf(item), 1);
+		console.log(item.id);
+	var i = $scope.users.indexOf(item);
+	$scope.users.splice(i, 1);
+	$scope.deleteUser(item.id);
+	alert("User "+item.name+" is deleted!");
 	};
-
+	// end for delete user
 
 
 })
