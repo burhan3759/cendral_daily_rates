@@ -1,6 +1,6 @@
 angular.module('cdr.RatesCtrl', [])
 
-.controller('RatesCtrl', function($scope){
+.controller('RatesCtrl', function($scope, $ionicModal){
 
 	// object variable for update rates page
 	$scope.rates = {};
@@ -10,7 +10,6 @@ angular.module('cdr.RatesCtrl', [])
 	//this id is dynamic will change everytime we add new currency
 	var getID;	
 	$scope.save = function(){
-		console.log("Save function");
 		var Rates = new Parse.Object.extend("Rates");
 		var rates = new Rates();
 		rates.set("currency", $scope.rates);
@@ -54,17 +53,18 @@ angular.module('cdr.RatesCtrl', [])
 		bol = false;
 	}
 
+	$scope.editRates = function(data){
+		data.edit = true;
+	}
+
 	// This is obj arr created to store all data that been retrieved from data base - to store data temporaryly if user add currency
 	$scope.arr = [];
+	$scope.con = [];
 	if(bol === false){
 		var getRates = Parse.Object.extend("Rates");
 		var get_rates = new Parse.Query(getRates);
 		get_rates.find({
 		  success: function(results) {
-		    // console.log("Successfully retrieved " + results.length);
-		    // alert("Successfully retrieved " + results.length);
-		    // Do something with the returned Parse.Object values
-
 		    for (var i = 0; i < results.length; i++) {
 		    	var data = results[i].get('currency');
 			    $scope.arr.push({
@@ -73,9 +73,15 @@ angular.module('cdr.RatesCtrl', [])
 	            	amount: data.amount,
 	            	sell: data.sell,
 	            	buy: data.buy
+	            })
+
+			    $scope.con.push({
+			    	id: results[i].id,
+	            	name: data.name,
+	            	amount: data.amount,
+	            	sell: data.sell,
+	            	buy: data.buy
 	            });
-		      // alert(object.id + ' - ' + object.get('currency').name + "\n");
-		      // console.log(results[i].id);
 		    }
 		  },
 		  error: function(error) {
@@ -108,8 +114,31 @@ angular.module('cdr.RatesCtrl', [])
 		$scope.rates.buy = "";
 	}
 
-	$scope.editRates = function(data){
-		data.edit = true;
+	//modal view for currency conversion
+	$ionicModal.fromTemplateUrl('templates/currency_conversion.html', {
+		scope: $scope,
+		animation: 'slide-in-up'
+	}).then(function(modal) {
+		$scope.modal = modal;
+	});
+
+	$scope.convers = {}
+	$scope.openModal = function(rate) {
+		$scope.modal.show();
+		var i = $scope.arr.indexOf(rate);
+		$scope.selected_rate = rate;
+		$scope.conversion = $scope.con[i];
+		$scope.conversion.amount = $scope.conversion.sell*$scope.conversion.amount/$scope.conversion.sell;
+		$scope.conversion.sell = $scope.conversion.sell*$scope.conversion.amount/$scope.conversion.amount;
+	};
+
+	$scope.convert = function(){
+		$scope.conversion.amount = $scope.conversion.sell*$scope.selected_rate.amount/$scope.selected_rate.sell;
+		$scope.conversion.sell = $scope.selected_rate.sell*$scope.conversion.amount/$scope.selected_rate.amount;
 	}
+
+	$scope.closeModal = function() {
+		$scope.modal.hide();
+	};
 	
 })

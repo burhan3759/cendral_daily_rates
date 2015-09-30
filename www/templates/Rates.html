@@ -7,7 +7,7 @@
 		  <div class="col">Buy</div>
 		</div>
 		<div ng-repeat="rate in arr">
-			<div class="row item">
+			<div class="row item" ng-click="openModal(rate)">
 			  <div class="col col-33">{{rate.name}}</div>
 			  <div class="col">{{rate.amount}}</div>
 			  <div class="col">{{rate.sell}}</div>
