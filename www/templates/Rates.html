@@ -1,44 +1,18 @@
 <ion-view view-title="Daily Rates">
 	<ion-content class="padding">
-		<table cellspacing='0' style=""> <!-- cellspacing='0' is important, must stay -->
-
-			<!-- Table Header -->
-			<thead>
-				<tr>
-					<th>Currency</th>
-					<th>Amount </th>
-					<th>Sell</th>
-					<th>Buy</th>
-				</tr>
-			</thead>
-			<!-- Table Header -->
-
-			<!-- Table Body -->
-			<tbody>
-			<!-- <div ng-repeat="rate in arr"> -->
-				<tr ng-repeat="rate in arr">
-					<td>
-						{{rate.name}}
-					</td>
-					<td>
-						<label class="item item-input item-clear">
-					    	<input type="text" placeholder="{{rate.amount}}">
-					  	</label>
-					</td>
-					<td>
-						<label class="item item-input item-clear">
-					    	<input type="text" placeholder="{{rate.sell}}">
-					  	</label>
-					</td>
-					<td>
-						<label class="item item-input item-clear">
-					    	<input type="text" placeholder="{{rate.buy}}">
-					  	</label>
-					</td>
-				</tr><!-- Table Row -->
-			<!-- </div> -->
-			</tbody>
-			<!-- Table Body -->
-		</table>
+		<div class="row item-divider">
+		  <div class="col col-33">Currency Name</div>
+		  <div class="col">--</div>
+		  <div class="col">Sell</div>
+		  <div class="col">Buy</div>
+		</div>
+		<div ng-repeat="rate in arr">
+			<div class="row item">
+			  <div class="col col-33">{{rate.name}}</div>
+			  <div class="col">{{rate.amount}}</div>
+			  <div class="col">{{rate.sell}}</div>
+			  <div class="col">{{rate.buy}}</div>
+			</div>
+		</div>
 	</ion-content>
 </ion-view>
