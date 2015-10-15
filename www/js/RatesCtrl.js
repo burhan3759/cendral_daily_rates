@@ -120,7 +120,7 @@ angular.module('cdr.RatesCtrl', [])
 
 	}
 
-	$ionicModal.fromTemplateUrl('templates/currency_conveter.html', {
+	$ionicModal.fromTemplateUrl('templates/currency_converter.html', {
 		scope: $scope,
 		animation: 'slide-in-up'
 	}).then(function(modal) {
