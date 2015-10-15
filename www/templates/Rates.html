@@ -2,12 +2,12 @@
 	<ion-content class="padding">
 		<div class="row item-divider">
 		  <div class="col col-33">Currency Name</div>
-		  <div class="col">--</div>
+		  <div class="col">Unit</div>
 		  <div class="col">Sell</div>
 		  <div class="col">Buy</div>
 		</div>
 		<div ng-repeat="rate in arr">
-			<div class="row item">
+			<div class="row item" ng-click="openModal()">
 			  <div class="col col-33">{{rate.name}}</div>
 			  <div class="col">{{rate.amount}}</div>
 			  <div class="col">{{rate.sell}}</div>
