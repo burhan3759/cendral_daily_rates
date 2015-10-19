@@ -4,7 +4,8 @@ angular.module('cdr.RatesCtrl', [])
 
 	// object variable for update rates page
 	$scope.rates = {};
-	// bolean variable created bcus to makesure the data only been retrive once when user enter the page - not everytime
+	// bolean variable created bcus to make sure the data only been retrive once when user enter the page - not everytime : this bool is not
+	// in used anymore, change it with localstorage
 	var bol = false;
 
 	//this id is dynamic will change everytime we add new currency
@@ -59,8 +60,9 @@ angular.module('cdr.RatesCtrl', [])
 
 	// This is obj arr created to store all data that been retrieved from data base - to store data temporaryly if user add currency
 	$scope.arr = [];
-	$scope.con = [];
-	if(bol === false){
+
+	// if(bol === false){
+	if(localStorage['arr']){
 		var getRates = Parse.Object.extend("Rates");
 		var get_rates = new Parse.Query(getRates);
 		get_rates.find({
@@ -83,6 +85,7 @@ angular.module('cdr.RatesCtrl', [])
 	            	buy: data.buy
 	            });
 		    }
+		    localStorage['arr'] = JSON.stringify($scope.arr);
 		  },
 		  error: function(error) {
 		    alert("Error: " + error.code + " " + error.message);
@@ -137,8 +140,29 @@ angular.module('cdr.RatesCtrl', [])
 		$scope.conversion.sell = $scope.selected_rate.sell*$scope.conversion.amount/$scope.selected_rate.amount;
 	}
 
+<<<<<<< HEAD
 	$scope.closeModal = function() {
 		$scope.modal.hide();
 	};
+=======
+	//this function is to convert currency from A to B and B to A
+	$scope.currency_conveter = function(){
+
+	}
+
+	$ionicModal.fromTemplateUrl('templates/currency_converter.html', {
+		scope: $scope,
+		animation: 'slide-in-up'
+	}).then(function(modal) {
+		$scope.modal = modal;
+	});
+	$scope.openModal = function(rate) {
+		$scope.modal.show();
+		$scope.convert_rate = rate;
+	};
+	$scope.closeModal = function() {
+		$scope.modal.hide();
+	}
+>>>>>>> origin/Laptop/user
 	
 })

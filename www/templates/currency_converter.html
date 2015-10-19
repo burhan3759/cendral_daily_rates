@@ -1,0 +1,22 @@
+<ion-modal-view>
+
+	<ion-header-bar>
+	  <h1 class="title">Currency Conveter</h1>
+	  <button class="button button-clear" ng-click="closeModal()">Close</button>
+	</ion-header-bar>
+
+	<ion-content>
+		<div class="list">
+		  <label class="item item-input">
+		  	<input type="text" placeholder='{{convert_rate.amount}}'>
+		    <span class="input-label">{{convert_rate.name}}</span>
+		    
+		  </label>
+		  <label class="item item-input">
+		  	<input type="text" placeholder='{{convert_rate.sell}}'>
+		    <span class="input-label">Malaysia</span>
+		  </label>
+		</div>
+	</ion-content>
+
+</ion-modal-view>
