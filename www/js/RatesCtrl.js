@@ -61,8 +61,8 @@ angular.module('cdr.RatesCtrl', [])
 	// This is obj arr created to store all data that been retrieved from data base - to store data temporaryly if user add currency
 	$scope.arr = [];
 
-	// if(bol === false){
-	if(localStorage['arr']){
+	if(bol === false){
+	// if(localStorage['arr']){
 		var getRates = Parse.Object.extend("Rates");
 		var get_rates = new Parse.Query(getRates);
 		get_rates.find({
@@ -77,13 +77,13 @@ angular.module('cdr.RatesCtrl', [])
 	            	buy: data.buy
 	            })
 
-			    $scope.con.push({
-			    	id: results[i].id,
-	            	name: data.name,
-	            	amount: data.amount,
-	            	sell: data.sell,
-	            	buy: data.buy
-	            });
+			    // $scope.con.push({
+			    // 	id: results[i].id,
+	      //       	name: data.name,
+	      //       	amount: data.amount,
+	      //       	sell: data.sell,
+	      //       	buy: data.buy
+	      //       });
 		    }
 		    localStorage['arr'] = JSON.stringify($scope.arr);
 		  },
@@ -117,37 +117,42 @@ angular.module('cdr.RatesCtrl', [])
 		$scope.rates.buy = "";
 	}
 
-	//modal view for currency conversion
-	$ionicModal.fromTemplateUrl('templates/currency_conversion.html', {
-		scope: $scope,
-		animation: 'slide-in-up'
-	}).then(function(modal) {
-		$scope.modal = modal;
-	});
+	// //modal view for currency conversion
+	// $ionicModal.fromTemplateUrl('templates/currency_conversion.html', {
+	// 	scope: $scope,
+	// 	animation: 'slide-in-up'
+	// }).then(function(modal) {
+	// 	$scope.modal = modal;
+	// });
 
-	$scope.convers = {}
-	$scope.openModal = function(rate) {
-		$scope.modal.show();
-		var i = $scope.arr.indexOf(rate);
-		$scope.selected_rate = rate;
-		$scope.conversion = $scope.con[i];
-		$scope.conversion.amount = $scope.conversion.sell*$scope.conversion.amount/$scope.conversion.sell;
-		$scope.conversion.sell = $scope.conversion.sell*$scope.conversion.amount/$scope.conversion.amount;
-	};
+	// $scope.convers = {}
+	// $scope.openModal = function(rate) {
+	// 	$scope.modal.show();
+	// 	var i = $scope.arr.indexOf(rate);
+	// 	$scope.selected_rate = rate;
+	// 	$scope.conversion = $scope.con[i];
+	// 	$scope.conversion.amount = $scope.conversion.sell*$scope.conversion.amount/$scope.conversion.sell;
+	// 	$scope.conversion.sell = $scope.conversion.sell*$scope.conversion.amount/$scope.conversion.amount;
+	// };
 
-	$scope.convert = function(){
-		$scope.conversion.amount = $scope.conversion.sell*$scope.selected_rate.amount/$scope.selected_rate.sell;
-		$scope.conversion.sell = $scope.selected_rate.sell*$scope.conversion.amount/$scope.selected_rate.amount;
-	}
+	// $scope.convert = function(){
+	// 	$scope.conversion.amount = $scope.conversion.sell*$scope.selected_rate.amount/$scope.selected_rate.sell;
+	// 	$scope.conversion.sell = $scope.selected_rate.sell*$scope.conversion.amount/$scope.selected_rate.amount;
+	// }
 
-<<<<<<< HEAD
-	$scope.closeModal = function() {
-		$scope.modal.hide();
-	};
-=======
+	// $scope.closeModal = function() {
+	// 	$scope.modal.hide();
+	// };
+
 	//this function is to convert currency from A to B and B to A
-	$scope.currency_conveter = function(){
-
+	$scope.typeAS = {};
+	$scope.get_type = function(type){
+		console.log("type: " + type);
+		if(type === "amount"){
+			$scope.typeAS.amount = true;
+		}else{
+			$scope.typeAS.sell = true;
+		}
 	}
 
 	$ionicModal.fromTemplateUrl('templates/currency_converter.html', {
@@ -163,6 +168,5 @@ angular.module('cdr.RatesCtrl', [])
 	$scope.closeModal = function() {
 		$scope.modal.hide();
 	}
->>>>>>> origin/Laptop/user
 	
 })

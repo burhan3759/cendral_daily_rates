@@ -98,7 +98,7 @@ angular.module('cdr', ['ionic', 'cdr.AppCtrl', 'cdr.RatesCtrl'])
   //currency conveter modal
   .state('currency_conveter',{
     url: '/currency_conveter',
-    templateUrl: 'templates/currency_conveter.html',
+    templateUrl: 'templates/currency_converter.html',
     controller: 'RatesCtrl'
   })
 
