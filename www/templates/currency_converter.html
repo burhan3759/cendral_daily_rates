@@ -7,25 +7,13 @@
 
 	<ion-content>
 		<div class="list">
-			<label ng-if="!typeAS.amount" class="item item-input">
-				<output type="text" ng-if="!typeAS.amount">{{user_rate.sell*convert_rate.amount/convert_rate.sell}}</output>
-				<span class="input-label">{{convert_rate.name}}</span>
-				<button class="button button-clear button-small button-assertive" ng-click="get_type('amount')">A</button>
-			</label>	
-
-		  	<label class="item item-input" ng-if="!typeAS.sell">
-		  		<input type="text" placeholder='{{convert_rate.amount}}' ng-model="user_rate.amount">
+			<label class="item item-input">
+		  		<input type="text" placeholder='{{convert_rate.amount}}'>
 		    	<span class="input-label">{{convert_rate.name}}</span>
 		  	</label>
-
-		  	<label ng-if="!typeAS.sell" class="item item-input">
-		  		<output ng-if="!typeAS.sell">{{convert_rate.sell*user_rate.amount/convert_rate.amount}}</output>
-		    	<span class="input-label">Malaysia</span>
-		    	<button class="button button-clear button-small button-assertive" ng-click="get_type('sell')">S</button>
-			</label>
 		  
-		  	<label class="item item-input" ng-if="!typeAS.amount">
-		  		<input type="text" placeholder='{{convert_rate.sell}}' ng-model="user_rate.sell">
+		  	<label class="item item-input">
+		  		<input type="text" placeholder='{{convert_rate.sell}}'>
 		    	<span class="input-label">Malaysia</span>
 		  	</label>
 		</div>

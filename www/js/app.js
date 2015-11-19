@@ -77,13 +77,6 @@ angular.module('cdr', ['ionic', 'cdr.AppCtrl', 'cdr.RatesCtrl'])
       }
   })
 
-  .state('currency_conversion',{
-    url: '/Currency_Conversion',
-    templateUrl: 'templates/currency_conversion.html',
-    controller: 'RatesCtrl'
-  })
-
-
   .state('SignIn',{
     url: '/SignIn',
     templateUrl: 'templates/SignIn.html',
