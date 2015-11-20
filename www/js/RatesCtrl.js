@@ -143,18 +143,21 @@ angular.module('cdr.RatesCtrl', [])
 		}
 	}
 	
+
+	/**
+		assign the default value as false to shift
+		this function will work like toggle button
+		- each time click will swicth true n false accordingly
+		- this will show n hide appropriate content
+	**/
 	$scope.a = false;
-	
-	console.log("First: " + $scope.a);
 	$scope.AtoB = function(){
 		if($scope.a === false){
 			$scope.a = true;
 		}else if($scope.a === true){
 			$scope.a = false;
 		}
-		console.log("inside: " + $scope.a);
 	}
 
-	console.log("Final: " + $scope.a);
 	
 })
