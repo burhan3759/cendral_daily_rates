@@ -8,26 +8,26 @@
 	<ion-content>
 		<div class="list">
 			<label class="item item-input" ng-show="a">
-		  		<input type="text" placeholder='{{convert_rate.amount}}'>
+		  		<input type="text" placeholder='{{convert_rate.amount}}' ng-model="unit">
 		    	<span class="input-label">{{convert_rate.name}}</span>
 		  	</label>
 		  	<!--
 				this method for show the conversion rate according to what user type
 		  	-->
 			<div class="row item" ng-click="AtoB()" ng-hide="a">
-			  <div class="col col-75">test</div>
+			  <div class="col col-75">{{sell*convert_rate.amount/convert_rate.sell}}</div>
 			  <div class="col">{{convert_rate.name}}</div>
 			</div>
 		  
 		  	<label class="item item-input" ng-hide="a">
-		  		<input type="text" placeholder='{{convert_rate.sell}}'>
+		  		<input type="text" placeholder='{{convert_rate.sell}}' ng-model="sell">
 		    	<span class="input-label">Malaysia</span>
 		  	</label>
 		  	<!--
 				this method for show the conversion rate according to what user type
 		  	-->
 			<div class="row item" ng-click="AtoB()" ng-show="a">
-			  <div class="col col-75">test</div>
+			  <div class="col col-75">{{unit*convert_rate.sell/convert_rate.amount}}</div>
 			  <div class="col">Malaysia</div>
 			</div>
 		</div>
