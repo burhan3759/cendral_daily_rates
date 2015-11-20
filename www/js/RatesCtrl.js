@@ -125,6 +125,8 @@ angular.module('cdr.RatesCtrl', [])
 		$scope.modal = modal;
 	});
 	$scope.openModal = function(rate) {
+		$scope.unit = 0;
+		$scope.sell = 0;
 		$scope.modal.show();
 		$scope.convert_rate = rate;
 	};
@@ -150,13 +152,19 @@ angular.module('cdr.RatesCtrl', [])
 		- each time click will swicth true n false accordingly
 		- this will show n hide appropriate content
 	**/
-	$scope.a = false;
-	$scope.AtoB = function(){
+	$scope.a = true;
+
+	$scope.AtoB = function(total){
+		
 		if($scope.a === false){
+			$scope.unit = total;
 			$scope.a = true;
 		}else if($scope.a === true){
+			$scope.sell = total;
 			$scope.a = false;
 		}
+
+		console.log("Unit: " + $scope.unit + " sell: " + $scope.sell);
 	}
 
 	
