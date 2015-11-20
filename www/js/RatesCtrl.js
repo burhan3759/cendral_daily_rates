@@ -30,6 +30,7 @@ angular.module('cdr.RatesCtrl', [])
 		});
 	}
 
+	//function for update the rates accrodingly
 	$scope.updateRates = function(data){
 		console.log("updateRates: id: " + data.id);
 		$scope.update = {'name': data.name, 'amount':data.amount, 'sell':data.sell, 'buy':data.buy};
@@ -101,7 +102,7 @@ angular.module('cdr.RatesCtrl', [])
 	// }
 
 
-	// function to add currency it will add inside and array - to save in database function is been implement on html page it self
+	// function to add currency it will add inside and array - to save in database function is been implemented on html page it self
 	$scope.addCurrency = function(data){
 		console.log("get the name: " + data.name);
 		$scope.arr.push({
@@ -141,5 +142,19 @@ angular.module('cdr.RatesCtrl', [])
 			$scope.typeAS.sell = true;
 		}
 	}
+	
+	$scope.a = false;
+	
+	console.log("First: " + $scope.a);
+	$scope.AtoB = function(){
+		if($scope.a === false){
+			$scope.a = true;
+		}else if($scope.a === true){
+			$scope.a = false;
+		}
+		console.log("inside: " + $scope.a);
+	}
+
+	console.log("Final: " + $scope.a);
 	
 })
