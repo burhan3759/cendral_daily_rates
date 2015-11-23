@@ -118,6 +118,7 @@ angular.module('cdr.RatesCtrl', [])
 		$scope.rates.buy = "";
 	}
 
+//modal for currency converter
 	$ionicModal.fromTemplateUrl('templates/currency_converter.html', {
 		scope: $scope,
 		animation: 'slide-in-up'
@@ -137,7 +138,6 @@ angular.module('cdr.RatesCtrl', [])
 	//this function is to convert currency from A to B and B to A
 	$scope.typeAS = {};
 	$scope.get_type = function(type){
-		console.log("type: " + type);
 		if(type === "amount"){
 			$scope.typeAS.amount = true;
 		}else{
@@ -163,9 +163,21 @@ angular.module('cdr.RatesCtrl', [])
 			$scope.sell = total;
 			$scope.a = false;
 		}
-
-		console.log("Unit: " + $scope.unit + " sell: " + $scope.sell);
 	}
 
+//modal for currency update
+	$ionicModal.fromTemplateUrl('templates/Currency_update.html', {
+		scope: $scope,
+		animation: 'slide-in-up'
+	}).then(function(modal) {
+		$scope.modal = modal;
+	});
+	$scope.openCU = function(rate) {
+		$scope.modal.show();
+		$scope.update_rate = rate;
+	};
+	$scope.closeCU = function() {
+		$scope.modal.hide();
+	}
 	
 })
