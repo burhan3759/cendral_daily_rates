@@ -170,14 +170,14 @@ angular.module('cdr.RatesCtrl', [])
 		scope: $scope,
 		animation: 'slide-in-up'
 	}).then(function(modal) {
-		$scope.modal = modal;
+		$scope.modalCU = modal;
 	});
 	$scope.openCU = function(rate) {
-		$scope.modal.show();
+		$scope.modalCU.show();
 		$scope.update_rate = rate;
 	};
 	$scope.closeCU = function() {
-		$scope.modal.hide();
+		$scope.modalCU.hide();
 	}
 	
 })
