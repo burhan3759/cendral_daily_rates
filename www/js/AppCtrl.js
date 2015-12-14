@@ -23,7 +23,7 @@ angular.module('cdr.AppCtrl', [])
 	}).then(function(modal) {
 	$scope.modalSU = modal;
 	});
-	$scope.signUp = function() {
+	$scope.SignUp = function() {
 	$scope.modalSU.show();
 	};
 	$scope.closeSignUp = function() {
