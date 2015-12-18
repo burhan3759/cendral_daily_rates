@@ -7,7 +7,7 @@
 		  <div class="col">Buy</div>
 		</div>
 		<div ng-repeat="rate in arr">
-			<div class="row item">
+			<div class="row item" ng-click="openCU(rate)">
 			  <div class="col col-33">{{rate.name}}</div>
 			  <div class="col">{{rate.amount}}</div>
 			  <div class="col">{{rate.sell}}</div>
@@ -15,6 +15,6 @@
 			</div>
 		</div>
 
-		<button class="button button-icon icon ion-plus-circled" ng-click="save(); addCurrency(rates)"></button>
+		<button class="button button-icon icon ion-plus-circled" ng-click="openAC()"></button>
 	</ion-content>
 </ion-view>

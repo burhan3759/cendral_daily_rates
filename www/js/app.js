@@ -98,7 +98,7 @@ angular.module('cdr', ['ionic', 'cdr.AppCtrl', 'cdr.RatesCtrl'])
   //currency update modal
   .state('currency_update',{
     url: '/currency_update',
-    templateUrl: 'templates/currency_update.html',
+    templateUrl: 'templates/Currency_update.html',
     controller: 'RatesCtrl'
   })
 
