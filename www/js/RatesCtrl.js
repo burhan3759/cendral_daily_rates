@@ -2,13 +2,13 @@ angular.module('cdr.RatesCtrl', [])
 
 .controller('RatesCtrl', function($scope, $ionicModal){
 
-	// object variable for update rates page
+// object variable for update rates page
 	$scope.rates = {};
-	// bolean variable created bcus to make sure the data only been retrive once when user enter the page - not everytime : this bool is not
-	// in used anymore, change it with localstorage
+// bolean variable created bcus to make sure the data only been retrive once when user enter the page - not everytime : this bool is not
+// in used anymore, change it with localstorage
 	var bol = false;
 
-	//this id is dynamic will change everytime we add new currency
+//this id is dynamic, will change everytime we add new currency
 	var getID;	
 	$scope.save = function(){
 		var Rates = new Parse.Object.extend("Rates");
@@ -29,10 +29,11 @@ angular.module('cdr.RatesCtrl', [])
 			}
 		});
 	}
+	
 
-	//function for update the rates accrodingly
+//function for update the rates accrodingly
 	$scope.updateRates = function(data){
-		console.log("updateRates: id: " + data.id);
+		console.log("updateRates: id: " + data.id + " amount" + data.amount);
 		$scope.update = {'name': data.name, 'amount':data.amount, 'sell':data.sell, 'buy':data.buy};
 		var update_Rates = Parse.Object.extend("Rates");
 		var update_rates = new Parse.Query(update_Rates);
@@ -59,7 +60,7 @@ angular.module('cdr.RatesCtrl', [])
 		data.edit = true;
 	}
 
-	// This is obj arr created to store all data that been retrieved from data base - to store data temporaryly if user add currency
+// This is obj arr created to store all data that been retrieved from data base - to store data temporaryly if user add currency
 	$scope.arr = [];
 
 	if(bol === false){
@@ -101,9 +102,28 @@ angular.module('cdr.RatesCtrl', [])
 	// 	bol = false;
 	// }
 
-
-	// function to add currency it will add inside and array - to save in database function is been implemented on html page it self
+	$scope.add_rate = {};
+// function to add currency it will add inside and array - to save in database function is been implemented on html page it self
 	$scope.addCurrency = function(data){
+		console.log("amount" + data.amount);
+		$scope.new_Currency = {'name': data.name, 'amount':data.amount, 'sell':data.sell, 'buy':data.buy};
+		var add_currency = new Parse.Object.extend("Rates");
+		var add = new add_currency();
+		add.set("currency", $scope.new_Currency);
+		 
+		add.save(null, {
+			success: function(rates) {
+				// Execute any logic that should take place after the object is saved.
+	 			console.log('New object created with objectId: ' + rates.id);
+			},
+			error: function(rates, error) {
+			    // Execute any logic that should take place if the save fails.
+			    // error is a Parse.Error with an error code and message.
+			    alert('Failed to create new object, with error code: ' + error.message);
+			}
+		});
+		//-----------
+
 		console.log("get the name: " + data.name);
 		$scope.arr.push({
 			id: getID,
@@ -112,11 +132,28 @@ angular.module('cdr.RatesCtrl', [])
         	sell: data.sell,
         	buy: data.buy
 	    });
-		$scope.rates.name = "";
-		$scope.rates.amount = "";
-		$scope.rates.sell = "";
-		$scope.rates.buy = "";
+// 		$scope.rates.name = "";
+// 		$scope.rates.amount = "";
+// 		$scope.rates.sell = "";
+// 		$scope.rates.buy = "";
 	}
+
+//Delete Currency 
+	$scope.deleteCurrency = function(data){
+		var Delete = Parse.Object.extend("Rates");
+		var query = new Parse.Query(Delete);
+		query.get(data.id, {
+		  success: function(myObj) {
+			// The object was retrieved successfully.
+			myObj.destroy({});
+		  },
+		  error: function(object, error) {
+			// The object was not retrieved successfully.
+			// error is a Parse.Error with an error code and description.
+		  }
+		});
+	}
+		
 
 //modal for currency converter
 	$ionicModal.fromTemplateUrl('templates/currency_converter.html', {
@@ -135,7 +172,7 @@ angular.module('cdr.RatesCtrl', [])
 		$scope.modal.hide();
 	}
 
-	//this function is to convert currency from A to B and B to A
+//this function is to convert currency from A to B and B to A
 	$scope.typeAS = {};
 	$scope.get_type = function(type){
 		if(type === "amount"){
@@ -178,6 +215,20 @@ angular.module('cdr.RatesCtrl', [])
 	};
 	$scope.closeCU = function() {
 		$scope.modalCU.hide();
+	}
+
+//modal for add currency 
+	$ionicModal.fromTemplateUrl('templates/add_Currency.html', {
+		scope: $scope,
+		animation: 'slide-in-up'
+	}).then(function(modal) {
+		$scope.modalAC = modal;
+	});
+	$scope.openAC = function() {
+		$scope.modalAC.show();
+	};
+	$scope.closeAC = function() {
+		$scope.modalAC.hide();
 	}
 	
 })
