@@ -2,6 +2,33 @@ angular.module('cdr.RatesCtrl', [])
 
 .controller('RatesCtrl', function($scope, $ionicModal){
 
+// This is obj arr created to store all data that been retrieved from data base - to store data temporaryly if user add currency
+	$scope.arr = [];
+// 	if(bol === false){
+	if(localStorage['arr']){
+		var getRates = Parse.Object.extend("Rates");
+		var get_rates = new Parse.Query(getRates);
+		get_rates.find({
+		  success: function(results) {
+		    for (var i = 0; i < results.length; i++) {
+		    	var data = results[i].get('currency');
+			    $scope.arr.push({
+			    	id: results[i].id,
+	            	name: data.name,
+	            	amount: data.amount,
+	            	sell: data.sell,
+	            	buy: data.buy
+	            })
+		    }
+		    localStorage['arr'] = JSON.stringify($scope.arr);
+		  },
+		  error: function(error) {
+		    alert("Error: " + error.code + " " + error.message);
+		  }
+		})
+		bol = true;
+	}else{	}
+
 // object variable for update rates page
 	$scope.rates = {};
 // bolean variable created bcus to make sure the data only been retrive once when user enter the page - not everytime : this bool is not
@@ -45,65 +72,32 @@ angular.module('cdr.RatesCtrl', [])
 		    // Do something with the returned Parse.Object values
 		    results.set("currency", $scope.update);
 		    results.save();
-		    console.log("saved");
-
+		    console.log("Updated");
+			$scope.closeCU();
 		  },
 		  error: function(error) {
 		    alert("Error: " + error.code + " " + error.message);
 		  }
 		})
-		data.edit = false;
-		bol = false;
+	}
+//modal for currency update
+	$ionicModal.fromTemplateUrl('templates/Currency_update.html', {
+		scope: $scope,
+		animation: 'slide-in-up'
+	}).then(function(modal) {
+		$scope.modalCU = modal;
+	});
+	$scope.openCU = function(rate) {
+		$scope.modalCU.show();
+		$scope.update_rate = rate;
+	};
+	$scope.closeCU = function() {
+		$scope.modalCU.hide();
 	}
 
-	$scope.editRates = function(data){
-		data.edit = true;
-	}
 
-// This is obj arr created to store all data that been retrieved from data base - to store data temporaryly if user add currency
-	$scope.arr = [];
-
-	if(bol === false){
-	// if(localStorage['arr']){
-		var getRates = Parse.Object.extend("Rates");
-		var get_rates = new Parse.Query(getRates);
-		get_rates.find({
-		  success: function(results) {
-		    for (var i = 0; i < results.length; i++) {
-		    	var data = results[i].get('currency');
-			    $scope.arr.push({
-			    	id: results[i].id,
-	            	name: data.name,
-	            	amount: data.amount,
-	            	sell: data.sell,
-	            	buy: data.buy
-	            })
-
-			    // $scope.con.push({
-			    // 	id: results[i].id,
-	      //       	name: data.name,
-	      //       	amount: data.amount,
-	      //       	sell: data.sell,
-	      //       	buy: data.buy
-	      //       });
-		    }
-		    localStorage['arr'] = JSON.stringify($scope.arr);
-		  },
-		  error: function(error) {
-		    alert("Error: " + error.code + " " + error.message);
-		  }
-		})
-		bol = true;
-	}else{	}
-
-	// if no changes but accidently press update rates - currently unnessecary
-	// $scope.cancel = function(data){
-	// 	data.edit = false;
-	// 	bol = false;
-	// }
-
-	$scope.add_rate = {};
 // function to add currency it will add inside and array - to save in database function is been implemented on html page it self
+	$scope.add_rate = {};	//object for put the value of new currency
 	$scope.addCurrency = function(data){
 		console.log("amount" + data.amount);
 		$scope.new_Currency = {'name': data.name, 'amount':data.amount, 'sell':data.sell, 'buy':data.buy};
@@ -115,6 +109,7 @@ angular.module('cdr.RatesCtrl', [])
 			success: function(rates) {
 				// Execute any logic that should take place after the object is saved.
 	 			console.log('New object created with objectId: ' + rates.id);
+	 			$scope.closeAC();
 			},
 			error: function(rates, error) {
 			    // Execute any logic that should take place if the save fails.
@@ -122,7 +117,6 @@ angular.module('cdr.RatesCtrl', [])
 			    alert('Failed to create new object, with error code: ' + error.message);
 			}
 		});
-		//-----------
 
 		console.log("get the name: " + data.name);
 		$scope.arr.push({
@@ -132,11 +126,23 @@ angular.module('cdr.RatesCtrl', [])
         	sell: data.sell,
         	buy: data.buy
 	    });
-// 		$scope.rates.name = "";
-// 		$scope.rates.amount = "";
-// 		$scope.rates.sell = "";
-// 		$scope.rates.buy = "";
 	}
+
+//modal for add currency 
+	$ionicModal.fromTemplateUrl('templates/add_Currency.html', {
+		scope: $scope,
+		animation: 'slide-in-up'
+	}).then(function(modal) {
+		$scope.modalAC = modal;
+	});
+	$scope.openAC = function() {
+		$scope.modalAC.show();
+	};
+	$scope.closeAC = function() {
+		$scope.modalAC.hide();
+	}
+	
+
 
 //Delete Currency 
 	$scope.deleteCurrency = function(data){
@@ -146,12 +152,16 @@ angular.module('cdr.RatesCtrl', [])
 		  success: function(myObj) {
 			// The object was retrieved successfully.
 			myObj.destroy({});
+			console.log("Deleted");
 		  },
 		  error: function(object, error) {
 			// The object was not retrieved successfully.
 			// error is a Parse.Error with an error code and description.
 		  }
 		});
+		var index = $scope.arr.indexOf(data);
+		$scope.arr.splice(index, 1);
+		$scope.closeCU();
 	}
 		
 
@@ -202,33 +212,6 @@ angular.module('cdr.RatesCtrl', [])
 		}
 	}
 
-//modal for currency update
-	$ionicModal.fromTemplateUrl('templates/Currency_update.html', {
-		scope: $scope,
-		animation: 'slide-in-up'
-	}).then(function(modal) {
-		$scope.modalCU = modal;
-	});
-	$scope.openCU = function(rate) {
-		$scope.modalCU.show();
-		$scope.update_rate = rate;
-	};
-	$scope.closeCU = function() {
-		$scope.modalCU.hide();
-	}
 
-//modal for add currency 
-	$ionicModal.fromTemplateUrl('templates/add_Currency.html', {
-		scope: $scope,
-		animation: 'slide-in-up'
-	}).then(function(modal) {
-		$scope.modalAC = modal;
-	});
-	$scope.openAC = function() {
-		$scope.modalAC.show();
-	};
-	$scope.closeAC = function() {
-		$scope.modalAC.hide();
-	}
-	
 })
+
