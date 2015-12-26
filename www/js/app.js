@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('cdr', ['ionic', 'cdr.AppCtrl', 'cdr.RatesCtrl'])
+angular.module('cdr', ['ionic', 'cdr.AppCtrl', 'cdr.RatesCtrl', 'cdr.ConversionCtrl'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -92,7 +92,7 @@ angular.module('cdr', ['ionic', 'cdr.AppCtrl', 'cdr.RatesCtrl'])
   .state('currency_conveter',{
     url: '/currency_conveter',
     templateUrl: 'templates/currency_converter.html',
-    controller: 'RatesCtrl'
+    controller: 'ConversionCtrl'
   })
 
   //currency update modal

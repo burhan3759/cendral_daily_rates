@@ -4,8 +4,9 @@ angular.module('cdr.RatesCtrl', [])
 
 // This is obj arr created to store all data that been retrieved from data base - to store data temporaryly if user add currency
 	$scope.arr = [];
-// 	if(bol === false){
-	if(localStorage['arr']){
+	var bol = false;
+	if(bol === false){
+// 	if(!localStorage['arr']){
 		var getRates = Parse.Object.extend("Rates");
 		var get_rates = new Parse.Query(getRates);
 		get_rates.find({
