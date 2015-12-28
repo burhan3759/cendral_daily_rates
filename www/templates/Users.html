@@ -2,34 +2,17 @@
 	<ion-nav-buttons side="right">
       <a class="button" ng-click="SignUp()" ng-if="loggedIn()">Create User</a>
     </ion-nav-buttons>
-	<ion-content class="padding">
-<!-- 		<div class="card">
-	  		<div class="item item-input item-divider">
-				<span class="input-label">Name</span>	    		
-	    		<span class="input-label">Username</span>
-	    		<span class="input-label">Category</span> -->
-<!-- 	    		  <button class="button button-clear item item-icon-right" href="#">
-				    <i class="icon ion-trash-b" ng-model="shouldShowDelete"></i>
-				  </button> -->
-<!-- 	  		</div>
-		  	<div class="item item-input item-wrap" ng-repeat="user in users">
-			  	<span class="input-label">{{user.name}}</span>
-			  	<span class="input-label">{{user.username}}</span>
-			  	<span class="input-label">{{user.category}}</span>
-			</div>
-		</div> -->
-<!-- 	<ion-list show-delete="isDeletingItems">
-	  <ion-item>
-	    <ion-delete-button class="ion-minus-circled"></ion-delete-button>
-	    Hello, list item!
-	  </ion-item>
-	</ion-list>
+	<ion-content>
+		<div class="list">
 
-	<button ng-click="toggleDelete()">
-	  {{editBtnText}}
-	<button> -->
+			<a class="item item" ng-repeat="user in users" ng-click="openUI(user)">
+			  <h2>Name: {{user.name}}</h2>
+			  <p>Level: {{user.category}}</p>
+			</a>
+			
+		</div>
 
-
+<!-- 
       <button class="button button-icon icon ion-minus-circled" ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>
 
       <button class="button button-icon icon ion-drag" style="float: right;" ng-click="data.showDelete = false; data.showReorder = !data.showReorder"></button>
@@ -43,7 +26,7 @@
           </ion-delete-button>
           <ion-reorder-button class="ion-navicon" on-reorder="moveItem(user, $fromIndex, $toIndex)"></ion-reorder-button>
         </ion-item>
-      </ion-list>
+      </ion-list> -->
 
 	</ion-content>
 </ion-view>

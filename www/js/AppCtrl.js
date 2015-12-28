@@ -61,6 +61,24 @@ angular.module('cdr.AppCtrl', [])
 	 
 	};
 
+	$scope.updateUser = function(userID){
+		console.log("user id: " + userID.id + " category: " + userID.category);
+		var Update_User = Parse.Object.extend("User");
+		var query = new Parse.Query(Update_User);
+
+		query.equalTo("objectId", userID.id);
+		query.first({
+		  success: function(results) {
+			results.set("category", userID.category);
+			results.save();
+			console.log("success");
+		  },
+		  error: function(error) {
+			alert("Error: " + error.code + " " + error.message);
+		  }
+		});
+	}
+
 	//Sign In function
 	$scope.login = function(){
 	  Parse.User.logIn($scope.data.username, $scope.data.password, {
@@ -155,7 +173,7 @@ angular.module('cdr.AppCtrl', [])
 //           // no button = 0, 'OK' = 1, 'Cancel' = 2
 //           var btnIndex = buttonIndex;
 //           if (btnIndex === 1) {
-            console.log("deleteUser(): " + uid.id);
+            console.log("deleteUser(): " + uid.id + " user name: " + uid.name);
             Parse.Cloud.run('deleteUser', {
               objectId: uid.id
             });
