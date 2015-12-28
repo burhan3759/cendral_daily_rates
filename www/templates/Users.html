@@ -30,16 +30,16 @@
 	<button> -->
 
 
-        <button class="button button-icon icon ion-minus-circled" ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>
+      <button class="button button-icon icon ion-minus-circled" ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>
 
-        <button class="button button-icon icon ion-drag" style="float: right;" ng-click="data.showDelete = false; data.showReorder = !data.showReorder"></button>
+      <button class="button button-icon icon ion-drag" style="float: right;" ng-click="data.showDelete = false; data.showReorder = !data.showReorder"></button>
 
       <ion-list show-delete="data.showDelete" show-reorder="data.showReorder">
 
         <ion-item ng-repeat="user in users" class="item-remove-animate">
-          Name: {{ user.name }} Username: {{ user.username }} Category: {{ user.category }}
+          <div ng-click="openUI()">Name: {{ user.name }} Username: {{ user.username }} Category: {{ user.category }}</div>
           <ion-delete-button class="ion-minus-circled" 
-                             ng-click="onItemDelete(user)">
+                             ng-click="deleteUser(user)">
           </ion-delete-button>
           <ion-reorder-button class="ion-navicon" on-reorder="moveItem(user, $fromIndex, $toIndex)"></ion-reorder-button>
         </ion-item>
