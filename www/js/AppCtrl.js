@@ -209,8 +209,9 @@ angular.module('cdr.AppCtrl', [])
 	}).then(function(modal) {
 		$scope.modalUI = modal;
 	});
-	$scope.openUI = function() {
+	$scope.openUI = function(user_info) {
 		$scope.modalUI.show();
+		$scope.userInfo = user_info;
 	};
 	$scope.closeUI = function() {
 		$scope.modalUI.hide();

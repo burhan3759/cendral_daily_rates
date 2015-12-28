@@ -6,24 +6,25 @@
 
     <ion-content>
         
-        <div class="list">
-          <label class="item item-input">
-            <span class="input-label">Currency Name: </span>
-            <input type="text" ng-model="add_rate.name" placeholder="Malaysia"></input>
-          </label>
-          <label class="item item-input">
-            <span class="input-label">Unit: </span>
-            <input type="number" placeholder="Example: 1" ng-model="add_rate.amount"></input>
-          </label>
-          <label class="item item-input">
-            <span class="input-label">Sell: </span>
-            <input type="number" placeholder="Example: 3.50" ng-model="add_rate.buy">
-          </label>
-          <label class="item item-input">
-            <span class="input-label">Buy: </span>
-            <input type="number" placeholder="Example: 2.80" ng-model="add_rate.sell">
-          </label>
-        </div>
+            <ion-list>
+                <label class="item item-input">
+                    <span class="input-label">Name</span>
+                    <input type="text" placeholder="Ali.." ng-model="userInfo.name">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Username</span>
+                    <input type="text" placeholder="enter username..." ng-model="userInfo.username">
+                </label>
+                <label class="item item-input item-select">
+                    <div class="input-label">
+                      Access Level
+                    </div>
+                    <select ng-model="userInfo.category">
+                      <option>Admin</option>
+                      <option>Staff</option>
+                    </select>
+                </label>
+            </ion-list>
         <button class="button button-block button-balanced" ng-click="addCurrency(add_rate)">
   			Add Currency
 		</button>

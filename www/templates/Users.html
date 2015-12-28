@@ -37,7 +37,7 @@
       <ion-list show-delete="data.showDelete" show-reorder="data.showReorder">
 
         <ion-item ng-repeat="user in users" class="item-remove-animate">
-          <div ng-click="openUI()">Name: {{ user.name }} Username: {{ user.username }} Category: {{ user.category }}</div>
+          <div ng-click="openUI(user)">Name: {{ user.name }} Username: {{ user.username }} Category: {{ user.category }}</div>
           <ion-delete-button class="ion-minus-circled" 
                              ng-click="deleteUser(user)">
           </ion-delete-button>
