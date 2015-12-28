@@ -1,6 +1,6 @@
 <ion-modal-view>
 
-	<ion-header-bar>
+	<ion-header-bar class="bar-balanced">
 	  <h1 class="title">Currency Conveter</h1>
 	  <button class="button button-clear" ng-click="closeModal()">Close</button>
 	</ion-header-bar>
@@ -8,7 +8,7 @@
 	<ion-content>
 		<div class="list">
 			<label class="item item-input" ng-show="a">
-		  		<input type="number" placeholder='{{convert_rate.amount}}' ng-model="unit" >
+		  		<input type="tel" placeholder='{{convert_rate.amount}}' ng-model="unit" >
 		    	<span class="input-label">{{convert_rate.name}}</span>
 		  	</label>
 		  	<!--
@@ -20,7 +20,7 @@
 			</div>
 		 
 		  	<label class="item item-input" ng-hide="a">
-		  		<input type="number" placeholder='{{convert_rate.sell}}' ng-model="sell" >
+		  		<input type="tel" placeholder='{{convert_rate.sell}}' ng-model="sell" >
 		    	<span class="input-label">Malaysia</span>
 		  	</label>
 		  	<!--

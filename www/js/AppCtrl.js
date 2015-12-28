@@ -150,53 +150,72 @@ angular.module('cdr.AppCtrl', [])
 
 	// all function related to delete user
 	$scope.deleteUser = function(uid){
-		var delUsers = Parse.Object.extend("User");
-		var del_users = new Parse.Query(delUsers);
-		del_users.equalTo("objectId", uid);
-		del_users.first({
-			success: function(user) {
-				user.destroy({
-				  success: function(myObject) {
-				    // The object was deleted from the Parse Cloud.
-				    // alert("Successfully deleted");
-				  },
-				  error: function(myObject, error) {
-				    // The delete failed.
-				    // error is a Parse.Error with an error code and message.
-				  }
-				});
-			},
-			error: function(myObject, error) {
-				    // The delete failed.
-				    // error is a Parse.Error with an error code and message.
-			}
-		});
+//       $cordovaDialogs.confirm('Are you sure you want to delete ' + $scope.selected.username + '?', 'Delete user', ['Delete', 'Cancel'])
+//         .then(function(buttonIndex) {
+//           // no button = 0, 'OK' = 1, 'Cancel' = 2
+//           var btnIndex = buttonIndex;
+//           if (btnIndex === 1) {
+            console.log("deleteUser(): " + uid.id);
+            Parse.Cloud.run('deleteUser', {
+              objectId: uid.id
+            });
+//             , {
+//               success: function(status) {
+//                 // the user was updated successfully
+//                 $cordovaDialogs.alert(status, "Account Deletion");
+//                 $scope.doRefresh();
+//               },
+//               error: function(error) {
+//                 // error
+//                 $cordovaDialogs.alert(error, "Error");
+//               }
+//             });
+//           }
+//         });
+//         $scope.closePopover();
+//     };
+		var i = $scope.users.indexOf(uid);
+		$scope.users.splice(i, 1);
 	}
 
 	$scope.data = {
-	showDelete: false
+		showDelete: false
 	};
 
 	$scope.edit = function(item) {
-	alert('Edit Item: ' + item.id);
+		alert('Edit Item: ' + item.id);
 	};
 	$scope.share = function(item) {
-	alert('Share Item: ' + item.id);
+		alert('Share Item: ' + item.id);
 	};
 
 	$scope.moveItem = function(item, fromIndex, toIndex) {
-	$scope.users.splice(fromIndex, 1);
-	$scope.users.splice(toIndex, 0, item);
+		$scope.users.splice(fromIndex, 1);
+		$scope.users.splice(toIndex, 0, item);
 	};
 
 	$scope.onItemDelete = function(item) {
-		console.log(item.id);
-	var i = $scope.users.indexOf(item);
-	$scope.users.splice(i, 1);
-	$scope.deleteUser(item.id);
-	alert("User "+item.name+" is deleted!");
+		var i = $scope.users.indexOf(item);
+		$scope.deleteUser(item);
+		$scope.users.splice(i, 1);
+		alert("User "+item.name+" is deleted!");
 	};
 	// end for delete user
+
+//modal for User info
+	$ionicModal.fromTemplateUrl('templates/User_Info.html', {
+		scope: $scope,
+		animation: 'slide-in-up'
+	}).then(function(modal) {
+		$scope.modalUI = modal;
+	});
+	$scope.openUI = function(user_info) {
+		$scope.modalUI.show();
+		$scope.userInfo = user_info;
+	};
+	$scope.closeUI = function() {
+		$scope.modalUI.hide();
+	}
 
 
 })
