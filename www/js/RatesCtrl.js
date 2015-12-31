@@ -1,6 +1,6 @@
 angular.module('cdr.RatesCtrl', [])
 
-.controller('RatesCtrl', function($scope, $ionicModal){
+.controller('RatesCtrl', function($scope, $ionicModal, $cordovaDialogs, $window){
 
 // This is obj arr created to store all data that been retrieved from data base - to store data temporaryly if user add currency
 	$scope.arr = [];
@@ -27,12 +27,15 @@ angular.module('cdr.RatesCtrl', [])
 		    alert("There is problem occured, Sorry. Please try Again");
 		  }
 		})
-		bol = true;
 	}else{	}
 
 // object variable for update rates page
 	$scope.rates = {};
 
+//refresh the page
+	$scope.refresh = function(){
+		$window.location.reload(true);
+	}
 
 //this id is dynamic, will change everytime we add new currency
 	var getID;	
@@ -102,7 +105,14 @@ angular.module('cdr.RatesCtrl', [])
 		add.save(null, {
 			success: function(rates) {
 	 			console.log('New object created with objectId: ' + rates.id);
-	 			bol = false;
+				$scope.arr.push({
+					id: getID,
+					name: data.name,
+					amount: data.amount,
+					sell: data.sell,
+					buy: data.buy
+				});
+	 			$scope.refresh();
 			},
 			error: function(rates, error) {
 			    // error is a Parse.Error with an error code and message.
@@ -111,16 +121,17 @@ angular.module('cdr.RatesCtrl', [])
 		});
 
 		console.log("get the name: " + data.name);
-		$scope.arr.push({
-			id: getID,
-        	name: data.name,
-        	amount: data.amount,
-        	sell: data.sell,
-        	buy: data.buy
-	    });
+// 		$scope.arr.push({
+// 			id: getID,
+//         	name: data.name,
+//         	amount: data.amount,
+//         	sell: data.sell,
+//         	buy: data.buy
+// 	    });
+// 	    bol = false;
 	    $scope.closeAC();
 	}
-
+console.log("waht is bol: " + bol);
 //modal for add currency 
 	$ionicModal.fromTemplateUrl('templates/add_Currency.html', {
 		scope: $scope,
@@ -139,21 +150,28 @@ angular.module('cdr.RatesCtrl', [])
 
 //Delete Currency 
 	$scope.deleteCurrency = function(data){
-		var Delete = Parse.Object.extend("Rates");
-		var query = new Parse.Query(Delete);
-		query.get(data.id, {
-		  success: function(myObj) {
-			// The object was retrieved successfully.
-			myObj.destroy({});
-			bol = false;
-		  },
-		  error: function(object, error) {
-			// The object was not retrieved successfully.
-			alert('Failed to Delete Currency. Please Try Again');
-		  }
-		});
-		var index = $scope.arr.indexOf(data);
-		$scope.arr.splice(index, 1);
+		$cordovaDialogs.confirm('Are you sure you want to delete ' + data.name + '?', 'Delete Currency', ['Delete', 'Cancel'])
+        .then(function(buttonIndex) {
+          // no button = 0, 'OK' = 1, 'Cancel' = 2
+          var btnIndex = buttonIndex;
+          if (btnIndex === 1) {
+          	var index = $scope.arr.indexOf(data);
+			$scope.arr.splice(index, 1);
+			var Delete = Parse.Object.extend("Rates");
+			var query = new Parse.Query(Delete);
+			query.get(data.id, {
+			  success: function(myObj) {
+				// The object was retrieved successfully.
+				myObj.destroy({});
+				$scope.refresh();
+			  },
+			  error: function(object, error) {
+				// The object was not retrieved successfully.
+				alert('Failed to Delete Currency. Please Try Again');
+			  }
+			})
+          	}
+          });
 		$scope.closeCU();
 	}
 		

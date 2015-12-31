@@ -25,11 +25,16 @@
                     </select>
                 </label>
             </ion-list>
-        <button class="button button-block button-balanced" ng-click="addCurrency(add_rate)">
-  			Add Currency
+        <button class="button button-block button-balanced" ng-click="updateUser(userInfo)">
+  			Save
 		</button>
-        <button class="button button-block button-assertive">
-  			Cancel
+        <button class="button button-block button-assertive" ng-click="deleteUser(userInfo)">
+  			Delete User
 		</button>
+		<center>
+			<button class="button button-assertive button-clear" ng-click="openCP(userInfo)">
+				Forget Password
+			</button>
+		<center>
     </ion-content>
 </ion-modal-view>
