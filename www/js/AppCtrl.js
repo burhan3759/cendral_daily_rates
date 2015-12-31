@@ -252,5 +252,50 @@ angular.module('cdr.AppCtrl', [])
 		$scope.modalUI.hide();
 	}
 
+//change password
+  $scope.password = {};
+
+  $scope.changePass = function(newPassword){
+
+    var User = Parse.Object.extend("User");
+    var user = new Parse.Query(User);
+    user.equalTo("objectId", $scope.userCP.id);
+    user.first({
+    success: function(object) {
+        object.set("password",newPassword);
+        object.set("temp_password",newPassword);
+        object.save()
+        .then(
+          function(user) {
+            console.log('Password changed', user);
+            alert("The Password is been Changed");
+    
+          },
+          function(error) {
+            console.log('Something went wrong');
+          }
+        );
+    },
+    error: function(error){
+      console.log(error);
+    }
+
+    });
+  }
+
+  //modal for changePass
+	$ionicModal.fromTemplateUrl('templates/Forget_password.html', {
+		scope: $scope,
+		animation: 'slide-in-up'
+	}).then(function(modal) {
+		$scope.modalCP = modal;
+	});
+	$scope.openCP = function(user_info) {
+		$scope.modalCP.show();
+		$scope.userCP = user_info;
+	};
+	$scope.closeCP = function() {
+		$scope.modalCP.hide();
+	}
 
 })
