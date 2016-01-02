@@ -103,15 +103,12 @@ angular.module('cdr.AppCtrl', [])
 	$scope.login = function(){
 	  Parse.User.logIn($scope.data.username, $scope.data.password, {
 	    success: function(user) {
-	      // Do stuff after successful login.
-	      // $state.reload();
-	      // console.log("refresh");
 	      $window.location.reload(true);
 	      $scope.closeSignIn();
 	    },
 	    error: function(user, error) {
 	      // The login failed. Check error to see why.
-	      alert("error!");
+	      alert("Username or Password are incorrect, Please try Again");
 	    }
 	  });
 	};
@@ -119,12 +116,21 @@ angular.module('cdr.AppCtrl', [])
     $scope.loggedIn = function() {
       user = Parse.User.current();
       if (user) {
-      	// // $state.reload();
-      	// console.log("refresh");
         return true;
       } else {
         return false;
       }
+    };
+
+    $scope.admin = function() {
+      user = Parse.User.current();
+      if($scope.loggedIn()){
+		  if (user.get('category') === "Admin") {
+			return true;
+		  } else {
+			return false;
+		  }
+      }else{}
     };
 
 	//logout function 

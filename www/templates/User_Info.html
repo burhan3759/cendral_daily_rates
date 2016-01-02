@@ -1,19 +1,28 @@
 <ion-modal-view>
-    <ion-header-bar>
+    <ion-header-bar class="bar-balanced">
       <h1 class="title">User Info</h1>
 	  <button class="button button-clear" ng-click="closeUI()">Close</button>
     </ion-header-bar>
 
-    <ion-content>
-        
+    <ion-content class="padding">
+        	<div class="card">
+			  <div class="item item-divider">
+				<h4>Notes!</h4>
+			  </div>
+			  <div class="item item-text-wrap">
+				<h4>Only 'Access Level' are allowed to change</h4>
+			  </div>
+			</div>
             <ion-list>
                 <label class="item item-input">
                     <span class="input-label">Name</span>
-                    <input type="text" placeholder="Ali.." ng-model="userInfo.name">
+                    <ouput>{{userInfo.name}}<ouput>
+<!--                     <input type="text" placeholder="Ali.." ng-model="userInfo.name"> -->
                 </label>
                 <label class="item item-input">
                     <span class="input-label">Username</span>
-                    <input type="text" placeholder="enter username..." ng-model="userInfo.username">
+                    <ouput>{{userInfo.username}}<ouput>
+<!--                     <input type="text" placeholder="enter username..." ng-model="userInfo.username"> -->
                 </label>
                 <label class="item item-input item-select">
                     <div class="input-label">

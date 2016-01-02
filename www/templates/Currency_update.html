@@ -1,15 +1,15 @@
-<ion-modal-view>
+<ion-modal-view >
     <ion-header-bar class="bar-balanced">
       <h1 class="title">Currency Update</h1>
 	  <button class="button button-clear" ng-click="closeCU()">Close</button>
     </ion-header-bar>
 
-    <ion-content>
-        
-        <div class="list">
+    <ion-content class="padding">
+
+        <div class="list list-inset">
           <label class="item item-input">
             <span class="input-label">Currency Name: </span>
-            <output>{{update_rate.name}}</output>
+            <input type="text" ng-model="update_rate.name"></input>
           </label>
           <label class="item item-input">
             <span class="input-label">Unit: </span>
@@ -24,11 +24,14 @@
             <input type="tel" placeholder="{{update_rate.buy}}" ng-model="update_rate.sell">
           </label>
         </div>
-        <button class="button button-block button-balanced" ng-click="updateRates(update_rate)">
+        <button class="button button-stable button-block button-balanced" ng-click="updateRates(update_rate)">
   			Update Currency
 		</button>
-        <button class="button button-block button-assertive" ng-click="deleteCurrency(update_rate)">
-  			Delete Currency
-		</button>
+		<center>
+			<button class="button button-assertive button-clear" ng-click="deleteCurrency(update_rate)">
+				Delete Currency
+			</button>
+		</center>
+
     </ion-content>
 </ion-modal-view>

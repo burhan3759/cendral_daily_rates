@@ -71,13 +71,13 @@ angular.module('cdr.RatesCtrl', [])
 		  success: function(results) {
 		    results.set("currency", $scope.update);
 		    results.save();
-		    console.log("Updated");
-			$scope.closeCU();
+			$scope.refresh();
 		  },
 		  error: function(error) {
 		    alert('Currently cannot update the rates. Sorry, Please try in a moment');
 		  }
 		})
+		$scope.closeCU();
 	}
 //modal for currency update
 	$ionicModal.fromTemplateUrl('templates/Currency_update.html', {
@@ -131,7 +131,7 @@ angular.module('cdr.RatesCtrl', [])
 // 	    bol = false;
 	    $scope.closeAC();
 	}
-console.log("waht is bol: " + bol);
+
 //modal for add currency 
 	$ionicModal.fromTemplateUrl('templates/add_Currency.html', {
 		scope: $scope,
@@ -161,6 +161,7 @@ console.log("waht is bol: " + bol);
 			var query = new Parse.Query(Delete);
 			query.get(data.id, {
 			  success: function(myObj) {
+			  	$scope.closeCU();
 				// The object was retrieved successfully.
 				myObj.destroy({});
 				$scope.refresh();
@@ -172,7 +173,7 @@ console.log("waht is bol: " + bol);
 			})
           	}
           });
-		$scope.closeCU();
+		
 	}
 		
 
