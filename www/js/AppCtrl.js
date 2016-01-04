@@ -53,21 +53,19 @@ angular.module('cdr.AppCtrl', [])
 			success: function(user) {
 			  // Hooray! Let them use the app now.
 			  alert("success!");
-			  $scope.closeSignUp();
-// 			  $scope.refresh();
-// 			  bol = false;
 			    $scope.users.push({
-// 			    	id: data.id,
 	            	name: $scope.data.name,
 	            	username: $scope.data.username,
 	            	category: $scope.data.category
 	            });
+	           $scope.refresh();
 			},
 			error: function(user, error) {
 			  // Show the error message somewhere and let the user try again.
-			  alert("Error: " + error.code + " " + error.message);
+			  alert("Error, System Is Down, Please Try Again Later!");
 			}
 		  });
+		  $scope.closeSignUp();
 	 }else{
 	 	alert("Password Does Not Match!");
 	 }
