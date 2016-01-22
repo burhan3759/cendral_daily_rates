@@ -1,20 +1,20 @@
 angular.module('cdr.AboutCtrl', [])
 
 .controller('AboutCtrl', function($scope, $ionicLoading, $compile, $state, $cordovaGeolocation){
-          var options = {timeout: 10000, enableHighAccuracy: true};
+    
+//       var options = {timeout: 10000, enableHighAccuracy: true};
 
-          $cordovaGeolocation.getCurrentPosition(options).then(function(position){
+      var latLng = new google.maps.LatLng(3.240999, 101.704995);
 
-            var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      var mapOptions = {
+         center: latLng,
+         zoom: 17,
+         mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
 
-            var mapOptions = {
-              center: latLng,
-              zoom: 15,
-              mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
+      $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-            $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
-          google.maps.event.addListenerOnce($scope.map, 'idle', function(){
+      google.maps.event.addListenerOnce($scope.map, 'idle', function(){
 
           var marker = new google.maps.Marker({
               map: $scope.map,
@@ -30,9 +30,5 @@ angular.module('cdr.AboutCtrl', [])
               infoWindow.open($scope.map, marker);
           });
 
-        });
-
-          }, function(error){
-            console.log("Could not get location");
-          });
+      });
 })
