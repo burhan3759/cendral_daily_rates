@@ -41,32 +41,31 @@ angular.module('cdr.AppCtrl', [])
 	 if($scope.data.password === $scope.data.confirm_password){
 	 
 		  //Create a new user on Parse
-		  var user = new Parse.User();
-		  user.set("name", $scope.data.name);
-		  user.set("username", $scope.data.username);
-		  user.set("password", $scope.data.password);
-		  user.set("confirm_password", $scope.data.confrim_password);
-		  user.set("category", $scope.data.category);
+		  var Adduser = Parse.Object.extend("User");
+		  var add_user = new Adduser();
+		  add_user.set("name", $scope.data.name);
+		  add_user.set("username", $scope.data.username);
+		  add_user.set("password", $scope.data.password);
+		  add_user.set("confirm_password", $scope.data.confrim_password);
+		  add_user.set("category", $scope.data.category);
 
-		  user.signUp(null, {
+		  add_user.save(null, {
 			success: function(user) {
 			  // Hooray! Let them use the app now.
 			  alert("success!");
-			  $scope.closeSignUp();
-// 			  $scope.refresh();
-// 			  bol = false;
 			    $scope.users.push({
-// 			    	id: data.id,
 	            	name: $scope.data.name,
 	            	username: $scope.data.username,
 	            	category: $scope.data.category
 	            });
+	           $scope.refresh();
 			},
 			error: function(user, error) {
 			  // Show the error message somewhere and let the user try again.
-			  alert("Error: " + error.code + " " + error.message);
+			  alert("Error, System Is Down, Please Try Again Later!");
 			}
 		  });
+		  $scope.closeSignUp();
 	 }else{
 	 	alert("Password Does Not Match!");
 	 }
