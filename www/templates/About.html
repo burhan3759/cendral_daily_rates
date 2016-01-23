@@ -1,13 +1,25 @@
 <ion-view view-title="About">
-	<ion-content class="padding">
-		<h1>Cendral Daily Rates</h1>
+	<ion-content class="padding" overflow-scroll="true">
 
+		<h1>Cendral Daily Rates</h1>
+		
 		<h2>Mission</h2>
 			<p> To give best service for customer </p>
 			<p> Provide best price in town <p>
+		  <a class="item item-icon-left" href="tel:+60-3618-760-72">
+				(03) 6187 6072
+			<i class="icon ion-ios-telephone-outline"></i>
+		  </a>
+		  <a class="item item-icon-left" href="#" onclick="window.open('https://goo.gl/maps/Vy4fd8bhABv', '_system', 'location=yes'); return false;">
+				Maps
+			<i class="icon ion-ios-telephone-outline"></i>
+		  </a>
+		  <a class="item item-icon-left" href="geo://0,0?daddr=3.240999, 101.704995" data-rel="external">
+				D Maps
+			<i class="icon ion-ios-telephone-outline"></i>
+		  </a>
 
-		<h2>Contact: - <h2>
-		<p>03-123 4567<p>
-
+		<h2>Location</h2>	
+		<div id="map" data-tap-disabled="true"></div>
 	</ion-content>
 </ion-view>
