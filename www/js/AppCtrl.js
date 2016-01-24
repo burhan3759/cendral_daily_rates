@@ -102,7 +102,8 @@ angular.module('cdr.AppCtrl', [])
 	$scope.login = function(){
 	  Parse.User.logIn($scope.data.username, $scope.data.password, {
 	    success: function(user) {
-	      $window.location.reload(true);
+	      $scope.data.username = "";
+	      $scope.data.password = "";	
 	      $scope.closeSignIn();
 	    },
 	    error: function(user, error) {
