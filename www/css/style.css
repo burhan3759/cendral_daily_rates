@@ -21,13 +21,10 @@
 /*CSS for login*/
 .mbody {
     /*background: url('http://i.imgur.com/Eor57Ae.jpg') no-repeat fixed center center;*/
-    background: #F0F8FF;
+    background-color: #F0F8FF;
 /*    background-size: cover;
     font-family: Montserrat;*/
 }
-/*.transparent {
-  background: transparent !important;
-}*/
 
 .logo {
     width: 213px;
@@ -111,3 +108,21 @@
     background: #ff7b81;
 }
 /*CSS for login end*/
+
+.converter-block {
+
+    width: 60%;
+    padding: 20px;
+    border-top: 5px solid #ff656c;
+    margin: 0 auto;
+    background-color: #FFF;
+}
+
+.transparent {
+    background: #ffffff;
+
+}
+
+.converter-block input:active, .converter-block input:focus {
+    border: 1px solid #ff656c;
+}
