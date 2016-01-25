@@ -123,6 +123,10 @@
 
 }
 
-.converter-block input:active, .converter-block input:focus {
+/* .converter-block input:active, .converter-block input:focus {
+    border: 1px solid #ff656c;
+} */
+
+.converter-block label{
     border: 1px solid #ff656c;
 }

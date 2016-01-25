@@ -185,12 +185,14 @@ angular.module('cdr.RatesCtrl', [])
 		$scope.modal = modal;
 	});
 	$scope.openModal = function(rate) {
-		$scope.unit = rate.unit;
-		$scope.sell = rate.sell;
+		$scope.unit;
+		$scope.sell;
 		$scope.modal.show();
 		$scope.convert_rate = rate;
 	};
 	$scope.closeModal = function() {
+		$scope.unit = 0;
+		$scope.sell = 0;
 		$scope.modal.hide();
 	}
 
