@@ -136,3 +136,8 @@
     background-color: #f5f5f5;
     font-weight: bold;
 }
+
+/*color for unit and currency*/
+#UnitCurrency {
+    background-color: #e6ffff;
+}
