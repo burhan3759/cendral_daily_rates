@@ -132,21 +132,6 @@
 	    $scope.closeAC();
 	}
 
-//modal for add currency 
-	$ionicModal.fromTemplateUrl('templates/add_Currency.html', {
-		scope: $scope,
-		animation: 'slide-in-up'
-	}).then(function(modal) {
-		$scope.modalAC = modal;
-	});
-	$scope.openAC = function() {
-		$scope.modalAC.show();
-	};
-	$scope.closeAC = function() {
-		$scope.modalAC.hide();
-	}
-	
-
 
 //Delete Currency 
 	$scope.deleteCurrency = function(data){

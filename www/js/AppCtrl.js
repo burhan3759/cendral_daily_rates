@@ -1,6 +1,6 @@
 angular.module('cdr.AppCtrl', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $state, $ionicPopup, $ionicHistory, $window, $cordovaDialogs){
+.controller('AppCtrl', function($scope, $ionicModal, $state, $ionicPopup, $ionicHistory, $window, $cordovaDialogs,  $ionicPopover){
 
 	//Sign In modal - this is the code for open a modal and hide it - using a template not script
 	$ionicModal.fromTemplateUrl('templates/SignIn.html', {
@@ -290,6 +290,7 @@ angular.module('cdr.AppCtrl', [])
   }
 
   //modal for changePass
+
 	$ionicModal.fromTemplateUrl('templates/Forget_password.html', {
 		scope: $scope,
 		animation: 'slide-in-up'
@@ -303,5 +304,29 @@ angular.module('cdr.AppCtrl', [])
 	$scope.closeCP = function() {
 		$scope.modalCP.hide();
 	}
+
+	//Pop over - side menu in home page
+	document.body.classList.add('platform-ios');
+	$ionicPopover.fromTemplateUrl('templates/PopOverSideMenu.html', {
+    	scope: $scope,
+  	}).then(function(popover) {
+    	$scope.popover = popover;
+  	});
+
+  	//modal for add currency 
+	$ionicModal.fromTemplateUrl('templates/add_Currency.html', {
+		scope: $scope,
+		animation: 'slide-in-up'
+	}).then(function(modal) {
+		$scope.modalAC = modal;
+	});
+	$scope.openAC = function() {
+		$scope.modalAC.show();
+	};
+	$scope.closeAC = function() {
+		$scope.modalAC.hide();
+	}
+	
+
 
 })

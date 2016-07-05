@@ -41,9 +41,12 @@
         <ion-nav-back-button class="button-icon ion-arrow-left-c">
         </ion-nav-back-button>
 
-        <ion-nav-buttons side="left">
-          <a class="button" ng-click="signIn()" ng-if="!loggedIn()">Sign In</a>
-          <a class="button" ng-click="showPopup()" ng-if="loggedIn()">Sign Out</a>
+<!--         <ion-nav-buttons side="left">
+            <a class="button" ng-click="signIn()" ng-if="!loggedIn()">Sign In</a>
+            <a class="button" ng-click="showPopup()" ng-if="loggedIn()">Sign Out</a>
+        </ion-nav-buttons> -->
+        <ion-nav-buttons side="right">
+            <button class="button button-icon ion-more" ng-click="popover.show($event)"></button>
         </ion-nav-buttons>
     </ion-nav-bar>
              
