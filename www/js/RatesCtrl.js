@@ -1,4 +1,4 @@
-angular.module('cdr.RatesCtrl', [])
+ angular.module('cdr.RatesCtrl', [])
 
 .controller('RatesCtrl', function($scope, $ionicModal, $cordovaDialogs, $window){
 

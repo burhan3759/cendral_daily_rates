@@ -89,19 +89,18 @@ angular.module('cdr', ['ionic', 'cdr.AppCtrl', 'cdr.RatesCtrl', 'cdr.ConversionC
   })
 
   //currency conveter modal
-  .state('currency_conveter',{
-    url: '/currency_conveter',
+  .state('currency_converter',{
+    url: '/CurrencyConverter',
+    abstract: true,
     templateUrl: 'templates/currency_converter.html',
-    controller: 'ConversionCtrl'
+    controller: 'RatesCtrl'
   })
-
   //currency update modal
   .state('currency_update',{
     url: '/currency_update',
     templateUrl: 'templates/Currency_update.html',
     controller: 'RatesCtrl'
-  })
-
+  });
 })
 
 

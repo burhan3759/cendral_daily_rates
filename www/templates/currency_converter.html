@@ -6,24 +6,9 @@
 	  <button class="button button-clear" ng-click="closeModal()">Close</button>
 	</ion-header-bar>
 
-	<ion-content class="padding">
-	<div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
-		<div class="tabs">
-    	   	<a class="tab-item" href="#/currency_conveter/calc">
-          	Home
-        	</a>
-			<a class="tab-item">
-			Favorites
-			</a>
-			<a class="tab-item">
-			Settings
-			</a>
-		
+	<ion-content>
 
-		</div>
-	</div>
-
-		<!-- <div class="logo"></div>
+		<div class="logo"></div>
 		<div class="converter-block">
 			<center><h4>{{convert_rate.name}} <i class="icon ion-arrow-swap"></i> Malaysia</h4></center>
 			<label class="item item-input" ng-show="a">
@@ -31,9 +16,9 @@
 		    	<span class="input-label">{{convert_rate.name}}</span>
 		  	</label>
 		  	
-				this method for show the conversion rate according to what user type
-		  	-->
-<!-- 			<div class="row item" ng-click="AtoB(sell*convert_rate.amount/convert_rate.sell)" ng-hide="a">
+				<!-- this method for show the conversion rate according to what user type -->
+		  	
+ 			<div class="row item" ng-click="AtoB(sell*convert_rate.amount/convert_rate.sell)" ng-hide="a">
 			  <div class="col col-75" >{{sell*convert_rate.amount/convert_rate.sell | number:2}}</div>
 			  <div class="col">{{convert_rate.name}}</div>
 			</div>
@@ -43,27 +28,14 @@
 		    	<span class="input-label">Malaysia</span>
 		  	</label>
 		  	
-				this method for show the conversion rate according to what user type
-		  	-->
-<!--  			<div class="row item" ng-click="AtoB(unit*convert_rate.sell/convert_rate.amount)" ng-show="a">
+				<!-- this method for show the conversion rate according to what user type -->
+		  	
+ 			<div class="row item" ng-click="AtoB(unit*convert_rate.sell/convert_rate.amount)" ng-show="a">
 			  <div class="col col-75" >{{unit*convert_rate.sell/convert_rate.amount | number:2}}</div>
 			  <div class="col">Malaysia</div>
 			</div>
-		</div>  -->
+		</div> 
 
 	</ion-content>
-</ion-modal-view>
 
-<script id="calc.html" type="text/ng-template">
-				<div class="list">
-					<center><h4>{{convert_rate.name}} <i class="icon ion-arrow-swap"></i> Malaysia</h4></center>
-					<label class="item item-input">
-						<input type="text" placeholder='{{sell*convert_rate.amount/convert_rate.sell | number:2}}'>
-						<span class="input-label">{{convert_rate.name}}</span>
-					</label>
-					<label class="item item-input">
-						<input type="password">
-						<span class="input-label">Malaysia</span>
-					</label>
-				</div>
-</script>
+</ion-modal-view>
