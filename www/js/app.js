@@ -58,16 +58,6 @@ angular.module('cdr', ['ionic', 'cdr.AppCtrl', 'cdr.RatesCtrl', 'cdr.ConversionC
       }
   })
 
-  .state('HomeTabs.UpdateRates',{
-    url: '/UpdateRates',
-      views: {
-        'UpdateRates': {
-        templateUrl: 'templates/UpdateRates.html',
-        controller: 'RatesCtrl'
-        }
-      }
-  })
-
   .state('Users',{
     url: '/Users',
     templateUrl: 'templates/Users.html',
@@ -85,14 +75,14 @@ angular.module('cdr', ['ionic', 'cdr.AppCtrl', 'cdr.RatesCtrl', 'cdr.ConversionC
     controller: 'AppCtrl'
   })
 
-  //currency conveter modal
+  //currency conveter
   .state('currency_converter',{
     url: '/CurrencyConverter',
     abstract: true,
     templateUrl: 'templates/currency_converter.html',
     controller: 'RatesCtrl'
   })
-  //currency update modal
+  //currency update 
   .state('currency_update',{
     url: '/currency_update',
     templateUrl: 'templates/Currency_update.html',

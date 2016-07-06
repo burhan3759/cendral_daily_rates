@@ -1,20 +1,103 @@
 angular.module('cdr.AppCtrl', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $state, $ionicPopup, $ionicHistory, $window, $cordovaDialogs,  $ionicPopover){
+.service('ModalService', function($ionicModal, $rootScope) {
+  
+  
+  var init = function(tpl, $scope) {
+
+    var promise;
+    $scope = $scope || $rootScope.$new();
+    
+    promise = $ionicModal.fromTemplateUrl(tpl, {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.modal = modal;
+      return modal;
+    });
+
+    $scope.openModal = function() {
+       $scope.modal.show();
+     };
+     $scope.closeModal = function() {
+       $scope.modal.hide();
+     };
+     $scope.$on('$destroy', function() {
+       $scope.modal.remove();
+     });
+    
+    return promise;
+  }
+  
+  return {
+    init: init
+  }
+  
+})
+
+.controller('AppCtrl', function($scope, $ionicModal, $state, $ionicPopup, $ionicHistory, $window, $cordovaDialogs,  $ionicPopover, ModalService){
 
 	//Sign In modal - this is the code for open a modal and hide it - using a template not script
-	$ionicModal.fromTemplateUrl('templates/SignIn.html', {
-		scope: $scope,
-		animation: 'slide-in-up'
-	}).then(function(modal) {
-		$scope.modalSI = modal;
-	});
-	$scope.signIn = function() {
-		$scope.modalSI.show();
+
+	// var template = 'SignUp.html'
+	// $scope.modals = function(getTemplate){
+	// 	$scope.getUrl = getTemplate;
+
+	// 	console.log("value: " + $scope.getUrl);
+
+	// 	$scope.signIn = function() {
+	// 		$scope.modalSI.show();
+	// 	};
+	// 	$scope.closeSignIn = function() {
+	// 		$scope.modalSI.hide();
+	// 	};
+	// 	if(template == 'SignUp.html'){
+	// 		template = $scope.getUrl;
+	// 	}
+
+	// 	$scope.signIn();
+	// }
+
+	// $ionicModal.fromTemplateUrl('templates/'+template, {
+	// 	scope: $scope,
+	// 	animation: 'slide-in-up'
+	// }).then(function(modal) {
+	// 	$scope.modalSI = modal;
+	// });
+
+	$scope.modal1 = function(getUrl) {
+	console.log("value: " + getUrl);
+    ModalService
+      .init('templates/'+getUrl, $scope)
+      .then(function(modal) {
+      	modal.show();	     
+      });
 	};
-	$scope.closeSignIn = function() {
-		$scope.modalSI.hide();
+
+	$scope.modal2 = function(getUrl) {
+	console.log("value 2: " + getUrl);
+    ModalService
+      .init('templates/'+getUrl, $scope)
+      .then(function(modal) {
+      	modal.hide();
+      });
 	};
+
+	
+
+	
+	// $ionicModal.fromTemplateUrl('templates/SignIn.html', {
+	// 	scope: $scope,
+	// 	animation: 'slide-in-up'
+	// }).then(function(modal) {
+	// 	$scope.modalSI = modal;
+	// });
+	// $scope.signIn = function() {
+	// 	$scope.modalSI.show();
+	// };
+	// $scope.closeSignIn = function() {
+	// 	$scope.modalSI.hide();
+	// };
 
 	//Sign Up modal - this is the code for open a modal and hide it - using a template not script
 	$ionicModal.fromTemplateUrl('templates/SignUp.html', {
