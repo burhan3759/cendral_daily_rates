@@ -306,7 +306,7 @@ angular.module('cdr.AppCtrl', [])
 	}
 
 	//Pop over - side menu in home page
-	document.body.classList.add('platform-ios');
+	// document.body.classList.add('platform-ios');
 	$ionicPopover.fromTemplateUrl('templates/PopOverSideMenu.html', {
     	scope: $scope,
   	}).then(function(popover) {
