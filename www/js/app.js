@@ -67,14 +67,11 @@ angular.module('cdr', ['ionic', 'cdr.AppCtrl', 'cdr.RatesCtrl', 'cdr.ConversionC
         }
       }
   })
-  .state('HomeTabs.Users',{
+
+  .state('Users',{
     url: '/Users',
-      views: {
-        'Users': {
-          templateUrl: 'templates/Users.html',
-          controller: 'AppCtrl'      
-        }
-      }
+    templateUrl: 'templates/Users.html',
+    controller: 'AppCtrl'
   })
 
   .state('SignIn',{
