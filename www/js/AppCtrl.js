@@ -190,32 +190,39 @@ angular.module('cdr.AppCtrl', [])
 	// end for delete user
 
 //change password
-  $scope.changePass = function(newPassword){
-  	console.log($scope.userInfo.id);
-    var User = Parse.Object.extend("User");
-    var user = new Parse.Query(User);
-    user.equalTo("objectId", $scope.userInfo.id);
-    user.first({
-    success: function(object) {
-        object.set("password",newPassword);
-        object.set("temp_password",newPassword);
-        object.save()
-        .then(
-          function(user) {
-            console.log('Password changed', user);
-            alert("The Password is been Changed");
-    
-          },
-          function(error) {
-            console.log('Something went wrong');
-          }
-        );
-    },
-    error: function(error){
-      console.log(error);
-    }
+	
+	//this scope variable will hold the data from pass from the form
+	$scope.password = {};
+	console.log($scope.password);
 
+  	$scope.changePass = function(newPassword, userInfo){
+	  	console.log("password" + $scope.password.new_password);
+	  	console.log(userInfo.id + "  " + newPassword);
+	    var User = Parse.Object.extend("User");
+	    var user = new Parse.Query(User);
+	    user.equalTo("objectId", userInfo.id);
+	    user.first({
+	    success: function(object) {
+	        object.set("password",newPassword);
+	        object.set("temp_password",newPassword);
+	        object.save()
+	        .then(
+	          function(user) {
+	            console.log('Password changed', user);
+	            alert("The Password is been Changed");
+	    
+	          },
+	          function(error) {
+	            console.log('Something went wrong');
+	          }
+	        );
+	    },
+	    error: function(error){
+	      console.log(error);
+	    }
     });
+
+	$scope.password.new_password = "";
   }
 
   $scope.hide = [{

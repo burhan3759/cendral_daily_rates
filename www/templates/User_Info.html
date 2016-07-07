@@ -49,18 +49,22 @@
   		  </center>
       </div>
 
-      <div class="list nopadding" ng-hide="!hide.hidden">
+      <div class="list" ng-hide="!hide.hidden">
         <label class="item item-input item-stacked-label">
           <span class="input-label">New Password</span>
           <input type="password" placeholder="New Password..">
         </label>
         <label class="item item-input item-stacked-label">
           <span class="input-label">Re-type Password</span>
-          <input type="password" placeholder="Re-type Password..">
+          <input type="password" placeholder="Re-type Password.." ng-model="password.new_password">
         </label>
-        <a class="button button-assertive button-clear" ng-click="toggle()">
-          Back
-        </a>
+        <center>
+          <button class="button button-block button-calm" ng-click="changePass(password.new_password, userInfo)">Change Password</button>
+        </center>
+        <br><br>
+        <button class="button button-outline button-block button-assertive" ng-click="toggle()">
+          Cancel
+        </button>
       </div>
     </ion-content>
 </ion-modal-view>
