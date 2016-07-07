@@ -1,49 +1,66 @@
 <ion-modal-view>
     <ion-header-bar class="bar-balanced">
       <h1 class="title">User Info</h1>
-	  <button class="button button-clear" ng-click="closeModal()">Close</button>
+	  <button class="button button-clear" ng-click="close()" ng-hide="hide.hidden">Close</button>
     </ion-header-bar>
 
     <ion-content class="padding">
-        	<div class="card">
-			  <div class="item item-divider">
-				<h4>Notes!</h4>
-			  </div>
-			  <div class="item item-text-wrap">
-				<h4>Only 'Access Level' are allowed to change</h4>
-			  </div>
-			</div>
-            <ion-list>
-                <label class="item item-input">
-                    <span class="input-label">Name</span>
-                    <ouput>{{userInfo.name}}<ouput>
-<!--                     <input type="text" placeholder="Ali.." ng-model="userInfo.name"> -->
-                </label>
-                <label class="item item-input">
-                    <span class="input-label">Username</span>
-                    <ouput>{{userInfo.username}}<ouput>
-<!--                     <input type="text" placeholder="enter username..." ng-model="userInfo.username"> -->
-                </label>
-                <label class="item item-input item-select">
-                    <div class="input-label">
-                      Access Level
-                    </div>
-                    <select ng-model="userInfo.category">
-                      <option>Admin</option>
-                      <option>Staff</option>
-                    </select>
-                </label>
-            </ion-list>
+      <div ng-hide="hide.hidden">
+        <div class="card">
+
+  			  <div class="item item-divider">
+  				  <h4>Notes!</h4>
+  			  </div>
+
+  			  <div class="item item-text-wrap">
+  				  <h4>Only 'Access Level' are allowed to change</h4>
+  			  </div>
+
+  			</div>
+        <ion-list >
+          <label class="item item-input">
+              <span class="input-label">Name</span>
+              <ouput>{{userInfo.name}}<ouput>
+          </label>
+          <label class="item item-input">
+              <span class="input-label">Username</span>
+              <ouput>{{userInfo.username}}<ouput>
+          </label>
+          <label class="item item-input item-select">
+              <div class="input-label">
+                Access Level
+              </div>
+              <select ng-model="userInfo.category">
+                <option>Admin</option>
+                <option>Staff</option>
+              </select>
+          </label>
+        </ion-list>
         <button class="button button-block button-balanced" ng-click="DelUpdtUser(userInfo, 'update')">
-  			Save
-		</button>
+    			Save
+  		  </button>
         <button class="button button-block button-assertive" ng-click="DelUpdtUser(userInfo, 'delete')">
-  			Delete User
-		</button>
-		<center>
-			<button class="button button-assertive button-clear" ng-click="open('Forget_password.html',userInfo)">
-				Forget Password
-			</button>
-		<center>
+    			Delete User
+  		  </button>
+  		  <center>
+          <a class="button button-assertive button-clear" ng-click="toggle()">
+  				  Forget Password
+          </a>
+  		  </center>
+      </div>
+
+      <div class="list nopadding" ng-hide="!hide.hidden">
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">New Password</span>
+          <input type="password" placeholder="New Password..">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Re-type Password</span>
+          <input type="password" placeholder="Re-type Password..">
+        </label>
+        <a class="button button-assertive button-clear" ng-click="toggle()">
+          Back
+        </a>
+      </div>
     </ion-content>
 </ion-modal-view>

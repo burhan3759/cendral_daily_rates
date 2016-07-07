@@ -1,45 +1,9 @@
 angular.module('cdr.AppCtrl', [])
 
-// .service('ModalService', function($ionicModal, $rootScope) {
-  
-  
-//   var init = function(tpl, $scope) {
+.controller('AppCtrl', function($scope, $ionicModal, $state, $ionicPopup, $ionicHistory, $window, $cordovaDialogs,  $ionicPopover, ModalService, CordovaService){
 
-//     var promise;
-//     $scope = $scope || $rootScope.$new();
-    
-//     promise = $ionicModal.fromTemplateUrl(tpl, {
-//       scope: $scope,
-//       animation: 'slide-in-up'
-//     }).then(function(modal) {
-//       $scope.modal = modal;
-//       return modal;
-//     });
-
-//     $scope.openModal = function() {
-//        $scope.modal.show();
-//      };
-//      $scope.closeModal = function() {
-//        $scope.modal.hide();
-//      };
-//      $scope.$on('$destroy', function() {
-//        $scope.modal.remove();
-//      });
-    
-//     return promise;
-//   }
-  
-//   return {
-//     init: init
-//   }
-  
-// })
-
-.controller('AppCtrl', function($scope, $ionicModal, $state, $ionicPopup, $ionicHistory, $window, $cordovaDialogs,  $ionicPopover, ModalService){
-
-
+	//Function to call modal at services.js by passing html file name as parameter
 	$scope.open = function(getUrl, user) {
-		// console.log(ModalService.mod());
 		ModalService
 	      .mod('templates/'+getUrl, $scope)
 	      .then(function(modal) {
@@ -50,15 +14,23 @@ angular.module('cdr.AppCtrl', [])
 	      });		
 	};
 
+	//close the modal from controller :since close the modal at Html can be done by directly call the function in services.js
 	$scope.close = function(){
-		// console.log(
 		ModalService
 	      .mod('', $scope)
-	      .catch($scope.closeModal())
-	      // );
-		
+	      .catch($scope.closeModal())		
 	}
 
+	//this function is used to either delete or update user 
+	//:main function at services.js, it is writen there so can be access by anyone and use it as pleased 
+	$scope.DelUpdtUser = function(uid, type){
+		CordovaService.cordova(uid, type);
+		if(type == 'delete'){
+			var i = $scope.users.indexOf(uid);
+			$scope.users.splice(i, 1);
+			$scope.close();
+		}
+	}
 
 	//this 'data' is and object -use for to get Sign Up and In done
 	$scope.data = {};
@@ -68,8 +40,8 @@ angular.module('cdr.AppCtrl', [])
 
 	//Sign Up function 
 	$scope.signup = function(){
-	 if($scope.data.password === $scope.data.confirm_password){
-	 
+		if($scope.data.password === $scope.data.confirm_password){
+
 		  //Create a new user on Parse
 		  var Adduser = Parse.Object.extend("User");
 		  var add_user = new Adduser();
@@ -84,11 +56,11 @@ angular.module('cdr.AppCtrl', [])
 			  // Hooray! Let them use the app now.
 			  alert("success!");
 			    $scope.users.push({
-	            	name: $scope.data.name,
-	            	username: $scope.data.username,
-	            	category: $scope.data.category
-	            });
-	           $scope.refresh();
+		        	name: $scope.data.name,
+		        	username: $scope.data.username,
+		        	category: $scope.data.category
+		        });
+		       $scope.refresh();
 			},
 			error: function(user, error) {
 			  // Show the error message somewhere and let the user try again.
@@ -96,48 +68,12 @@ angular.module('cdr.AppCtrl', [])
 			}
 		  });
 		  $scope.close();
-	 }else{
-	 	alert("Password Does Not Match!");
-	 }
+		}else{
+			alert("Password Does Not Match!");
+		}
 	 
 	};
 
-	//this function is used to either delete or update user 
-	$scope.DelUpdtUser = function(uid, type){
-		var type = type;
-      $cordovaDialogs.confirm('Are you sure you want to ' + type + ' ' + uid.name + '?', type+' user', [type, 'Cancel'])
-        .then(function(buttonIndex) {
-          // no button = 0, 'OK' = 1, 'Cancel' = 2
-          var btnIndex = buttonIndex;
-          if (btnIndex === 1) {
-            console.log(type+"User(): " + uid.id + " user name: " + uid.name);
-            if(type == 'delete'){
-	            var i = $scope.users.indexOf(uid);
-				$scope.users.splice(i, 1);
-			}
-            Parse.Cloud.run(type+'User', {
-              objectId: uid.id,
-              category: uid.category
-            }
-            , {
-              success: function(status) {
-                // the user was updated successfully
-                $cordovaDialogs.alert(status, "Account "+type);
-
-              },
-              error: function(error) {
-                // error
-                $cordovaDialogs.alert(error, "Error, Please Try Again Later");
-              }
-            });
-          }
-        });
-
-        if(type == 'delete'){
-        	$scope.close();	
-        }
-		
-	}
 
 	//Sign In function
 	$scope.login = function(){
@@ -254,8 +190,6 @@ angular.module('cdr.AppCtrl', [])
 	// end for delete user
 
 //change password
-  $scope.password = {};
-
   $scope.changePass = function(newPassword){
   	console.log($scope.userInfo.id);
     var User = Parse.Object.extend("User");
@@ -282,6 +216,14 @@ angular.module('cdr.AppCtrl', [])
     }
 
     });
+  }
+
+  $scope.hide = [{
+  	hidden: true
+  }]
+  //toggle fucntion to show change password form 
+  $scope.toggle = function(){
+  	$scope.hide.hidden = !$scope.hide.hidden;
   }
 
   //modal for changePass
