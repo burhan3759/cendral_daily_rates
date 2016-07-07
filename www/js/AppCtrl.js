@@ -54,7 +54,7 @@ angular.module('cdr.AppCtrl', [])
 		// console.log(
 		ModalService
 	      .mod('', $scope)
-	      .catch($scope.closeModal());	
+	      .catch($scope.closeModal())
 	      // );
 		
 	}
@@ -95,28 +95,35 @@ angular.module('cdr.AppCtrl', [])
 			  alert("Error, System Is Down, Please Try Again Later!");
 			}
 		  });
-		  $scope.closeSignUp();
+		  $scope.close();
 	 }else{
 	 	alert("Password Does Not Match!");
 	 }
 	 
 	};
 
-	$scope.updateUser = function(userID){
-      $cordovaDialogs.confirm('Are you sure you want to Update ' + userID.name + '?', 'Update user', ['Update', 'Cancel'])
+	//this function is used to either delete or update user 
+	$scope.DelUpdtUser = function(uid, type){
+		var type = type;
+      $cordovaDialogs.confirm('Are you sure you want to ' + type + ' ' + uid.name + '?', type+' user', [type, 'Cancel'])
         .then(function(buttonIndex) {
           // no button = 0, 'OK' = 1, 'Cancel' = 2
           var btnIndex = buttonIndex;
           if (btnIndex === 1) {
-            console.log("updateUser(): " + userID.id + " user name: " + userID.category);
-            Parse.Cloud.run('updateUser', {
-              objectId: userID.id,
-              category: userID.category
+            console.log(type+"User(): " + uid.id + " user name: " + uid.name);
+            if(type == 'delete'){
+	            var i = $scope.users.indexOf(uid);
+				$scope.users.splice(i, 1);
+			}
+            Parse.Cloud.run(type+'User', {
+              objectId: uid.id,
+              category: uid.category
             }
             , {
               success: function(status) {
                 // the user was updated successfully
-                $cordovaDialogs.alert(status, "Account Update");
+                $cordovaDialogs.alert(status, "Account "+type);
+
               },
               error: function(error) {
                 // error
@@ -126,7 +133,10 @@ angular.module('cdr.AppCtrl', [])
           }
         });
 
-        $scope.close();
+        if(type == 'delete'){
+        	$scope.close();	
+        }
+		
 	}
 
 	//Sign In function
@@ -165,12 +175,6 @@ angular.module('cdr.AppCtrl', [])
 		  }
       }else{}
     };
-
-	//logout function 
-	$scope.signOut = function(){
-		Parse.User.logOut();
-	}
-
 
 	// A confirm dialog to logout
 	$scope.showPopup = function() {
@@ -224,33 +228,6 @@ angular.module('cdr.AppCtrl', [])
 	}
 
 	// all function related to delete user
-	$scope.deleteUser = function(uid){
-      $cordovaDialogs.confirm('Are you sure you want to delete ' + uid.name + '?', 'Delete user', ['Delete', 'Cancel'])
-        .then(function(buttonIndex) {
-          // no button = 0, 'OK' = 1, 'Cancel' = 2
-          var btnIndex = buttonIndex;
-          if (btnIndex === 1) {
-            console.log("deleteUser(): " + uid.id + " user name: " + uid.name);
-            var i = $scope.users.indexOf(uid);
-			$scope.users.splice(i, 1);
-            Parse.Cloud.run('deleteUser', {
-              objectId: uid.id
-            }
-            , {
-              success: function(status) {
-                // the user was updated successfully
-                $cordovaDialogs.alert(status, "Account Deletion");
-
-              },
-              error: function(error) {
-                // error
-                $cordovaDialogs.alert(error, "Error");
-              }
-            });
-          }
-        });
-		$scope.closeUI();
-	}
 
 	$scope.data = {
 		showDelete: false
