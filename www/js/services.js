@@ -26,13 +26,17 @@ angular.module('cdr.Services', [])
     $scope.$on('$destroy', function() {
       $scope.modal.remove();
     });
+    var close = function() {
+      $scope.modal.hide();
+    };
 
       return promise;
     }
 
   
   return {
-    mod: mod
+    mod: mod,
+    close: close
   };
   
 });

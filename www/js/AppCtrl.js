@@ -50,6 +50,15 @@ angular.module('cdr.AppCtrl', [])
 	      });		
 	};
 
+	$scope.close = function(){
+		// console.log(
+		ModalService
+	      .mod('', $scope)
+	      .catch($scope.closeModal());	
+	      // );
+		
+	}
+
 
 	//this 'data' is and object -use for to get Sign Up and In done
 	$scope.data = {};
@@ -111,14 +120,13 @@ angular.module('cdr.AppCtrl', [])
               },
               error: function(error) {
                 // error
-                $cordovaDialogs.alert(error, "Error");
+                $cordovaDialogs.alert(error, "Error, Please Try Again Later");
               }
             });
           }
         });
-        // $scope.closeUI();
-        console.log("moser: " + ModalService.close());
-        ModalService.close();
+
+        $scope.close();
 	}
 
 	//Sign In function
@@ -127,7 +135,9 @@ angular.module('cdr.AppCtrl', [])
 	    success: function(user) {
 	      $scope.data.username = "";
 	      $scope.data.password = "";	
-	      $scope.closeSignIn();
+	      // $scope.closeSignIn();
+	      $scope.close();
+	      // $state.go('HomeTabs.Rates');
 	    },
 	    error: function(user, error) {
 	      // The login failed. Check error to see why.
@@ -266,29 +276,14 @@ angular.module('cdr.AppCtrl', [])
 	};
 	// end for delete user
 
-//modal for User info
-	$ionicModal.fromTemplateUrl('templates/User_Info.html', {
-		scope: $scope,
-		animation: 'slide-in-up'
-	}).then(function(modal) {
-		$scope.modalUI = modal;
-	});
-	$scope.openUI = function(user_info) {
-		$scope.modalUI.show();
-		$scope.userInfo = user_info;
-	};
-	$scope.closeUI = function() {
-		$scope.modalUI.hide();
-	}
-
 //change password
   $scope.password = {};
 
   $scope.changePass = function(newPassword){
-
+  	console.log($scope.userInfo.id);
     var User = Parse.Object.extend("User");
     var user = new Parse.Query(User);
-    user.equalTo("objectId", $scope.userCP.id);
+    user.equalTo("objectId", $scope.userInfo.id);
     user.first({
     success: function(object) {
         object.set("password",newPassword);
@@ -335,21 +330,5 @@ angular.module('cdr.AppCtrl', [])
   	}).then(function(popover) {
     	$scope.popover = popover;
   	});
-
-  	//modal for add currency 
-	$ionicModal.fromTemplateUrl('templates/add_Currency.html', {
-		scope: $scope,
-		animation: 'slide-in-up'
-	}).then(function(modal) {
-		$scope.modalAC = modal;
-	});
-	$scope.openAC = function() {
-		$scope.modalAC.show();
-	};
-	$scope.closeAC = function() {
-		$scope.modalAC.hide();
-	}
-	
-
 
 })
