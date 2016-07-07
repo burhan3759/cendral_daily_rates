@@ -12,6 +12,8 @@ angular.module('cdr.AppCtrl', [])
 	  		}
 	      	modal.show();	     
 	      });		
+
+	      $scope.closePopover();
 	};
 
 	//close the modal from controller :since close the modal at Html can be done by directly call the function in services.js
@@ -125,6 +127,8 @@ angular.module('cdr.AppCtrl', [])
 		   	Parse.User.logOut();  
 		 } else {	}
 		});
+
+		$scope.closePopover();
 	};
 
 
@@ -236,5 +240,20 @@ angular.module('cdr.AppCtrl', [])
 	}).then(function(popover) {
 		$scope.popover = popover;
 	});
+
+	$scope.closePopover = function() {
+    	$scope.popover.hide();
+  	};
+
+	//this function is to go from page to page
+	$scope.pages = function(page){
+		if(page == 'Rates'){
+			$state.go('HomeTabs.Rates');		
+		}else if(page == 'Users'){
+			$state.go('Users');	
+		}
+
+		$scope.closePopover();
+	}
 
 })
