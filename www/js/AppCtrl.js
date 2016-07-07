@@ -256,4 +256,21 @@ angular.module('cdr.AppCtrl', [])
 		$scope.closePopover();
 	}
 
+	$scope.BuyOrSellTggl = {
+		sell: false,
+		buy: true
+	}
+	// function for buy or sell tab in currency converter
+	$scope.BuyOrSell = function(){
+
+		
+		$scope.BuyOrSellTggl.sell = !$scope.BuyOrSellTggl.sell;
+		$scope.BuyOrSellTggl.buy = true;
+	}
+	$scope.BuyOrSell2 = function(){
+
+		$scope.BuyOrSellTggl.buy = !$scope.BuyOrSellTggl.buy;
+		$scope.BuyOrSellTggl.sell = true;
+	}
+
 })

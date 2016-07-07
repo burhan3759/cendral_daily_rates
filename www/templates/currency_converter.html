@@ -6,29 +6,48 @@
 	  	<button class="button button-clear" ng-click="closeModal()">Close</button>
 	</ion-header-bar>
 
-	<div class="bar bar-subheader">
-		<div class="button-bar">
-		<a class=" button button-outline button-balanced">
-  			Buy
-		</a>
-		<a class="button button-outline button-calm">
+	<div class="bar bar-subheader" >
+		<div class="button-bar" >
+		<a class="button button-outline button-calm" ng-click="BuyOrSell()">
   			Sell
+		</a>
+		<a class=" button button-outline button-balanced" ng-click="BuyOrSell2()">
+  			Buy
 		</a>
 		</div>
 	</div>
 
 	<ion-content class="padding has-subheader">
-	<div class="list">
-
-		<center><h4>{{convert_rate.name}} <i class="icon ion-arrow-swap"></i> Malaysia</h4></center>
+	<!-- Sell Form -->	
+	<div class="list" ng-hide="BuyOrSellTggl.sell">
+		<center><h4>Malaysia <i class="icon ion-arrow-swap"></i> {{convert_rate.name}} </h4></center>
+		
+	  	<label class="item item-input">
+			<!-- <input type="tel" placeholder='{{convert_rate.sell}}'> -->
+			<input type="tel" placeholder='{{convert_rate.amount}}' ng-model="sell">
+		    <span class="input-label">Malaysia</span>
+	  	</label>
 
 		<label class="item item-input">
-			<input type="tel" placeholder='{{convert_rate.amount}}'>
+			<div class="col col-75" placeholder='{{convert_rate.buy}}'>{{sell*convert_rate.amount/convert_rate.sell | number:2}}</div>
+			<span class="input-label">{{convert_rate.name}}</span>
+	  	</label>
+
+	</div>
+
+	<!-- Buy Form -->
+	<div class="list" ng-hide="BuyOrSellTggl.buy">
+		<center><h4>{{convert_rate.name}} <i class="icon ion-arrow-swap"></i> Malaysia</h4></center>
+		
+
+		<label class="item item-input">
+			<input type="tel" placeholder='{{convert_rate.amount}}' ng-model="buy">
 			<span class="input-label">{{convert_rate.name}}</span>
 	  	</label>
 
 	  	<label class="item item-input">
 			<input type="tel" placeholder='{{convert_rate.sell}}'>
+			<div class="col col-75" >{{buy*convert_rate.buy/convert_rate.amount | number:2}}</div>
 		    <span class="input-label">Malaysia</span>
 	  	</label>
 
@@ -48,6 +67,7 @@
 			  <div class="col col-75" >{{sell*convert_rate.amount/convert_rate.sell | number:2}}</div>
 			  <div class="col">{{convert_rate.name}}</div>
 			</div>
+
 		 	<br>
 		  	<label class="item item-input" ng-hide="a">
 		  		<input type="tel" placeholder='{{convert_rate.sell}}' ng-model="sell" >
