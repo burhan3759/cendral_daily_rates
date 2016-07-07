@@ -10,7 +10,7 @@
 	<ion-content>
 		<div class="list">
 
-			<a class="item item" ng-repeat="user in users" ng-click="openUI(user)">
+			<a class="item item" ng-repeat="user in users" ng-click="open('User_Info.html', user)">
 			  <h2>Name: {{user.name}}</h2>
 			  <p>Level: {{user.category}}</p>
 			</a>

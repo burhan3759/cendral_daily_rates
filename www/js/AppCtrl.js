@@ -37,81 +37,19 @@ angular.module('cdr.AppCtrl', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $state, $ionicPopup, $ionicHistory, $window, $cordovaDialogs,  $ionicPopover, ModalService){
 
-	//Sign In modal - this is the code for open a modal and hide it - using a template not script
 
-	// var template = 'SignUp.html'
-	// $scope.modals = function(getTemplate){
-	// 	$scope.getUrl = getTemplate;
-
-	// 	console.log("value: " + $scope.getUrl);
-
-	// 	$scope.signIn = function() {
-	// 		$scope.modalSI.show();
-	// 	};
-	// 	$scope.closeSignIn = function() {
-	// 		$scope.modalSI.hide();
-	// 	};
-	// 	if(template == 'SignUp.html'){
-	// 		template = $scope.getUrl;
-	// 	}
-
-	// 	$scope.signIn();
-	// }
-
-	// $ionicModal.fromTemplateUrl('templates/'+template, {
-	// 	scope: $scope,
-	// 	animation: 'slide-in-up'
-	// }).then(function(modal) {
-	// 	$scope.modalSI = modal;
-	// });
-
-	$scope.modal1 = function(getUrl) {
-	console.log("value: " + getUrl);
-    ModalService
-      .init('templates/'+getUrl, $scope)
-      .then(function(modal) {
-      	modal.show();	     
-      });
+	$scope.open = function(getUrl, user) {
+		// console.log(ModalService.mod());
+		ModalService
+	      .mod('templates/'+getUrl, $scope)
+	      .then(function(modal) {
+	      	if(user != null){
+	      		$scope.userInfo = user;
+	  		}
+	      	modal.show();	     
+	      });		
 	};
 
-	$scope.modal2 = function(getUrl) {
-	console.log("value 2: " + getUrl);
-    ModalService
-      .init('templates/'+getUrl, $scope)
-      .then(function(modal) {
-      	modal.hide();
-      });
-	};
-
-	
-
-	
-	// $ionicModal.fromTemplateUrl('templates/SignIn.html', {
-	// 	scope: $scope,
-	// 	animation: 'slide-in-up'
-	// }).then(function(modal) {
-	// 	$scope.modalSI = modal;
-	// });
-	// $scope.signIn = function() {
-	// 	$scope.modalSI.show();
-	// };
-	// $scope.closeSignIn = function() {
-	// 	$scope.modalSI.hide();
-	// };
-
-	//Sign Up modal - this is the code for open a modal and hide it - using a template not script
-	$ionicModal.fromTemplateUrl('templates/SignUp.html', {
-		scope: $scope,
-		animation: 'slide-in-up'
-	}).then(function(modal) {
-		$scope.modalSU = modal;
-	});
-	$scope.SignUp = function() {
-		$scope.modalSU.show();
-	};
-	$scope.closeSignUp = function() {
-		$scope.modalSU.hide();
-	};
 
 	//this 'data' is and object -use for to get Sign Up and In done
 	$scope.data = {};
@@ -178,7 +116,9 @@ angular.module('cdr.AppCtrl', [])
             });
           }
         });
-		$scope.closeUI();
+        // $scope.closeUI();
+        console.log("moser: " + ModalService.close());
+        ModalService.close();
 	}
 
 	//Sign In function
