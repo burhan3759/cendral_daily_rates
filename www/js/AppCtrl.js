@@ -189,15 +189,11 @@ angular.module('cdr.AppCtrl', [])
 	};
 	// end for delete user
 
-//change password
-	
+	//change password
 	//this scope variable will hold the data from pass from the form
 	$scope.password = {};
-	console.log($scope.password);
 
   	$scope.changePass = function(newPassword, userInfo){
-	  	console.log("password" + $scope.password.new_password);
-	  	console.log(userInfo.id + "  " + newPassword);
 	    var User = Parse.Object.extend("User");
 	    var user = new Parse.Query(User);
 	    user.equalTo("objectId", userInfo.id);
@@ -222,39 +218,23 @@ angular.module('cdr.AppCtrl', [])
 	    }
     });
 
-	$scope.password.new_password = "";
-  }
+		$scope.password.new_password = "";
+  	}
 
-  $scope.hide = [{
-  	hidden: true
-  }]
-  //toggle fucntion to show change password form 
-  $scope.toggle = function(){
-  	$scope.hide.hidden = !$scope.hide.hidden;
-  }
-
-  //modal for changePass
-
-	$ionicModal.fromTemplateUrl('templates/Forget_password.html', {
-		scope: $scope,
-		animation: 'slide-in-up'
-	}).then(function(modal) {
-		$scope.modalCP = modal;
-	});
-	$scope.openCP = function(user_info) {
-		$scope.modalCP.show();
-		$scope.userCP = user_info;
-	};
-	$scope.closeCP = function() {
-		$scope.modalCP.hide();
+	$scope.hide = [{
+		hidden: true
+	}]
+	//toggle fucntion to show change password form 
+	$scope.toggle = function(){
+		$scope.hide.hidden = !$scope.hide.hidden;
 	}
 
 	//Pop over - side menu in home page
 	// document.body.classList.add('platform-ios');
 	$ionicPopover.fromTemplateUrl('templates/PopOverSideMenu.html', {
-    	scope: $scope,
-  	}).then(function(popover) {
-    	$scope.popover = popover;
-  	});
+		scope: $scope,
+	}).then(function(popover) {
+		$scope.popover = popover;
+	});
 
 })
