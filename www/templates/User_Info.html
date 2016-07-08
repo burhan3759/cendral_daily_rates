@@ -1,11 +1,11 @@
 <ion-modal-view>
     <ion-header-bar class="bar-balanced">
       <h1 class="title">User Info</h1>
-	  <button class="button button-clear" ng-click="close()" ng-hide="hide.hidden">Close</button>
+	  <button class="button button-clear" ng-click="close()" ng-hide="!hide.hidden">Close</button>
     </ion-header-bar>
 
     <ion-content class="padding">
-      <div ng-hide="hide.hidden">
+      <div ng-hide="!hide.hidden">
         <div class="card">
 
   			  <div class="item item-divider">
@@ -49,7 +49,7 @@
   		  </center>
       </div>
 
-      <div class="list" ng-hide="!hide.hidden">
+      <div class="list" ng-hide="hide.hidden">
         <label class="item item-input item-stacked-label">
           <span class="input-label">New Password</span>
           <input type="password" placeholder="New Password..">

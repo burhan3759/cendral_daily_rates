@@ -8,10 +8,11 @@
 
 	<div class="bar bar-subheader" >
 		<div class="button-bar" >
-		<a class="button button-outline button-calm" ng-click="toggle('sell')">
+		<a class="button button-light " ng-click="toggle('sell')" ng-class="{'button\-balanced' : activeTab == 'sell'}">
   			Sell
 		</a>
-		<a class=" button button-outline button-balanced" ng-click="toggle('buy')">
+		<!-- <a class=" button button-outline button-balanced" ng-click="toggle('buy')"> -->
+		<a class="button button-light " ng-click="toggle('buy')" ng-class="{'button\-calm' : activeTab == 'buy'}">
   			Buy
 		</a>
 		</div>

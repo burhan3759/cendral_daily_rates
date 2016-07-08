@@ -1,17 +1,14 @@
-
-<ion-view view-title="Users">
-  <ion-nav-bar class="bar-balanced"></ion-nav-bar>
-	<ion-nav-buttons side="right">
-    <a class="button" ng-click="open('SignUp.html')">Create User</a>
-  </ion-nav-buttons>
-  <ion-nav-buttons side="left">
-    <a class="button button-clear" ng-click="pages('Rates')">
-      <i class="icon ion-arrow-left-c"></i>
-    </a>
-  </ion-nav-buttons>
+<ion-modal-view>
+    <ion-header-bar class="bar-balanced">
+      <button class="button button-clear button-left" ng-click="GoBack()">
+        <i class="icon ion-arrow-left-c"></i>
+      </button>
+      <h1 class="title">Add Currency</h1>
+      <button class="button" ng-click="toggle('user')">Create User</button>
+    </ion-header-bar>
   
 	<ion-content class="padding">
-		<div class="list">
+		<div class="list" ng-hide="!hide.user">
 
 			<a class="item item" ng-repeat="user in users" ng-click="open('User_Info.html', user)">
 			  <h2>Name: {{user.name}}</h2>
@@ -35,5 +32,35 @@
           <ion-reorder-button class="ion-navicon" on-reorder="moveItem(user, $fromIndex, $toIndex)"></ion-reorder-button>
         </ion-item>
       </ion-list> -->
+
+            <ion-list ng-hide="hide.user">
+                <label class="item item-input">
+                    <span class="input-label">Name</span>
+                    <input type="text" placeholder="Name.." ng-model="data.name">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Username</span>
+                    <input type="text" placeholder="Username..." ng-model="data.username">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Password</span>
+                    <input type="password" placeholder="At least 6 characters" ng-model="data.password">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Confirm Password</span>
+                    <input type="password" placeholder="At least 6 characters" ng-model="data.confirm_password">
+                </label>
+                <label class="item item-input item-select">
+                    <div class="input-label">
+                      Access Level
+                    </div>
+                    <select ng-model="data.category">
+                      <option>Admin</option>
+                      <option>Staff</option>
+                    </select>
+                </label>
+                <button class="button button-stable button-block button-dark" ng-click="signup()">Sign Up</button>
+            </ion-list>
+            
 	</ion-content>
-</ion-view>
+</ion-modal-view>

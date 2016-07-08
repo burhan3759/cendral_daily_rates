@@ -1,6 +1,6 @@
 angular.module('cdr.AppCtrl', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $state, $ionicPopup, $ionicHistory, $window, $cordovaDialogs,  $ionicPopover, ModalService, CordovaService){
+.controller('AppCtrl', function($scope, $ionicHistory, $ionicModal, $state, $ionicPopup, $ionicHistory, $window, $cordovaDialogs,  $ionicPopover, ModalService, CordovaService){
 
 	//Function to call modal at services.js by passing html file name as parameter
 	$scope.open = function(getUrl, user) {
@@ -16,12 +16,17 @@ angular.module('cdr.AppCtrl', [])
 	      $scope.closePopover();
 	};
 
+
 	//close the modal from controller :since close the modal at Html can be done by directly call the function in services.js
 	$scope.close = function(){
 		ModalService
 	      .mod('', $scope)
 	      .catch($scope.closeModal())		
 	}
+
+	$scope.GoBack = function() {
+	    $ionicHistory.goBack();
+  	};
 
 	//this function is used to either delete or update user 
 	//:main function at services.js, it is writen there so can be access by anyone and use it as pleased 
@@ -228,13 +233,21 @@ angular.module('cdr.AppCtrl', [])
 	$scope.hide = {
 		hidden: true,
 		buy: true,
-		sell: false
+		sell: false,
+		user: true
 	}
+
+	$scope.activeTab = 'sell';
 	//toggle fucntion to show change password form 
 	$scope.toggle = function(type){
 
+		$scope.activeTab = type;
 		if(type == 'fp'){
 			$scope.hide.hidden = !$scope.hide.hidden;
+		}
+
+		if(type == 'user'){
+			$scope.hide.user = !$scope.hide.user;
 		}
 
 		if(type == 'buy'){
