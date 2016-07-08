@@ -11,7 +11,6 @@
 		<a class="button button-light " ng-click="toggle('sell')" ng-class="{'button\-balanced' : activeTab == 'sell'}">
   			Sell
 		</a>
-		<!-- <a class=" button button-outline button-balanced" ng-click="toggle('buy')"> -->
 		<a class="button button-light " ng-click="toggle('buy')" ng-class="{'button\-calm' : activeTab == 'buy'}">
   			Buy
 		</a>
@@ -22,67 +21,36 @@
 	<!-- Sell Form -->	
 
 	<div class="list" ng-hide="hide.sell">
-		<center><h4>Malaysia <i class="icon ion-arrow-swap"></i> {{convert_rate.name}} </h4></center>
+		<center><h4>Malaysia <i class="icon ion-arrow-swap"></i> {{rates.name}} </h4></center>
 		
-	  	<label class="item item-input">
-			<!-- <input type="tel" placeholder='{{convert_rate.sell}}'> -->
-			<input type="tel" placeholder='{{convert_rate.amount}}' ng-model="sell">
+	  	<label class="item item-input" ng-class="{'current' : activeTab == 'sell'}">
+			<!-- <input type="tel" placeholder='{{rates.sell}}'> -->
+			<input type="tel" placeholder='{{rates.sell}}' ng-model="sell">
 		    <span class="input-label">Malaysia</span>
 	  	</label>
 
 		<label class="item item-input">
-			<div class="col col-75" placeholder='{{convert_rate.buy}}'>{{sell*convert_rate.amount/convert_rate.sell | number:2}}</div>
-			<span class="input-label">{{convert_rate.name}}</span>
+			<div class="col col-67" placeholder='...'>{{sell*rates.amount/rates.sell | number:2}}</div>
+			<span class="input-label">{{rates.name}}</span>
 	  	</label>
 
 	</div>
 
 	<!-- Buy Form -->
 	<div class="list" ng-hide="hide.buy">
-		<center><h4>{{convert_rate.name}} <i class="icon ion-arrow-swap"></i> Malaysia</h4></center>
+		<center><h4>{{rates.name}} <i class="icon ion-arrow-swap"></i> Malaysia</h4></center>
 		
 
-		<label class="item item-input">
-			<input type="tel" placeholder='{{convert_rate.amount}}' ng-model="buy">
-			<span class="input-label">{{convert_rate.name}}</span>
+		<label class="item item-input" ng-class="{'current' : activeTab == 'buy'}">
+			<input type="tel" placeholder='{{rates.amount}}' ng-model="buy">
+			<span class="input-label">{{rates.name}}</span>
 	  	</label>
 
 	  	<label class="item item-input">
-			<input type="tel" placeholder='{{convert_rate.sell}}'>
-			<div class="col col-75" >{{buy*convert_rate.buy/convert_rate.amount | number:2}}</div>
+			<div class="col col-67" >{{buy*rates.buy/rates.amount | number:2}}</div>
 		    <span class="input-label">Malaysia</span>
 	  	</label>
 
 	</div>
-
-		<!-- <div class="logo"></div>
-		<div class="converter-block">
-			<center><h4>{{convert_rate.name}} <i class="icon ion-arrow-swap"></i> Malaysia</h4></center>
-			<label class="item item-input" ng-show="a">
-		  		<input type="tel" placeholder='{{convert_rate.amount}}' ng-model="unit" >
-		    	<span class="input-label">{{convert_rate.name}}</span>
-		  	</label> -->
-		  	
-				<!-- this method for show the conversion rate according to what user type -->
-		  	
- 			<!-- <div class="row item" ng-click="AtoB(sell*convert_rate.amount/convert_rate.sell)" ng-hide="a">
-			  <div class="col col-75" >{{sell*convert_rate.amount/convert_rate.sell | number:2}}</div>
-			  <div class="col">{{convert_rate.name}}</div>
-			</div>
-
-		 	<br>
-		  	<label class="item item-input" ng-hide="a">
-		  		<input type="tel" placeholder='{{convert_rate.sell}}' ng-model="sell" >
-		    	<span class="input-label">Malaysia</span>
-		  	</label> -->
-		  	
-				<!-- this method for show the conversion rate according to what user type -->
-		  	
- 			<!-- <div class="row item" ng-click="AtoB(unit*convert_rate.sell/convert_rate.amount)" ng-show="a">
-			  <div class="col col-75" >{{unit*convert_rate.sell/convert_rate.amount | number:2}}</div>
-			  <div class="col">Malaysia</div>
-			</div>
-		</div>  -->
-
 	</ion-content>
 </ion-modal-view>

@@ -1,6 +1,6 @@
  angular.module('cdr.RatesCtrl', [])
 
-.controller('RatesCtrl', function($scope, $ionicModal, $cordovaDialogs, $window){
+.controller('RatesCtrl', function($scope, $ionicModal, $cordovaDialogs, $window, ModalService){
 
 // This is obj arr created to store all data that been retrieved from data base - to store data temporaryly if user add currency
 	$scope.arr = [];
@@ -161,25 +161,39 @@
 		
 	}
 		
+	$scope.openRate = function(rate){
+		var Url = "";
+		if($scope.loggedIn()){
+			Url = 'Currency_update.html';
+		}else{
+			Url = 'currency_converter.html';
+		}
+		ModalService
+		.mod('templates/'+Url, $scope)
+		.then(function(modal){
+			$scope.rates = rate;
+			modal.show();
+		});		
+	}
 
 //modal for currency converter
-	$ionicModal.fromTemplateUrl('templates/currency_converter.html', {
-		scope: $scope,
-		animation: 'slide-in-up'
-	}).then(function(modal) {
-		$scope.modal = modal;
-	});
-	$scope.openModal = function(rate) {
-		$scope.unit;
-		$scope.sell;
-		$scope.modal.show();
-		$scope.convert_rate = rate;
-	};
-	$scope.closeModal = function() {
-		$scope.unit = 0;
-		$scope.sell = 0;
-		$scope.modal.hide();
-	}
+	// $ionicModal.fromTemplateUrl('templates/currency_converter.html', {
+	// 	scope: $scope,
+	// 	animation: 'slide-in-up'
+	// }).then(function(modal) {
+	// 	$scope.modal = modal;
+	// });
+	// $scope.openModal = function(rate) {
+	// 	$scope.unit;
+	// 	$scope.sell;
+	// 	$scope.modal.show();
+	// 	$scope.convert_rate = rate;
+	// };
+	// $scope.closeModal = function() {
+	// 	$scope.unit = 0;
+	// 	$scope.sell = 0;
+	// 	$scope.modal.hide();
+	// }
 
 //this function is to convert currency from A to B and B to A
 	$scope.typeAS = {};

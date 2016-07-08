@@ -143,6 +143,8 @@
 }
 
 .current{
-  background:blue;
-  color:white !important;
+/*  background:blue;
+  color:white !important;*/
+    border-style: solid;
+    border-color: #0000ff #ff0000;
 }

@@ -11,7 +11,7 @@
 
 	<!-- Data fetch from database -->
 		<div ng-repeat="rate in arr">
-			<div class="row item" ng-click="openModal(rate)">
+			<div class="row item" ng-click="openRate(rate)">
 				<div class="col col-33" id="UnitCurrency">{{rate.name}}</div>
 				<div class="col" id="UnitCurrency">{{rate.amount}}</div>
 				<div class="col">{{rate.sell}}</div>

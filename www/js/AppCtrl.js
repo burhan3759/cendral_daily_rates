@@ -88,9 +88,7 @@ angular.module('cdr.AppCtrl', [])
 	    success: function(user) {
 	      $scope.data.username = "";
 	      $scope.data.password = "";	
-	      // $scope.closeSignIn();
 	      $scope.close();
-	      // $state.go('HomeTabs.Rates');
 	    },
 	    error: function(user, error) {
 	      // The login failed. Check error to see why.
