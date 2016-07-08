@@ -148,6 +148,7 @@
     border-color: #0000ff #ff0000;
 }
 
+/*Side Menu PopOver size, this css code make the size dynamic, will change according to content*/
 ion-popover-view.fit {
   height: auto !important;
 }
