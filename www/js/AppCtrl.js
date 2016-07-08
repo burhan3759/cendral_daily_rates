@@ -225,12 +225,31 @@ angular.module('cdr.AppCtrl', [])
 		$scope.password.new_password = "";
   	}
 
-	$scope.hide = [{
-		hidden: true
-	}]
+	$scope.hide = {
+		hidden: true,
+		buy: true,
+		sell: false
+	}
 	//toggle fucntion to show change password form 
-	$scope.toggle = function(){
-		$scope.hide.hidden = !$scope.hide.hidden;
+	$scope.toggle = function(type){
+
+		if(type == 'fp'){
+			$scope.hide.hidden = !$scope.hide.hidden;
+		}
+
+		if(type == 'buy'){
+			if($scope.hide.buy == false){
+				$scope.hide.buy = false;
+			}
+			$scope.hide.buy = false;
+			$scope.hide.sell = true;
+		}else if(type == 'sell'){
+			if($scope.hide.sell == false){
+				$scope.hide.sell = false;
+			}
+			$scope.hide.sell = false;
+			$scope.hide.buy = true;
+		}
 	}
 
 	//Pop over - side menu in home page
@@ -255,22 +274,4 @@ angular.module('cdr.AppCtrl', [])
 
 		$scope.closePopover();
 	}
-
-	$scope.BuyOrSellTggl = {
-		sell: false,
-		buy: true
-	}
-	// function for buy or sell tab in currency converter
-	$scope.BuyOrSell = function(){
-
-		
-		$scope.BuyOrSellTggl.sell = !$scope.BuyOrSellTggl.sell;
-		$scope.BuyOrSellTggl.buy = true;
-	}
-	$scope.BuyOrSell2 = function(){
-
-		$scope.BuyOrSellTggl.buy = !$scope.BuyOrSellTggl.buy;
-		$scope.BuyOrSellTggl.sell = true;
-	}
-
 })

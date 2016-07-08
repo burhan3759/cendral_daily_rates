@@ -8,10 +8,10 @@
 
 	<div class="bar bar-subheader" >
 		<div class="button-bar" >
-		<a class="button button-outline button-calm" ng-click="BuyOrSell()">
+		<a class="button button-outline button-calm" ng-click="toggle('sell')">
   			Sell
 		</a>
-		<a class=" button button-outline button-balanced" ng-click="BuyOrSell2()">
+		<a class=" button button-outline button-balanced" ng-click="toggle('buy')">
   			Buy
 		</a>
 		</div>
@@ -19,7 +19,8 @@
 
 	<ion-content class="padding has-subheader">
 	<!-- Sell Form -->	
-	<div class="list" ng-hide="BuyOrSellTggl.sell">
+
+	<div class="list" ng-hide="hide.sell">
 		<center><h4>Malaysia <i class="icon ion-arrow-swap"></i> {{convert_rate.name}} </h4></center>
 		
 	  	<label class="item item-input">
@@ -36,7 +37,7 @@
 	</div>
 
 	<!-- Buy Form -->
-	<div class="list" ng-hide="BuyOrSellTggl.buy">
+	<div class="list" ng-hide="hide.buy">
 		<center><h4>{{convert_rate.name}} <i class="icon ion-arrow-swap"></i> Malaysia</h4></center>
 		
 
