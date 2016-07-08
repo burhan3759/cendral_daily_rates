@@ -1,7 +1,14 @@
  angular.module('cdr.RatesCtrl', [])
 
-.controller('RatesCtrl', function($scope, $ionicModal, $cordovaDialogs, $window, ModalService){
+.controller('RatesCtrl', function($scope, $ionicModal, $cordovaDialogs, $window, ModalService, $ionicLoading){
 
+	$scope.loading = function() {
+		$ionicLoading.show({
+		  template: 'Loading...'
+		}).then(function(){
+		   console.log("The loading indicator is now displayed");
+		});
+	}
 // This is obj arr created to store all data that been retrieved from data base - to store data temporaryly if user add currency
 	$scope.arr = [];
 	var bol = false;
