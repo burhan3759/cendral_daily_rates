@@ -1,6 +1,6 @@
 angular.module('cdr.AppCtrl', [])
 
-.controller('AppCtrl', function($scope, $ionicHistory, $ionicModal, $state, $ionicPopup, $ionicHistory, $window, $cordovaDialogs,  $ionicPopover, ModalService, CordovaService){
+.controller('AppCtrl', function($scope, $ionicHistory, $ionicModal, $state, $ionicPopup, $ionicHistory, $window, $cordovaDialogs,  $ionicPopover, ModalService, CordovaService, LoadingService){
 
 	//Function to call modal at services.js by passing html file name as parameter
 	$scope.open = function(getUrl, user) {
@@ -134,7 +134,6 @@ angular.module('cdr.AppCtrl', [])
 		$scope.closePopover();
 	};
 
-
 	//get all user 
 	var bol = false;
 	$scope.users = [];
@@ -163,7 +162,9 @@ angular.module('cdr.AppCtrl', [])
 		    alert("Error: " + error.code + " " + error.message);
 		  }
 		})
-		bol = true;
+		bol = true;	
+		LoadingService
+		.load($scope);
 	}else{	}
 
 	$scope.refresh = function(){

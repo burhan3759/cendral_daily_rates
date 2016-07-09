@@ -1,14 +1,13 @@
  angular.module('cdr.RatesCtrl', [])
 
-.controller('RatesCtrl', function($scope, $ionicModal, $cordovaDialogs, $window, ModalService, $ionicLoading){
+.controller('RatesCtrl', function($scope, $ionicModal, $cordovaDialogs, $window, ModalService, $ionicLoading, LoadingService){
 
-	$scope.loading = function() {
-		$ionicLoading.show({
-		  template: 'Loading...'
-		}).then(function(){
-		   console.log("The loading indicator is now displayed");
-		});
+
+	$scope.load = function(){
+		LoadingService
+		.load($scope);
 	}
+
 // This is obj arr created to store all data that been retrieved from data base - to store data temporaryly if user add currency
 	$scope.arr = [];
 	var bol = false;
@@ -34,6 +33,7 @@
 		    alert("There is problem occured, Sorry. Please try Again");
 		  }
 		})
+		$scope.load();
 	}else{	}
 
 // object variable for update rates page

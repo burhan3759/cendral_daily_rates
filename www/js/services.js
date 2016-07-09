@@ -75,4 +75,30 @@ angular.module('cdr.Services', [])
     return {
       cordova: cordova
   }
+})
+
+.service('LoadingService', function($ionicLoading, $rootScope,  $timeout) {
+  
+
+  var load = function($scope){
+    $scope = $scope || $rootScope.$new();
+
+    $ionicLoading.show({
+      content: 'Loading',
+      animation: 'fade-in',
+      showBackdrop: true,
+      maxWidth: 200,
+      showDelay: 0
+    });
+
+      $timeout(function () {
+        $ionicLoading.hide();
+      }, 2000);
+
+    return load;
+  }
+
+  return {
+    load : load
+  }
 });
