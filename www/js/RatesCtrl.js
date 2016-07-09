@@ -10,9 +10,12 @@
 
 // This is obj arr created to store all data that been retrieved from data base - to store data temporaryly if user add currency
 	$scope.arr = [];
-	var bol = false;
-	if(bol === false){
-// 	if(!localStorage['arr']){
+
+	if(!localStorage['arr']){
+		$scope.getRate();
+	}else{	}
+
+	$scope.getRate = function(){
 		var getRates = Parse.Object.extend("Rates");
 		var get_rates = new Parse.Query(getRates);
 		get_rates.find({
@@ -34,7 +37,9 @@
 		  }
 		})
 		$scope.load();
-	}else{	}
+	}
+
+	 $scope.arr = JSON.parse(localStorage['arr'] || '[]');
 
 // object variable for update rates page
 	$scope.rates = {};
@@ -44,6 +49,12 @@
 		$window.location.reload(true);
 	}
 
+	//Close modal
+	$scope.close = function(){
+		ModalService
+	      .mod('', $scope)
+	      .catch($scope.closeModal())		
+	}
 //this id is dynamic, will change everytime we add new currency
 	var getID;	
 	$scope.save = function(){
@@ -84,21 +95,7 @@
 		    alert('Currently cannot update the rates. Sorry, Please try in a moment');
 		  }
 		})
-		$scope.closeCU();
-	}
-//modal for currency update
-	$ionicModal.fromTemplateUrl('templates/Currency_update.html', {
-		scope: $scope,
-		animation: 'slide-in-up'
-	}).then(function(modal) {
-		$scope.modalCU = modal;
-	});
-	$scope.openCU = function(rate) {
-		$scope.modalCU.show();
-		$scope.update_rate = rate;
-	};
-	$scope.closeCU = function() {
-		$scope.modalCU.hide();
+		$scope.close();
 	}
 
 
@@ -128,15 +125,7 @@
 		});
 
 		console.log("get the name: " + data.name);
-// 		$scope.arr.push({
-// 			id: getID,
-//         	name: data.name,
-//         	amount: data.amount,
-//         	sell: data.sell,
-//         	buy: data.buy
-// 	    });
-// 	    bol = false;
-	    $scope.closeAC();
+	    $scope.close();
 	}
 
 
@@ -153,7 +142,7 @@
 			var query = new Parse.Query(Delete);
 			query.get(data.id, {
 			  success: function(myObj) {
-			  	$scope.closeCU();
+			  	$scope.close();
 				// The object was retrieved successfully.
 				myObj.destroy({});
 				$scope.refresh();
@@ -182,25 +171,6 @@
 			modal.show();
 		});		
 	}
-
-//modal for currency converter
-	// $ionicModal.fromTemplateUrl('templates/currency_converter.html', {
-	// 	scope: $scope,
-	// 	animation: 'slide-in-up'
-	// }).then(function(modal) {
-	// 	$scope.modal = modal;
-	// });
-	// $scope.openModal = function(rate) {
-	// 	$scope.unit;
-	// 	$scope.sell;
-	// 	$scope.modal.show();
-	// 	$scope.convert_rate = rate;
-	// };
-	// $scope.closeModal = function() {
-	// 	$scope.unit = 0;
-	// 	$scope.sell = 0;
-	// 	$scope.modal.hide();
-	// }
 
 //this function is to convert currency from A to B and B to A
 	$scope.typeAS = {};

@@ -1,6 +1,7 @@
 angular.module('cdr.AppCtrl', [])
 
-.controller('AppCtrl', function($scope, $ionicHistory, $ionicModal, $state, $ionicPopup, $ionicHistory, $window, $cordovaDialogs,  $ionicPopover, ModalService, CordovaService, LoadingService){
+.controller('AppCtrl', function($scope, $ionicHistory, $ionicModal, $state, $ionicPopup, $ionicHistory,
+ $window, $cordovaDialogs,  $ionicPopover, ModalService, CordovaService, LoadingService){
 
 	//Function to call modal at services.js by passing html file name as parameter
 	$scope.open = function(getUrl, user) {
@@ -119,8 +120,6 @@ angular.module('cdr.AppCtrl', [])
 
 	// A confirm dialog to logout
 	$scope.showPopup = function() {
-		$state.go('HomeTabs.Rates');
-
 		var confirmPopup = $ionicPopup.confirm({
 		 title: 'Sign Out',
 		 template: 'Are you sure you want to Sign Out?'
@@ -134,10 +133,20 @@ angular.module('cdr.AppCtrl', [])
 		$scope.closePopover();
 	};
 
+	$scope.load = function(){
+		LoadingService
+		.load($scope);
+	}
+
 	//get all user 
-	var bol = false;
+
 	$scope.users = [];
-	if(bol === false){
+	$scope.users = JSON.parse(localStorage['users'] || '[]');
+	if(!localStorage['users']){
+		$scope.getUsers
+	}else{	}
+
+	$scope.getUsers = function(){
 		var getUsers = Parse.Object.extend("User");
 		var get_users = new Parse.Query(getUsers);
 		get_users.find({
@@ -153,19 +162,16 @@ angular.module('cdr.AppCtrl', [])
 	            	name: data.get('name'),
 	            	username: data.get('username'),
 	            	category: data.get('category')
-	            });
-		      // alert(object.id + ' - ' + object.get('currency').name + "\n");
-		      // console.log(data.get('name'));
+	            })
 		    }
+		    localStorage['users'] = JSON.stringify($scope.users);
 		  },
 		  error: function(error) {
 		    alert("Error: " + error.code + " " + error.message);
 		  }
 		})
-		bol = true;	
-		LoadingService
-		.load($scope);
-	}else{	}
+		$scope.load();
+	}
 
 	$scope.refresh = function(){
 		$window.location.reload(true);
