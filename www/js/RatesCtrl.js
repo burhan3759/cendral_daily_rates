@@ -60,7 +60,7 @@
 
 		    $scope.check($scope.updt);
 		    if(type == 'rate'){	
-		    	localStorage['arr'] = JSON.stringify($scope.arrs);
+		    	localStorage.setItem('arr',  JSON.stringify($scope.arrs));
 		    	
 			}
  
@@ -84,7 +84,8 @@
 	}
 
 	$scope.clearLS = function (){
-		$window.localStorage.clear();
+		// $window.localStorage.clear();
+		localStorage.removeItem('arr');
 		console.log("Clear LS pressed");
 	}
 
@@ -268,7 +269,7 @@
 
 	if(!localStorage['arr']){
 		$scope.getRate('rate');
-
+		console.log("updted");
 	}else{
 		$scope.getRate('update');		
 	}

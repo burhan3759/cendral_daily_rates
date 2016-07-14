@@ -89,7 +89,7 @@ angular.module('cdr.AppCtrl', [])
 	    success: function(user) {
 	      $scope.data.username = "";
 	      $scope.data.password = "";	
-	      $scope.close();
+	      $scope.GoBack();
 	    },
 	    error: function(user, error) {
 	      // The login failed. Check error to see why.
