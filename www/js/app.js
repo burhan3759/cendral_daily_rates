@@ -92,7 +92,7 @@ angular.module('cdr', ['ionic', 'cdr.Services', 'cdr.AppCtrl', 'cdr.RatesCtrl', 
   .state('AddCurrency',{
     url: '/Add_Currency',
     templateUrl: 'templates/add_Currency.html',
-    controller: 'AppCtrl'
+    controller: 'RatesCtrl'
   })
   //Side menu in homepage
   .state('popover',{

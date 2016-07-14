@@ -142,10 +142,6 @@ angular.module('cdr.AppCtrl', [])
 
 	$scope.users = [];
 	$scope.users = JSON.parse(localStorage['users'] || '[]');
-	if(!localStorage['users']){
-		$scope.getUsers
-	}else{	}
-
 	$scope.getUsers = function(){
 		var getUsers = Parse.Object.extend("User");
 		var get_users = new Parse.Query(getUsers);
@@ -292,4 +288,8 @@ angular.module('cdr.AppCtrl', [])
 
 		$scope.closePopover();
 	}
+
+	if(!localStorage['users']){
+		$scope.getUsers();
+	}else{	}
 })

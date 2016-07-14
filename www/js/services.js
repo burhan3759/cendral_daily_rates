@@ -83,6 +83,7 @@ angular.module('cdr.Services', [])
   var load = function($scope){
     $scope = $scope || $rootScope.$new();
 
+    
     $ionicLoading.show({
       content: 'Loading',
       animation: 'fade-in',

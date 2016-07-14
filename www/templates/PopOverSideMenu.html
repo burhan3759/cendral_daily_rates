@@ -6,7 +6,7 @@
       </a>
       <div ng-if="loggedIn()">
         <div ng-if="admin()">
-          <a class="item" ng-click="open('add_Currency.html')">
+          <a class="item" ui-sref="AddCurrency" ng-click="closePopover()">
             <i class="icon ion-cash"></i> Add Currency
           </a>
           <a class="item" ui-sref="Users" ng-click="closePopover()">

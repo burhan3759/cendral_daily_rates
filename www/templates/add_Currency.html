@@ -1,7 +1,10 @@
 <ion-modal-view>
     <ion-header-bar class="bar-balanced">
+      <!-- <button class="button button-clear" ng-click="closeModal()">Close</button> -->
+      <button class="button button-clear button-left" ng-click="GoBack()">
+        <i class="icon ion-arrow-left-c"></i>
+      </button>
       <h1 class="title">Add Currency</h1>
-      <button class="button button-clear" ng-click="close()">Close</button>
     </ion-header-bar>
 
     <ion-content class="padding">
@@ -25,10 +28,11 @@
           </label>
         </div>
         <button class="button button-stable button-block button-balanced" ng-click="addCurrency(add_rate)">
-  			Add Currency
-		</button>
-        <button class="button button-stable button-block button-assertive" ng-click="closeAC()">
-  			Cancel
-		</button>
+  			 Add Currency
+		    </button>
+        <button class="button button-stable button-block button-assertive" ng-click="GoBack()">
+  			 Cancel
+    		</button>
+        
     </ion-content>
 </ion-modal-view>
