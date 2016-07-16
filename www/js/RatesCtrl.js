@@ -84,8 +84,8 @@
 		    //scpe.load will load the page - not real time load
 		    if(type == 'rate'){	
 		    	localStorage.setItem('arr',  JSON.stringify($scope.arrs));
-		    	// $scope.refresh();
-		    	// $scope.load();
+		    	$scope.refresh();
+		    	$scope.load();
 			}
  
 		  },
@@ -101,16 +101,12 @@
 
 	//refresh the page
 	$scope.refresh = function(){
-		$scope.clearLS();
 		$window.location.reload(true);
 	}
-	if($scope.arr == []){
-		console.log("empty")
-		$scope.$on('$ionicView.loaded', function(){
-			$scope.arr = $scope.arr;
+	$scope.$on('$ionicView.loaded', function(){			
 		});
-		$scope.$on('$ionicView.enter');
-	}
+	$scope.$on('$ionicView.enter', function(){			
+		});
 	$scope.doRefresh = function() {
        $scope.$broadcast('scroll.refreshComplete');
   	};
@@ -154,8 +150,7 @@
 		add.save(null, {
 			success: function(rates) {
 
-	 			console.log('New object created with objectId: ' + rates.id);
-				$scope.arrs.push({
+				$scope.arr.push({
 					id: rates.id,
 					name: data.name,
 					amount: data.amount,
@@ -163,7 +158,8 @@
 					buy: data.buy,
 					Updt: Date()
 				});
-	 			// $scope.refresh();
+	 			$scope.GoBack();
+	    		$scope.refresh();
 	 			alert('Successfully add New Currency');
 			},
 			error: function(rates, error) {
@@ -171,9 +167,6 @@
 			    alert('Failed to Add Currency. Please Try Again');
 			}
 		});
-
-		// console.log("get the name: " + data.name);
-	    $scope.GoBack();
 	}
 
 
@@ -207,21 +200,15 @@
 
 	$scope.check = function(updt){
 		var x = false;
-		console.log($scope.arr.length + 
-			" : ipdt: " + updt.length);
 		if(counter == 0){
 			for(var z=0; z<updt.length; z++){
 				
 				if(updt.length < $scope.arr.length || updt.length > $scope.arr.length){
 					x = true;
-					console.log("updated");
 				}else{
-
-					console.log(z+ ": "+$scope.arr[z].Updt);
 					var getUpdt = $filter('date')(updt[z].Updt , 'dd/MM/yyyy HH:mm');
 					var getDate = $filter('date')($scope.arr[z].Updt , 'dd/MM/yyyy HH:mm');
 					if(getUpdt > getDate){
-						console.log("updated");
 						x = true;
 					}
 				}

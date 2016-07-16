@@ -1,11 +1,6 @@
 <ion-view view-title="Daily Rates" >
 	<ion-content class="padding" overflow-scroll="true">
 
-	<ion-refresher
-      pulling-text="Pull to refresh..."
-      on-refresh="refresh()">
-    </ion-refresher>
-
 	<!-- The interface to put the content -->
 		<div  id="rowTitle" class="row item">
 			<div class="col col-33">Currency</div>
@@ -15,7 +10,7 @@
 		</div>
 
 	<!-- Data fetch from database -->
-	<ion-list>
+
 		<div ng-repeat="rate in arr">
 			<div class="row item" ng-click="openRate(rate)">
 				<div class="col col-33" id="UnitCurrency">{{rate.name}}</div>
@@ -25,9 +20,8 @@
 				<!-- <div class="col">{{rate.lastUpdt}}</div> -->
 			</div>
 		</div>
-	</ion-list>
 
-		<button class="button" ng-click="clearLS()">Clear LS</button>
+		<div class="button button-full button-clear button-energized" ng-click="refresh()">Refresh</div>
 
 		<!-- {{arr}} -->
 

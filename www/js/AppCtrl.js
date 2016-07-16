@@ -1,7 +1,7 @@
 angular.module('cdr.AppCtrl', [])
 
 .controller('AppCtrl', function($scope, $ionicHistory, $state, $ionicHistory,
- $window, $cordovaDialogs,  $ionicPopover, ModalService, CordovaService, LoadingService, $filter){
+ $window, $cordovaDialogs, $ionicPopup, $ionicPopover, ModalService, CordovaService, LoadingService, $filter){
 
 	//Function to call modal at services.js by passing html file name as parameter
 	$scope.open = function(getUrl, user) {
@@ -48,7 +48,7 @@ angular.module('cdr.AppCtrl', [])
 
 	//Sign Up function 
 	$scope.signup = function(){
-		if($scope.data.password === $scope.data.confirm_password){
+		if($scope.data.password == $scope.data.confirm_password){
 
 		  //Create a new user on Parse
 		  var Adduser = Parse.Object.extend("User");
@@ -61,25 +61,22 @@ angular.module('cdr.AppCtrl', [])
 
 		  add_user.save(null, {
 			success: function(user) {
-			  // Hooray! Let them use the app now.
-			  alert("success!");
 			    $scope.users.push({
 		        	name: $scope.data.name,
 		        	username: $scope.data.username,
 		        	category: $scope.data.category
 		        });
-		       $scope.GoBack();
+		    	alert("User is Successfully Added");
 			},
 			error: function(user, error) {
 			  // Show the error message somewhere and let the user try again.
 			  alert("Error, System Is Down, Please Try Again Later!");
 			}
 		  });
-		  $scope.close();
+
 		}else{
 			alert("Password Does Not Match!");
 		}
-	 
 	};
 
 
@@ -149,12 +146,7 @@ angular.module('cdr.AppCtrl', [])
 		var get_users = new Parse.Query(getUsers);
 		get_users.find({
 		  success: function(results) {
-		    // console.log("Successfully retrieved " + results.length);
-		    // alert("Successfully retrieved " + results.length);
-		    // Do something with the returned Parse.Object values
-		    
 		    for (var i = 0; i < results.length; i++) {
-		    	// var updt = results[i].get('updatedAt');
 		    	var data = results[i]
 		    	if(type == 'user'){
 		    		
@@ -175,8 +167,8 @@ angular.module('cdr.AppCtrl', [])
 		    }
 		    if(type == 'user'){
 		    	localStorage.setItem('users', JSON.stringify($scope.users));
-		    	$scope.$broadcast('scroll.refreshComplete');
-		    	// $scope.load();
+		    	$scope.load();
+		    	$scope.refresh();
 		    }
 
 		    $scope.check($scope.updts);
@@ -198,13 +190,17 @@ angular.module('cdr.AppCtrl', [])
 		var x = false;
 		if(counter == 0){
 			for(var z=0; z<updt.length; z++){
-			
-			var getUpdt = $filter('date')(updt[z].updt , 'dd/MM/yyyy HH:mm');
-			var getDate = $filter('date')($scope.Users[z].updt , 'dd/MM/yyyy HH:mm');
-				
-				if(getUpdt > getDate){
-					console.log("updated");
+
+				if(updt.length < $scope.Users.length || updt.length > $scope.Users.length){
 					x = true;
+				}else{
+					var getUpdt = $filter('date')(updt[z].updt , 'dd/MM/yyyy HH:mm');
+					var getDate = $filter('date')($scope.Users[z].updt , 'dd/MM/yyyy HH:mm');
+					
+					if(getUpdt > getDate){
+						console.log("updated");
+						x = true;
+					}
 				}
 			}
 
@@ -218,7 +214,6 @@ angular.module('cdr.AppCtrl', [])
 	}
 	
 	$scope.clearLS = function (){
-		// $window.localStorage.clear();
 		localStorage.removeItem('users');
 		console.log("Clear LS pressed");
 	}
@@ -265,7 +260,6 @@ angular.module('cdr.AppCtrl', [])
 	        object.save()
 	        .then(
 	          function(user) {
-	            console.log('Password changed', user);
 	            alert("The Password is been Changed");
 	    
 	          },
@@ -290,16 +284,35 @@ angular.module('cdr.AppCtrl', [])
 	}
 
 	$scope.activeTab = 'sell';
+	$scope.name = 'Add User';
+	$scope.title = 'Users';
+	$scope.fp_name = 'Close';
+	$scope.fp_title = 'User\'s Info';
 	//toggle function to show the current option/view that user choose
 	$scope.toggle = function(type){
-
+		// console.log($scope.hide.user);
 		$scope.activeTab = type;
 		if(type == 'fp'){
 			$scope.hide.hidden = !$scope.hide.hidden;
+			if($scope.hide.hidden == true){
+				$scope.fp_name = 'Close';
+				$scope.fp_title = 'User\'s Info'
+			}else if($scope.hide.hidden == false){
+				$scope.fp_name = 'Cancel';
+				$scope.fp_title = 'Change Password'
+			}
 		}
+		
 
 		if(type == 'user'){
 			$scope.hide.user = !$scope.hide.user;
+			if($scope.hide.user == true){
+				$scope.name = 'Add User';
+				$scope.title = 'Users'
+			}else if($scope.hide.user == false){
+				$scope.name = 'Cancel';
+				$scope.title = 'Add User'
+			}
 		}
 
 		if(type == 'buy'){
