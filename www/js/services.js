@@ -26,9 +26,6 @@ angular.module('cdr.Services', [])
     $scope.$on('$destroy', function() {
       $scope.modal.remove();
     });
-    var close = function() {
-      $scope.modal.hide();
-    };
 
       return promise;
     }
@@ -36,7 +33,6 @@ angular.module('cdr.Services', [])
   
   return {
     mod: mod,
-    close: close
   };
   
 })
@@ -89,7 +85,7 @@ angular.module('cdr.Services', [])
       animation: 'fade-in',
       showBackdrop: true,
       maxWidth: 200,
-      showDelay: 0
+      showDelay: 500
     });
 
       $timeout(function () {

@@ -1,7 +1,7 @@
 angular.module('cdr.AppCtrl', [])
 
-.controller('AppCtrl', function($scope, $ionicHistory, $ionicModal, $state, $ionicPopup, $ionicHistory,
- $window, $cordovaDialogs,  $ionicPopover, ModalService, CordovaService, LoadingService){
+.controller('AppCtrl', function($scope, $ionicHistory, $state, $ionicHistory,
+ $window, $cordovaDialogs,  $ionicPopover, ModalService, CordovaService, LoadingService, $filter){
 
 	//Function to call modal at services.js by passing html file name as parameter
 	$scope.open = function(getUrl, user) {
@@ -68,7 +68,7 @@ angular.module('cdr.AppCtrl', [])
 		        	username: $scope.data.username,
 		        	category: $scope.data.category
 		        });
-		       $scope.refresh();
+		       $scope.GoBack();
 			},
 			error: function(user, error) {
 			  // Show the error message somewhere and let the user try again.
@@ -141,8 +141,10 @@ angular.module('cdr.AppCtrl', [])
 	//get all user 
 
 	$scope.users = [];
-	$scope.users = JSON.parse(localStorage['users'] || '[]');
-	$scope.getUsers = function(){
+	$scope.Users = [];
+	$scope.updts = [];
+	var counter = 0;
+	$scope.getUsers = function(type){
 		var getUsers = Parse.Object.extend("User");
 		var get_users = new Parse.Query(getUsers);
 		get_users.find({
@@ -150,28 +152,77 @@ angular.module('cdr.AppCtrl', [])
 		    // console.log("Successfully retrieved " + results.length);
 		    // alert("Successfully retrieved " + results.length);
 		    // Do something with the returned Parse.Object values
-
+		    
 		    for (var i = 0; i < results.length; i++) {
+		    	// var updt = results[i].get('updatedAt');
 		    	var data = results[i]
-			    $scope.users.push({
-			    	id: data.id,
-	            	name: data.get('name'),
-	            	username: data.get('username'),
-	            	category: data.get('category')
-	            })
+		    	if(type == 'user'){
+		    		
+				    $scope.users.push({
+				    	id: data.id,
+		            	name: data.get('name'),
+		            	username: data.get('username'),
+		            	category: data.get('category'),
+		            	updt: data.get('updatedAt')
+		            })
+		        }
+	            else if (type == 'update'){
+		            $scope.updts.push({
+		            	id: data.id,
+		            	updt: data.get('updatedAt')
+		            })
+		        }
 		    }
-		    localStorage['users'] = JSON.stringify($scope.users);
+		    if(type == 'user'){
+		    	localStorage.setItem('users', JSON.stringify($scope.users));
+		    	$scope.$broadcast('scroll.refreshComplete');
+		    	// $scope.load();
+		    }
+
+		    $scope.check($scope.updts);
+
 		  },
 		  error: function(error) {
 		    alert("Error: " + error.code + " " + error.message);
 		  }
 		})
-		$scope.load();
 	}
+
+	$scope.Users = JSON.parse(localStorage['users'] || '[]');
 
 	$scope.refresh = function(){
 		$window.location.reload(true);
 	}
+
+	$scope.check = function(updt){
+		var x = false;
+		if(counter == 0){
+			for(var z=0; z<updt.length; z++){
+			
+			var getUpdt = $filter('date')(updt[z].updt , 'dd/MM/yyyy HH:mm');
+			var getDate = $filter('date')($scope.Users[z].updt , 'dd/MM/yyyy HH:mm');
+				
+				if(getUpdt > getDate){
+					console.log("updated");
+					x = true;
+				}
+			}
+
+			if(x == true){
+				$scope.clearLS();
+				counter++;
+				$scope.getUsers('user');
+			}
+			
+		}
+	}
+	
+	$scope.clearLS = function (){
+		// $window.localStorage.clear();
+		localStorage.removeItem('users');
+		console.log("Clear LS pressed");
+	}
+
 
 	// all function related to delete user
 
@@ -239,7 +290,7 @@ angular.module('cdr.AppCtrl', [])
 	}
 
 	$scope.activeTab = 'sell';
-	//toggle fucntion to show change password form 
+	//toggle function to show the current option/view that user choose
 	$scope.toggle = function(type){
 
 		$scope.activeTab = type;
@@ -278,18 +329,10 @@ angular.module('cdr.AppCtrl', [])
     	$scope.popover.hide();
   	};
 
-	//this function is to go from page to page
-	$scope.pages = function(page){
-		if(page == 'Rates'){
-			$state.go('HomeTabs.Rates');		
-		}else if(page == 'Users'){
-			$state.go('Users');	
-		}
-
-		$scope.closePopover();
-	}
-
 	if(!localStorage['users']){
-		$scope.getUsers();
-	}else{	}
+		$scope.getUsers('user');
+	}else{	
+		$scope.getUsers('update');
+
+	}
 })
