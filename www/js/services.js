@@ -59,7 +59,7 @@ angular.module('cdr.Services', [])
               },
               error: function(error) {
                 // error
-                $cordovaDialogs.alert(error, "Error, Please Try Again Later");
+                $cordovaDialogs.alert("Please Try Again");
               }
             });
           }

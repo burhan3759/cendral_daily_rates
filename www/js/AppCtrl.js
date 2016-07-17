@@ -175,7 +175,7 @@ angular.module('cdr.AppCtrl', [])
 
 		  },
 		  error: function(error) {
-		    alert("Error: " + error.code + " " + error.message);
+		    alert("No Internet, Please try Again");
 		  }
 		})
 	}
