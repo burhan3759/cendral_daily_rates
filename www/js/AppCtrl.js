@@ -29,7 +29,7 @@ angular.module('cdr.AppCtrl', [])
 
 	// $scope.test();
 	// Parse init - need to have this to connect with parse
-	// Parse.initialize("8YYdqFMM0CnMuGTcxyn6Wa9Cebww5UA8e36ULGop", "vwEv6sBBmDWRZcarJDZzbLRPVliLA62Y9DBiOnTU");
+	Parse.initialize("8YYdqFMM0CnMuGTcxyn6Wa9Cebww5UA8e36ULGop", "vwEv6sBBmDWRZcarJDZzbLRPVliLA62Y9DBiOnTU");
 
 	//Function to call modal at services.js by passing html file name as parameter
 	$scope.open = function(getUrl, user) {
