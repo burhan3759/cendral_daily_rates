@@ -25,9 +25,6 @@ angular.module('cdr', ['ionic', 'cdr.Services', 'cdr.AppCtrl', 'cdr.RatesCtrl', 
     .then(function(){
         Parse.initialize(js.Key[0].ParseKey, js.Key[0].JavaKey);
     });
-
-  // // Parse init - need to have this to connect with parse
-  // Parse.initialize("8YYdqFMM0CnMuGTcxyn6Wa9Cebww5UA8e36ULGop", "vwEv6sBBmDWRZcarJDZzbLRPVliLA62Y9DBiOnTU");
 })
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider){
