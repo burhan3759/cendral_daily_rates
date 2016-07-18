@@ -3,22 +3,9 @@ angular.module('cdr.AppCtrl', [])
 .controller('AppCtrl', function($scope, $ionicHistory, $state, $ionicHistory,
  $window, $cordovaDialogs, $ionicPopup, $ionicPopover, ModalService, CordovaService, LoadingService, $filter, $http){
 
-	$scope.getKeys = function(){
-		$scope.aru = [];
-		var js;
-		$http.get('js/parse.json').success(function(data) { 
-		    $scope.keys = JSON.stringify(data);
-		    js = JSON.parse($scope.keys);
-		    // console.log(js.Key[0].ParseKey);
-		})
-		.then(function(){
-			// console.log(js.Key[0].ParseKey);
-			$scope.parse(js.Key[0].ParseKey, js.Key[0].JavaKey)				
-		})
-		
-	}
 
-	$scope.getKeys();
+
+	// $scope.getKeys();
 
 
 	
@@ -26,17 +13,33 @@ angular.module('cdr.AppCtrl', [])
 		console.log("key1: " + key + " key2: " + key2);
 		// $scope.ParseKey = key;
 		// $scope.JavaKey = key2;
-		// Parse.initialize("8YYdqFMM0CnMuGTcxyn6Wa9Cebww5UA8e36ULGop", "vwEv6sBBmDWRZcarJDZzbLRPVliLA62Y9DBiOnTU");
+		Parse.initialize("8YYdqFMM0CnMuGTcxyn6Wa9Cebww5UA8e36ULGop", "vwEv6sBBmDWRZcarJDZzbLRPVliLA62Y9DBiOnTU");
 	}
 
 
 	$scope.test = function(){
-		console.log($scope.ParseKey + $scope.JavaKey);	
-		// Parse.initialize("8YYdqFMM0CnMuGTcxyn6Wa9Cebww5UA8e36ULGop", "vwEv6sBBmDWRZcarJDZzbLRPVliLA62Y9DBiOnTU");
+		console.log("test");	
+		Parse.initialize("8YYdqFMM0CnMuGTcxyn6Wa9Cebww5UA8e36ULGop", "vwEv6sBBmDWRZcarJDZzbLRPVliLA62Y9DBiOnTU");
 	}
 
+		// $scope.getKeys = function(){
+		// $scope.aru = [];
+		// var js;
+		// $http.get('js/parse.json').success(function(data) { 
+		//     $scope.keys = JSON.stringify(data);
+		//     js = JSON.parse($scope.keys);
+		//     // console.log(js.Key[0].ParseKey);
+		// })
+		// .then(function(){
+		// 	// console.log(js.Key[0].ParseKey);
+		// 	// $scope.parse(js.Key[0].ParseKey, js.Key[0].JavaKey)				
+		// 	$scope.test();
+		// })
+		
+	// }
+
 	// Parse init - need to have this to connect with parse
-	Parse.initialize("8YYdqFMM0CnMuGTcxyn6Wa9Cebww5UA8e36ULGop", "vwEv6sBBmDWRZcarJDZzbLRPVliLA62Y9DBiOnTU");
+	// Parse.initialize("8YYdqFMM0CnMuGTcxyn6Wa9Cebww5UA8e36ULGop", "vwEv6sBBmDWRZcarJDZzbLRPVliLA62Y9DBiOnTU");
 
 	//Function to call modal at services.js by passing html file name as parameter
 	$scope.open = function(getUrl, user) {

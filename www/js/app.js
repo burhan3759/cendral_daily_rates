@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('cdr', ['ionic', 'cdr.Services', 'cdr.AppCtrl', 'cdr.RatesCtrl', 'cdr.ConversionCtrl', 'cdr.AboutCtrl', 'ngCordova'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $http) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -17,20 +17,18 @@ angular.module('cdr', ['ionic', 'cdr.Services', 'cdr.AppCtrl', 'cdr.RatesCtrl', 
     }
   });
 
+    var js;
+    $http.get('js/parse.json').success(function(data) { 
+        js = JSON.stringify(data);
+        js = JSON.parse(js);
+    })
+    .then(function(){
+        Parse.initialize(js.Key[0].ParseKey, js.Key[0].JavaKey);
+    });
+
   // // Parse init - need to have this to connect with parse
   // Parse.initialize("8YYdqFMM0CnMuGTcxyn6Wa9Cebww5UA8e36ULGop", "vwEv6sBBmDWRZcarJDZzbLRPVliLA62Y9DBiOnTU");
 })
-
-
-// .controller('GetData', function($scope, $http){
-//   var mainInfo = null;
-//   $http.get('content.json').success(function(data) {
-//       mainInfo = data;
-//   }); 
-
-//   console.log("mainInfo") ;
-// })
-
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider){
 
