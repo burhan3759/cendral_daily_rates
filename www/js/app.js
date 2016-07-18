@@ -17,9 +17,19 @@ angular.module('cdr', ['ionic', 'cdr.Services', 'cdr.AppCtrl', 'cdr.RatesCtrl', 
     }
   });
 
-  // Parse init - need to have this to connect with parse
-  Parse.initialize("8YYdqFMM0CnMuGTcxyn6Wa9Cebww5UA8e36ULGop", "vwEv6sBBmDWRZcarJDZzbLRPVliLA62Y9DBiOnTU");
+  // // Parse init - need to have this to connect with parse
+  // Parse.initialize("8YYdqFMM0CnMuGTcxyn6Wa9Cebww5UA8e36ULGop", "vwEv6sBBmDWRZcarJDZzbLRPVliLA62Y9DBiOnTU");
 })
+
+
+// .controller('GetData', function($scope, $http){
+//   var mainInfo = null;
+//   $http.get('content.json').success(function(data) {
+//       mainInfo = data;
+//   }); 
+
+//   console.log("mainInfo") ;
+// })
 
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider){
@@ -93,7 +103,12 @@ angular.module('cdr', ['ionic', 'cdr.Services', 'cdr.AppCtrl', 'cdr.RatesCtrl', 
     url: '/SideMenu',
     templateUrl: 'templates/PopOverSideMenu.html',
     controller: 'AppCtrl'
-  });
+  })
+  // .state('Parse',{
+  //   url: '/Parse',
+  //   templateUrl: 'templates/Parse.html',
+  //   controller: 'AppCtrl'
+  // });
 })
 
 
