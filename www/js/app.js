@@ -98,12 +98,7 @@ angular.module('cdr', ['ionic', 'cdr.Services', 'cdr.AppCtrl', 'cdr.RatesCtrl', 
     url: '/SideMenu',
     templateUrl: 'templates/PopOverSideMenu.html',
     controller: 'AppCtrl'
-  })
-  // .state('Parse',{
-  //   url: '/Parse',
-  //   templateUrl: 'templates/Parse.html',
-  //   controller: 'AppCtrl'
-  // });
+  });
 })
 
 
