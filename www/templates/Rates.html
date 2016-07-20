@@ -11,13 +11,13 @@
 
 	<!-- Data fetch from database -->
 
-		<div ng-repeat="rate in arr" id="ratesTable">
-			<div class="row item" ng-click="openRate(rate)">
+		<ion-list ng-repeat="rate in arr" id="ratesTable">
+			<ion-item class="row item" ng-click="openRate(rate)">
 				<div class="col col-33">{{rate.name}}</div>
 				<div class="col">{{rate.amount}}</div>
 				<div class="col">{{rate.buy}}</div>	
 				<div class="col">{{rate.sell}}</div>
-			</div>
-		</div>
+			</ion-item>
+		</ion-list>
 	</ion-content>
 </ion-view>
