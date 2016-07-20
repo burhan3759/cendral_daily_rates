@@ -2,28 +2,22 @@
 	<ion-content class="padding" overflow-scroll="true">
 
 	<!-- The interface to put the content -->
-		<div  id="rowTitle" class="row item">
+		<div  id="title" class="row item">
 			<div class="col col-33">Currency</div>
 			<div class="col">Unit</div>
-			<div class="col">Sell</div>
 			<div class="col">Buy</div>
+			<div class="col">Sell</div>
 		</div>
 
 	<!-- Data fetch from database -->
 
-		<div ng-repeat="rate in arr">
+		<div ng-repeat="rate in arr" id="ratesTable">
 			<div class="row item" ng-click="openRate(rate)">
-				<div class="col col-33" id="UnitCurrency">{{rate.name}}</div>
-				<div class="col" id="UnitCurrency">{{rate.amount}}</div>
-				<div class="col">{{rate.sell}}</div>
+				<div class="col col-33">{{rate.name}}</div>
+				<div class="col">{{rate.amount}}</div>
 				<div class="col">{{rate.buy}}</div>	
-				<!-- <div class="col">{{rate.lastUpdt}}</div> -->
+				<div class="col">{{rate.sell}}</div>
 			</div>
 		</div>
-
-		<div class="button button-full button-clear button-energized" ng-click="refresh()">Refresh</div>
-
-		<!-- {{arr}} -->
-
 	</ion-content>
 </ion-view>
