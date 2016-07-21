@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/burhan3759/cendral_daily_rates/issues"
   },
-  "homepage": "https://github.com/burhan3759/cendral_daily_rates#readme"
+  "homepage": "https://github.com/burhan3759/cendral_daily_rates#readme",
+  "cordovaPlugins": [],
+  "cordovaPlatforms": [
+    "android"
+  ]
 }

@@ -1,4 +1,4 @@
-<ion-view view-title="Daily Rates" >
+<ion-view view-title="Daily Rates">
 	<ion-content class="padding" overflow-scroll="true">
 
 	<!-- The interface to put the content -->
@@ -11,13 +11,14 @@
 
 	<!-- Data fetch from database -->
 
-		<ion-list ng-repeat="rate in arr" id="ratesTable">
-			<ion-item class="row item" ng-click="openRate(rate)">
+		<div ng-repeat="rate in arr">
+			<ion-item class="row item" ng-click="openRate(rate)"  id="border">
 				<div class="col col-33">{{rate.name}}</div>
 				<div class="col">{{rate.amount}}</div>
 				<div class="col">{{rate.buy}}</div>	
 				<div class="col">{{rate.sell}}</div>
 			</ion-item>
-		</ion-list>
+		</div>
+
 	</ion-content>
 </ion-view>
