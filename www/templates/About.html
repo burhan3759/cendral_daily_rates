@@ -1,22 +1,39 @@
 <ion-view view-title="About">
-	<ion-content class="padding" overflow-scroll="true">
+	<ion-content class="padding">
 
-		<center><h1>CENDRAL SDN BHD</h1></center>
-		<br>
-		<center><h4> Contact Details and Location:- </h4></center>
-		<br>
-		<a class="item item-icon-left" href="tel:+60-3618-760-72">
-			(03) 6187 6072
-		<i class="icon ion-ios-telephone-outline"></i>
-		</a>
-		<a class="item item-icon-left" href="#" onclick="window.open('https://goo.gl/maps/Vy4fd8bhABv', '_system', 'location=yes'); return false;">
-			Maps - Direction to <b>Cendral Sdn Bhd</b>
-		<i class="icon ion-map"></i>
-		</a>
-		<!-- 		
-		Google Maps - Not use for a moment
-		<h2>Location</h2>	
-		<div id="map" data-tap-disabled="true"></div> 
-		-->
+	<div class="list card">
+		<div class="item item-divider"">
+			<h2 style="font-weight: bold; font-size: 22px">CENDRAL SDN BHD</h2> 
+			<p style="font-weight: bold; font-size: 14px">(Gombak)</p>
+		</div>
+
+		<div class="item item-button-right">
+			Address
+			<button class="button button-stable" href="#" onclick="window.open('https://goo.gl/maps/Vy4fd8bhABv', '_system', 'location=yes'); return false;">
+			<i class="icon ion-location"></i>
+			</button>
+		</div>
+
+		<div class="item item-body">
+			<p>Jalan SG 3/1
+			Taman Seri Gombak
+			68100 Batu Caves
+			Selangor</p>
+		</div>
+
+		<div class="item item-button-right">
+				<b>Contact:</b> (03) 6187 6072
+			<button class="button button-stable" ng-click="call('60-3618-760-72')">
+			<i class="icon ion-ios-telephone-outline"></i>
+			</button>
+		</div>
+		<div class="item item-body">
+			<b>Business Hour: </b>
+			<p>
+				Monday - Saturday : 10.00 am - 7.30 pm
+			</p>
+		</div>
+	</div>
+		
 	</ion-content>
 </ion-view>

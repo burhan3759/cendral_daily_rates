@@ -2,7 +2,6 @@
 
 .controller('RatesCtrl', function($scope, $ionicModal, $filter, $cordovaDialogs, $window, ModalService, LoadingService, $ionicHistory, $state, $http, $timeout){  
 
-
 	//function that call loading service 
 	$scope.load = function(){
 		LoadingService
@@ -85,7 +84,7 @@
 		    if(type == 'rate'){	
 		    	localStorage.setItem('arr',  JSON.stringify($scope.arrs));
 		    	$scope.refresh();
-		    	$scope.load();
+		    	// $scope.load();
 			}
  
 		  },
@@ -93,23 +92,16 @@
 		    alert("No/Slow Internet Connection - This is not the latest Rate");
 		  }
 		})
+		//store the data from database at localStorage
 		
 	}
 	
-	//store the data from database at localStorage
-	$scope.arr = JSON.parse(localStorage['arr'] || '[]');
+	$scope.arr = JSON.parse(localStorage['arr'] || '[]');	
 
 	//refresh the page
 	$scope.refresh = function(){
 		$window.location.reload(true);
 	}
-	$scope.$on('$ionicView.loaded', function(){			
-		});
-	$scope.$on('$ionicView.enter', function(){			
-		});
-	$scope.doRefresh = function() {
-       $scope.$broadcast('scroll.refreshComplete');
-  	};
 
 	$scope.clearLS = function (){
 		// $window.localStorage.clear();
@@ -223,10 +215,13 @@
 		}
 	}
 	
+
 	if(!localStorage['arr']){
 		$scope.getRate('rate');
+		// serviceName.getRate('rate');
 	}else{
-		$scope.getRate('update');		
+		// serviceName.getRate('update');	
+		$scope.getRate('update');
 	}
 
 })
