@@ -1,6 +1,6 @@
 angular.module('cdr.AppCtrl', [])
 
-.controller('AppCtrl', function($scope, $ionicHistory, $state, $ionicHistory,
+.controller('AppCtrl', function($scope, $ionicHistory,
  $window, $cordovaDialogs, $ionicPopup, $ionicPopover, ModalService, CordovaService, LoadingService, $filter, $http){
 
 	//Function to call modal at services.js by passing html file name as parameter
