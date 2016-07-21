@@ -21,25 +21,26 @@
 	<!-- Sell Form -->	
 
 	<div class="list" ng-hide="hide.sell">
-		<center><h4>Malaysia <i class="icon ion-arrow-swap"></i> {{rates.name}} </h4></center>
+
+		<center><h4>Malaysia <i class="icon ion-arrow-swap"></i> {{rates.name}}</h4></center>
 		
-	  	<label class="item item-input" ng-class="{'current' : activeTab == 'sell'}">
+	  	<label class="item item-input item-icon-right" ng-class="{'current' : activeTab == 'sell'}">
 			<!-- <input type="tel" placeholder='{{rates.sell}}'> -->
 			<input type="tel" placeholder='{{rates.sell}}' ng-model="sell">
 		    <span class="input-label">Malaysia</span>
+		    <div>
+				<i class="icon ion-ios-calculator-outline"></i>
+			</div>
 	  	</label>
-
-		<!-- <label class="item item-input">
-			<div class="col col-67" placeholder='...'>{{sell*rates.amount/rates.sell | number:2}}</div>
-			<span class="input-label">{{rates.name}}</span>
-	  	</label> -->
 
 		<div class="card">
 		  <div class="item item-divider">
 		    <center><b>{{rates.name}}</b></center>
 		  </div>
 		  <div class="item item-text-wrap" id='size'>
-		    <center>{{sell*rates.amount/rates.sell | number:2}}</center>
+	  	    <p style="font-size: 16px">{{rates.sell}} Malaysia Ringgit equals</p> 
+	    	<p style="font-size: 22px">{{rates.amount}} {{rates.name}}</p>
+		    <center><b>{{sell*rates.amount/rates.sell | number:2}}</b></center>
 		  </div>
 		</div>
 
@@ -47,25 +48,25 @@
 
 	<!-- Buy Form -->
 	<div class="list" ng-hide="hide.buy">
+
 		<center><h4>{{rates.name}} <i class="icon ion-arrow-swap"></i> Malaysia</h4></center>
 		
-
-		<label class="item item-input" ng-class="{'current' : activeTab == 'buy'}">
+		<label class="item item-input item-icon-right" ng-class="{'current' : activeTab == 'buy'}">
 			<input type="tel" placeholder='{{rates.amount}}' ng-model="buy">
 			<span class="input-label">{{rates.name}}</span>
+			<div >
+				<i class="icon ion-ios-calculator-outline"></i>
+			</div>
 	  	</label>
 
-<!-- 	  	<label class="item item-input">
-			<div class="col col-67" >{{buy*rates.buy/rates.amount | number:2}}</div>
-		    <span class="input-label">Malaysia</span>
-	  	</label>
- -->
 		<div class="card">
 		  <div class="item item-divider">
 		    <center><b>Malaysia</b></center>
 		  </div>
 		  <div class="item item-text-wrap" id='size'>
-		    <center>{{buy*rates.buy/rates.amount | number:2}}</center>
+		  	<p style="font-size: 16px">{{rates.amount}} {{rates.name}} equals</p> 
+	    	<p style="font-size: 22px">{{rates.buy}} Malaysia Ringgit</p>
+		    <center><b>{{buy*rates.buy/rates.amount | number:2}}</b></center>
 		  </div>
 		</div>
 
