@@ -7,18 +7,24 @@
 			<div class="col">Unit</div>
 			<div class="col">Buy</div>
 			<div class="col">Sell</div>
+			<div class="col col-10"></div>
 		</div>
 
 	<!-- Data fetch from database -->
 
 		<div ng-repeat="rate in arr">
-			<ion-item class="row item" ng-click="openRate(rate)"  id="border">
+			<ion-item class="row item item-icon-right" ng-click="openRate(rate)"  id="border">
 				<div class="col col-33">{{rate.name}}</div>
 				<div class="col">{{rate.amount}}</div>
 				<div class="col">{{rate.buy}}</div>	
 				<div class="col">{{rate.sell}}</div>
+				<div class="col col-10">
+					<i class="icon ion-calculator"></i>
+				</div>
 			</ion-item>
 		</div>
+
+		<br>
 
 	</ion-content>
 </ion-view>
