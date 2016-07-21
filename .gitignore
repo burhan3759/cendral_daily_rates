@@ -4,4 +4,4 @@
 node_modules/
 platforms/
 plugins/
-js/parse.json
+www/js/parse.json
