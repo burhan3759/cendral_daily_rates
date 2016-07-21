@@ -26,9 +26,9 @@
 		
 	  	<label class="item item-input item-icon-right" ng-class="{'current' : activeTab == 'sell'}">
 			<!-- <input type="tel" placeholder='{{rates.sell}}'> -->
-			<input type="tel" placeholder='{{rates.sell}}' ng-model="sell">
+			<input type="tel" placeholder='{{rates.sell}}' ng-model="sell" maxlength="5">
 		    <span class="input-label">Malaysia</span>
-		    <div>
+		    <div class="col col-10">
 				<i class="icon ion-ios-calculator-outline"></i>
 			</div>
 	  	</label>
@@ -40,6 +40,7 @@
 		  <div class="item item-text-wrap" id='size'>
 	  	    <p style="font-size: 16px">{{rates.sell}} Malaysia Ringgit equals</p> 
 	    	<p style="font-size: 22px">{{rates.amount}} {{rates.name}}</p>
+	    	<br><br>
 		    <center><b>{{sell*rates.amount/rates.sell | number:2}}</b></center>
 		  </div>
 		</div>
@@ -52,9 +53,9 @@
 		<center><h4>{{rates.name}} <i class="icon ion-arrow-swap"></i> Malaysia</h4></center>
 		
 		<label class="item item-input item-icon-right" ng-class="{'current' : activeTab == 'buy'}">
-			<input type="tel" placeholder='{{rates.amount}}' ng-model="buy">
+			<input type="tel" placeholder='{{rates.amount}}' ng-model="buy" maxlength="5">
 			<span class="input-label">{{rates.name}}</span>
-			<div >
+			<div class="col col-10">
 				<i class="icon ion-ios-calculator-outline"></i>
 			</div>
 	  	</label>
@@ -66,6 +67,7 @@
 		  <div class="item item-text-wrap" id='size'>
 		  	<p style="font-size: 16px">{{rates.amount}} {{rates.name}} equals</p> 
 	    	<p style="font-size: 22px">{{rates.buy}} Malaysia Ringgit</p>
+	    	<br><br>
 		    <center><b>{{buy*rates.buy/rates.amount | number:2}}</b></center>
 		  </div>
 		</div>

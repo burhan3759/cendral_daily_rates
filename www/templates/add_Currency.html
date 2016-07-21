@@ -16,15 +16,15 @@
           </label>
           <label class="item item-input">
             <span class="input-label">Unit: </span>
-            <input type="tel" placeholder="Example: 1" ng-model="add_rate.amount"></input>
+            <input type="tel" placeholder="Example: 1" ng-model="add_rate.amount" maxlength="3"></input>
           </label>
           <label class="item item-input">
             <span class="input-label">Buy: </span>
-            <input type="tel" placeholder="Example: 3.50" ng-model="add_rate.buy">
+            <input type="tel" placeholder="Example: 3.50" ng-model="add_rate.buy" maxlength="5">
           </label>
           <label class="item item-input">
             <span class="input-label">Sell: </span>
-            <input type="tel" placeholder="Example: 2.80" ng-model="add_rate.sell">
+            <input type="tel" placeholder="Example: 2.80" ng-model="add_rate.sell" maxlength="5">
           </label>
         </div>
         <button class="button button-stable button-block button-balanced" ng-click="addCurrency(add_rate)">
