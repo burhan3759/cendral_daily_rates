@@ -1,22 +1,22 @@
  angular.module('cdr.RatesCtrl', [])
 
-.controller('RatesCtrl', function($scope, $ionicModal, $filter, $cordovaDialogs, $window, ModalService, LoadingService, $ionicHistory, $state, $http, $timeout, $stateParams){  
+.controller('RatesCtrl', function($scope, $ionicModal, $filter, $cordovaDialogs, $window, ModalService, LoadingService, $ionicHistory, $state, $http, $timeout, $stateParams, $interval, $ionicLoading){  
 
 	//function that call loading service 
 	$scope.load = function(){
 		LoadingService
 		.load($scope);
 	}
-	//declare scope.arr to store data
+
 	$scope.progressPercent = 0
 	$scope.simulateLoad = function() {
 		var interval = setInterval(function() {
 				// Increment the value by 1
 				$scope.progressPercent++
-					if ($scope.progressPercent == 1000) {
-						$scope.clearLS();
-						$scope.getRate();
-						$state.go($state.current, {}, {reload: true}); 
+					if ($scope.progressPercent == 10) {
+						// $scope.clearLS();
+						$scope.getRate('update');
+						// $state.go($state.current, {}, {reload: true}); 
 						clearInterval(interval);
 						$scope.progressPercent = 0
 					}
@@ -24,23 +24,31 @@
 		}, 80);
 	}
 
+	// $scope.timer = function(){
+		$scope.Timer = $interval( function() {
+			$scope.getRate('update');
+		}, 10000);
+		// $scope.timer();
+	// }
+
+	//declare scope.arr to store data
 	$scope.arr = [];
+	$scope.updt = [];
 
 	//get table Rates from database
 	var getRates = Parse.Object.extend("Rates");
 	var get_rates = new Parse.Query(getRates);
 
 	//get Data from database
-	$scope.getRate = function(){
+	$scope.getRate = function(type){
 		get_rates.find({
 		  success: function(results) {  	
 		  	$scope.length = results.length;
-		  	console.log("run get rate");
 		    for (var i = 0; i < results.length; i++) {
 		    	//get updatedAt and currency column from table
-		    	var Updt = results[i].get('updatedAt');
-		    	var data = results[i].get('currency');
-		    	//store data to array
+	    		var Updt = results[i].get('updatedAt');
+		    	var data = results[i].get('currency');		    	
+		    	if(type == 'rate'){
 				    $scope.arr.push({
 				    	id: results[i].id,
 		            	name: data.name,
@@ -48,20 +56,125 @@
 		            	sell: data.sell,
 		            	buy: data.buy,
 		            	Updt: Updt
-		            });
-		    }
-		    	//save the array to localstorage for offline support
-		    	localStorage.setItem('arr',  JSON.stringify($scope.arr));
+		            })
+				} 
+
+				if (type == 'update'){
+		            $scope.updt.push({
+		            	id: results[i].id,
+		            	name: data.name,
+		            	amount: data.amount,
+		            	sell: data.sell,
+		            	buy: data.buy,
+		            	Updt: Updt
+		            })
+		        }
+		    }		   
+
+	    	if(type == 'update'){
+	    		$scope.check($scope.arr, $scope.updt);	
+	    	} 	
+	    	//save the array to localstorage for offline support
+	    	localStorage.setItem('arr',  JSON.stringify($scope.updt));
 		  },
 		  error: function(error) {
 		  	alert("No or Slow Internet Connection");
 			$scope.arr = JSON.parse(localStorage['arr'] || '{}');	
 		  }
 		});
-		$scope.simulateLoad();
 	}
 
-	$scope.getRate();
+	$scope.getRate('rate');
+
+	// $scope.cache = true;
+
+	var counter = 0;
+	var x = false;
+	$scope.check = function(arr, updt){	
+		var index;
+		// if(counter == 0){
+		if(updt.length > $scope.arr.length){
+		    $ionicLoading.show({
+		      content: 'Loading',
+		      animation: 'fade-in',
+		      showBackdrop: true,
+		      maxWidth: 200,
+		      showDelay: 500
+		    });
+			arr.splice(updt.length, 1, updt[(updt.length-1)]);
+			$timeout(function () {
+				$ionicLoading.hide();
+			}, 2000);
+			// x = true;
+		}else if(updt.length < arr.length){
+			console.log("updt: " + updt.length + " arr: " + arr.length);
+			var get = false;
+			var remove;
+			var z;
+			var y;
+			for(z=0; z<arr.length; z++){
+				for(y=0; y<updt.length; y++){
+					if(arr[z].id == updt[y].id){
+						// get = true;
+						y = updt.length;
+						console.log("y: "+y);
+					}
+					else{
+						console.log("z: "+z);
+						remove = z;
+					}
+					
+				}
+			}
+			console.log("remove:");
+			if(get == false){
+				arr.splice(remove);
+			}
+
+
+		}else{
+			for(var z=0; z<updt.length; z++){
+				var updtBuy = updt[z].buy;
+				var updtSell = updt[z].sell;
+				var updtAmount = updt[z].amount;
+				var arrBuy = arr[z].buy;
+				var arrSell = arr[z].sell;
+				var arrAmount = arr[z].amount;
+				console.log(updtSell);
+				console.log(arrSell);
+				if(updtBuy > arrBuy || updtBuy < arrBuy || updtSell > arrSell || updtSell < arrSell || updtAmount > arrAmount || updtAmount < arrAmount){
+					// console.log(z + " :" + (z+1));
+					// var y = z;
+				    $ionicLoading.show({
+				      content: 'Loading',
+				      animation: 'fade-in',
+				      showBackdrop: true,
+				      maxWidth: 200,
+				      showDelay: 500
+				    });
+
+					arr.splice(z, 1, updt[z]);
+					// x = true;
+					$timeout(function () {
+						$ionicLoading.hide();
+					}, 2000);
+				}
+			}
+		}
+			
+
+			// if(x == true){
+			// 	// $scope.arr.splice(0, $scope.arr.length);
+			// 	// $scope.clearLS();
+			// 	// $scope.getRate('rate');
+			// 	// $scope.cache = false;
+			// 	// $state.go($state.current, {}, {reload: true}); 
+			// 	counter++;
+			// }
+		
+			$scope.updt.splice(0, updt.length);	
+		// }
+	}
 
 	
 	//function for go back to previous view
@@ -126,6 +239,10 @@
 		    results.set("currency", $scope.update);
 		    results.save();
 		    alert('Currency Updated');
+
+		    // $scope.getRate();
+		    // $state.go($state.current, {}, {reload: true}); 
+
 		  },
 		  error: function(error) {
 		    alert('Currently cannot update the rates. Sorry, Please try in a moment');
@@ -164,23 +281,6 @@
 			}
 		})
 	}
-
-
-
-	$scope.addArr = function(){
-		console.log("add");
-		// $scope.arr.push({
-		// 	name: "nla",
-		// 	amount: "1",
-		// 	sell: "2",
-		// 	buy: "3"
-		// });
-		// $state.go($state.current, $stateParams, {reload: true, inherit: false});
-		// $state.go($state.current, {}, {reload: true}); //second parameter is for $stateParams
-		// $scope.$broadcast('scroll.refreshComplete');
-	}
-
-
 
 	//Delete Currency 
 	$scope.deleteCurrency = function(data){
