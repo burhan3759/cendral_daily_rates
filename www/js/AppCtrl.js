@@ -168,14 +168,14 @@ angular.module('cdr.AppCtrl', [])
 		    if(type == 'user'){
 		    	localStorage.setItem('users', JSON.stringify($scope.users));
 		    	$scope.load();
-		    	$scope.refresh();
+		    	// $scope.refresh();
 		    }
 
 		    $scope.check($scope.updts);
 
 		  },
 		  error: function(error) {
-		    alert("No Internet, Please try Again");
+
 		  }
 		})
 	}

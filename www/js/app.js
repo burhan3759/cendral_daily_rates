@@ -97,7 +97,7 @@ angular.module('cdr', ['ionic', 'cdr.Services', 'cdr.AppCtrl', 'cdr.RatesCtrl', 
   .state('popover',{
     url: '/SideMenu',
     templateUrl: 'templates/PopOverSideMenu.html',
-    controller: 'AppCtrl'
+    controller: 'RatesCtrl'
   });
 })
 

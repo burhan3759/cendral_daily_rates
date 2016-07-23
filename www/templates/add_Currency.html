@@ -7,7 +7,7 @@
       <h1 class="title">Add Currency</h1>
     </ion-header-bar>
 
-    <ion-content class="padding">
+    <ion-content class="padding"  ng-controller="RatesCtrl">
         
         <div class="list list-inset">
           <label class="item item-input">
@@ -30,9 +30,10 @@
         <button class="button button-stable button-block button-balanced" ng-click="addCurrency(add_rate)">
   			 Add Currency
 		    </button>
-        <button class="button button-stable button-block button-assertive" ng-click="GoBack()">
+        <button class="button button-stable button-block button-assertive" ng-click="close()">
   			 Cancel
     		</button>
+        <button class="button" ng-click="simulateLoad()">add</button>
         
     </ion-content>
 </ion-modal-view>
