@@ -24,12 +24,9 @@
 		}, 80);
 	}
 
-	// $scope.timer = function(){
-		$scope.Timer = $interval( function() {
-			$scope.getRate('update');
-		}, 10000);
-		// $scope.timer();
-	// }
+	$scope.Timer = $interval( function() {
+		$scope.getRate('update');
+	}, 10000);
 
 	//declare scope.arr to store data
 	$scope.arr = [];
@@ -87,57 +84,40 @@
 	$scope.getRate('rate');
 
 	// $scope.cache = true;
-
-	var counter = 0;
-	var x = false;
+	
 	$scope.check = function(arr, updt){	
-		var index;
-		// if(counter == 0){
-		if(updt.length > $scope.arr.length){
-		    $ionicLoading.show({
-		      content: 'Loading',
-		      animation: 'fade-in',
-		      showBackdrop: true,
-		      maxWidth: 200,
-		      showDelay: 500
-		    });
-			arr.splice(updt.length, 1, updt[(updt.length-1)]);
-			$timeout(function () {
-				$ionicLoading.hide();
-			}, 2000);
-			// x = true;
+		var x = false;
+		var a;	var b = 1;	var c;
+		if(updt.length > arr.length){
+			a = updt.length;
+			c = updt[(updt.length-1)];
+			x = true;
 		}else if(updt.length < arr.length){
-			// console.log("updt: " + updt.length + " arr: " + arr.length);
 			var get = false;
 			var remove;
-			var z;
-			var y;
-			for(z=0; z<arr.length; z++){
+			for(var z=0; z<arr.length; z++){
 				if(get == false){
-					for(y=0; y<updt.length; y++){
+					for(var y=0; y<updt.length; y++){
 						if(arr[z].id == updt[y].id){
 							get = false;
 							y = updt.length;
-							console.log("y: "+y);
 						}
 						else{
-							console.log("z: "+z);
-							// console.log("remove: "+remove);
 							remove = z;
 							get = true;
-
 						}
 					}
 					
 				}else if(get == true){
-					console.log("remove: "+remove);
-					arr.splice(remove, 1);
+					a = remove;
+					c = null;
+					x = true;
 					z = arr.length;
-
 				}
 			}
 
 		}else{
+			console.log("other");
 			for(var z=0; z<updt.length; z++){
 				var updtBuy = updt[z].buy;
 				var updtSell = updt[z].sell;
@@ -145,40 +125,31 @@
 				var arrBuy = arr[z].buy;
 				var arrSell = arr[z].sell;
 				var arrAmount = arr[z].amount;
-				// console.log(updtSell);
-				// console.log(arrSell);
 				if(updtBuy > arrBuy || updtBuy < arrBuy || updtSell > arrSell || updtSell < arrSell || updtAmount > arrAmount || updtAmount < arrAmount){
-					// console.log(z + " :" + (z+1));
-					// var y = z;
-				    $ionicLoading.show({
-				      content: 'Loading',
-				      animation: 'fade-in',
-				      showBackdrop: true,
-				      maxWidth: 200,
-				      showDelay: 500
-				    });
-
-					arr.splice(z, 1, updt[z]);
-					// x = true;
-					$timeout(function () {
-						$ionicLoading.hide();
-					}, 2000);
+					a = z;
+					c = updt[z];
+					x = true;
 				}
 			}
 		}
-			
 
-			// if(x == true){
-			// 	// $scope.arr.splice(0, $scope.arr.length);
-			// 	// $scope.clearLS();
-			// 	// $scope.getRate('rate');
-			// 	// $scope.cache = false;
-			// 	// $state.go($state.current, {}, {reload: true}); 
-			// 	counter++;
-			// }
-		
-			$scope.updt.splice(0, updt.length);	
-		// }
+		if(x == true){
+		    $ionicLoading.show({
+		      content: 'Loading',
+		      animation: 'fade-in',
+		      showBackdrop: true,
+		      maxWidth: 200,
+		      showDelay: 500
+		    });
+
+		    if(c != null){	arr.splice(a, b, c); }
+		    else {	arr.splice(a, b);	}
+
+			$timeout(function () {
+				$ionicLoading.hide();
+			}, 2000);	
+		}		
+		$scope.updt.splice(0, updt.length);	
 	}
 
 	
@@ -215,17 +186,12 @@
 	      $scope.closePopover();
 	};
 
-	//close the modal from controller :since close the modal at Html can be done by directly call the function in services.js
+	//close the modal from controller 
+	//:since close the modal at Html can be done by directly call the function in services.js
 	$scope.close = function(){
 		ModalService
 	      .mod('', $scope)
 	      .catch($scope.closeModal())		
-	}
-
-	//refresh the page
-	$scope.refresh = function(){
-		$scope.$broadcast('scroll.refreshComplete');
-
 	}
 
 	$scope.clearLS = function (){
@@ -278,13 +244,17 @@
 				});
 	 			$scope.GoBack();
 	 			alert('Successfully add New Currency');
-	 			$scope.progressPercent = 195;
 			},
 			error: function(rates, error) {
 			    // error is a Parse.Error with an error code and message.
 			    alert('Failed to Add Currency. Please Try Again');
 			}
 		})
+
+		$scope.add_rate.name = "";
+		$scope.add_rate.amount = "";
+		$scope.add_rate.buy = "";
+		$scope.add_rate.sell = "";
 	}
 
 	//Delete Currency 
