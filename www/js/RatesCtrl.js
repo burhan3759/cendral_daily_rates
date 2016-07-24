@@ -101,18 +101,18 @@
 							y = updt.length;
 						}
 						else{
-							remove = z;
 							get = true;
+							remove = z;
 						}
 					}
-					
-				}else if(get == true){
+				}
+			}
+				
+				if(get == true){
 					a = remove;
 					c = null;
 					x = true;
-					z = arr.length;
 				}
-			}
 
 		}else{
 			for(var z=0; z<updt.length; z++){
@@ -131,20 +131,20 @@
 		}
 
 		if(x == true){
-		    // $ionicLoading.show({
-		    //   content: 'Loading',
-		    //   animation: 'fade-in',
-		    //   showBackdrop: true,
-		    //   maxWidth: 200,
-		    //   showDelay: 500
-		    // });
+		    $ionicLoading.show({
+		      content: 'Loading',
+		      animation: 'fade-in',
+		      showBackdrop: true,
+		      maxWidth: 200,
+		      showDelay: 500
+		    });
 
 		    if(c != null){	arr.splice(a, b, c); }
-		    else {	arr.splice(a, b);	}
+		    else if(c == null){	arr.splice(a, b);	}
 
-			// $timeout(function () {
-			// 	$ionicLoading.hide();
-			// }, 2000);	
+			$timeout(function () {
+				$ionicLoading.hide();
+			}, 2000);	
 		}		
 		$scope.updt.splice(0, updt.length);	
 	}
@@ -217,6 +217,7 @@
 
 	$scope.add_rate = {};	
 	$scope.addCurrency = function(data){
+		$scope.GoBack();
 		data = $scope.add_rate;
 		$scope.new_Currency = {'name': data.name, 'amount':data.amount, 'sell':data.sell, 'buy':data.buy};
 		// var add_currency = new Parse.Object.extend("Rates");
@@ -224,14 +225,13 @@
 		add.set("currency", $scope.new_Currency);	 
 		add.save(null, {
 			success: function(rates) {
-				$scope.arr.push({
-					name: data.name,
-					amount: data.amount,
-					sell: data.sell,
-					buy: data.buy
-				});
+				// $scope.arr.push({
+				// 	name: data.name,
+				// 	amount: data.amount,
+				// 	sell: data.sell,
+				// 	buy: data.buy
+				// });
 	 			alert('Successfully add New Currency');
-	 			$scope.GoBack();
 			},
 			error: function(rates, error) {
 			    // error is a Parse.Error with an error code and message.
@@ -252,8 +252,9 @@
           // no button = 0, 'OK' = 1, 'Cancel' = 2
           var btnIndex = buttonIndex;
           if (btnIndex === 1) {
-          	var index = $scope.arr.indexOf(data);
-			$scope.arr.splice(index, 1);
+   //        	var index = $scope.arr.indexOf(data);
+   //        	console.log(index);
+			// $scope.arr.splice(index, 1);
 			var query = new Parse.Query(getRates);
 			query.get(data.id, {
 			  success: function(myObj) {

@@ -27,14 +27,10 @@ angular.module('cdr', ['ionic', 'cdr.Services', 'cdr.AppCtrl', 'cdr.RatesCtrl', 
     });
 })
 
-.config(function($ionicConfigProvider){
-        $ionicConfigProvider.tabs.position('top');
-})
-
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider){
 
   //set the tab for this app at bottom
-  // $ionicConfigProvider.tabs.position('bottom');
+  $ionicConfigProvider.tabs.position('bottom');
 
   //set the default route/page
   $urlRouterProvider.otherwise('/Home/Rates');
