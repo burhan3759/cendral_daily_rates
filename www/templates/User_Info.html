@@ -58,14 +58,14 @@
         </div>
         <label class="item item-input item-stacked-label">
           <span class="input-label">New Password</span>
-          <input type="password" placeholder="New Password..">
+          <input type="password" placeholder="New Password.." ng-model="password.new_password">
         </label>
         <label class="item item-input item-stacked-label">
           <span class="input-label">Confirm Password</span>
-          <input type="password" placeholder="Confirm Password.." ng-model="password.new_password">
+          <input type="password" placeholder="Confirm Password.." ng-model="password.confirm_password">
         </label>
         <center>
-          <button class="button button-block button-calm" ng-click="changePass(password.new_password, userInfo)">Change Password</button>
+          <button class="button button-block button-calm" ng-click="changePass(password, userInfo)">Change Password</button>
         </center>
       </div>
     </ion-content>

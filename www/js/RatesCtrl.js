@@ -1,12 +1,6 @@
  angular.module('cdr.RatesCtrl', [])
 
-.controller('RatesCtrl', function($scope, $ionicModal, $filter, $cordovaDialogs, $window, ModalService, LoadingService, $ionicHistory, $state, $http, $timeout, $stateParams, $interval, $ionicLoading){  
-
-	//function that call loading service 
-	$scope.load = function(){
-		LoadingService
-		.load($scope);
-	}
+.controller('RatesCtrl', function($scope, $ionicModal, $cordovaDialogs, ModalService, $ionicHistory, $state, $timeout, $interval, $ionicLoading){  
 
 	$scope.progressPercent = 0
 	$scope.simulateLoad = function() {
@@ -172,16 +166,6 @@
 		});		
 	}
 
-	$scope.openAdd = function(getUrl) {
-		ModalService
-	      .mod('templates/'+getUrl, $scope)
-	      .then(function(modal) {
-	      	modal.show();	     
-	      });		
-
-	      $scope.closePopover();
-	};
-
 	//close the modal from controller 
 	//:since close the modal at Html can be done by directly call the function in services.js
 	$scope.close = function(){
@@ -227,12 +211,6 @@
 		add.set("currency", $scope.new_Currency);	 
 		add.save(null, {
 			success: function(rates) {
-				// $scope.arr.push({
-				// 	name: data.name,
-				// 	amount: data.amount,
-				// 	sell: data.sell,
-				// 	buy: data.buy
-				// });
 	 			alert('Successfully add New Currency');
 			},
 			error: function(rates, error) {
@@ -254,16 +232,12 @@
           // no button = 0, 'OK' = 1, 'Cancel' = 2
           var btnIndex = buttonIndex;
           if (btnIndex === 1) {
-   //        	var index = $scope.arr.indexOf(data);
-   //        	console.log(index);
-			// $scope.arr.splice(index, 1);
 			var query = new Parse.Query(getRates);
 			query.get(data.id, {
 			  success: function(myObj) {
-			  	$scope.close();
-				// The object was retrieved successfully.
+				// The object was retrieved and delete successfully.
 				myObj.destroy({});
-				// $scope.clearLS();
+				$scope.close();
 				alert('Currency in Deleted');
 			  },
 			  error: function(object, error) {

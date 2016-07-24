@@ -1,27 +1,65 @@
 angular.module('cdr.AppCtrl', [])
 
-.controller('AppCtrl', function($scope, $ionicHistory, $timeout,
- $window, $cordovaDialogs, $ionicPopup, $ionicPopover, ModalService, CordovaService, LoadingService, $filter, $http, $interval, $ionicLoading){
-
-
+.controller('AppCtrl', function($scope, $ionicHistory, $timeout, $cordovaDialogs, $ionicPopup, $ionicPopover, ModalService, CordovaService, $interval, $ionicLoading){
 
 	$scope.GoBack = function() {
 	    $ionicHistory.goBack();
   	};
+
+	//call table User at database
+	var User = Parse.Object.extend("User");
+
+  	//get all user 
+	$scope.users = [];
+	$scope.updts = [];
+	var counter = 0;
+	$scope.getUsers = function(type){
+		var get_users = new Parse.Query(User);
+		get_users.find({
+		  success: function(results) {
+		    for (var i = 0; i < results.length; i++) {
+		    	var data = results[i]
+		    	if(type == 'user'){
+		    		
+				    $scope.users.push({
+				    	id: data.id,
+		            	name: data.get('name'),
+		            	username: data.get('username'),
+		            	category: data.get('category'),
+		            })
+		        }
+
+	            if (type == 'update'){
+		            $scope.updts.push({
+		            	id: data.id,
+		            	name: data.get('name'),
+		            	username: data.get('username'),
+		            	category: data.get('category'),
+		            })
+		        }
+		    }
+		    if(type == 'update'){
+		    	$scope.check($scope.updts, $scope.users);
+		    }
+		    localStorage.setItem('users', JSON.stringify($scope.users));
+
+		  },
+		  error: function(error) {
+	  			$scope.users = JSON.parse(localStorage['users'] || '[]');
+		  }
+		})
+	}
+
+	$scope.getUsers('user');
 
 	//this function is used to either delete or update user 
 	//:main function at services.js, it is writen there so can be access by anyone and use it as pleased 
 	$scope.DelUpdtUser = function(uid, type){
 		CordovaService.cordova(uid, type);
 		if(type == 'delete'){
-			// var i = $scope.users.indexOf(uid);
-			// $scope.users.splice(i, 1);
 			$scope.close();
 		}
 	}
-
-	//call table User at database
-	var User = Parse.Object.extend("User");
 
 	//this 'data' is and object -use for to get Sign Up and In done
 	$scope.data = {};
@@ -31,10 +69,10 @@ angular.module('cdr.AppCtrl', [])
 
 	//Sign Up function 
 	$scope.signup = function(){
+		//check the password if match with confirm password
 		if($scope.data.password == $scope.data.confirm_password){
 
 		  //Create a new user on Parse
-		  // var Adduser = Parse.Object.extend("User");
 		  var add_user = new User();
 		  add_user.set("name", $scope.data.name);
 		  add_user.set("username", $scope.data.username);
@@ -44,11 +82,6 @@ angular.module('cdr.AppCtrl', [])
 
 		  add_user.save(null, {
 			success: function(user) {
-			    // $scope.users.push({
-		     //    	name: $scope.data.name,
-		     //    	username: $scope.data.username,
-		     //    	category: $scope.data.category
-		     //    });
 		    	alert("User is Successfully Added");
 			},
 			error: function(user, error) {
@@ -103,50 +136,6 @@ angular.module('cdr.AppCtrl', [])
 			$scope.getUsers('update');
 		}, 10000);
 	}
-
-	//get all user 
-	$scope.users = [];
-	$scope.updts = [];
-	var counter = 0;
-	$scope.getUsers = function(type){
-		// var getUsers = Parse.Object.extend("User");
-		var get_users = new Parse.Query(User);
-		get_users.find({
-		  success: function(results) {
-		    for (var i = 0; i < results.length; i++) {
-		    	var data = results[i]
-		    	if(type == 'user'){
-		    		
-				    $scope.users.push({
-				    	id: data.id,
-		            	name: data.get('name'),
-		            	username: data.get('username'),
-		            	category: data.get('category'),
-		            })
-		        }
-
-	            if (type == 'update'){
-		            $scope.updts.push({
-		            	id: data.id,
-		            	name: data.get('name'),
-		            	username: data.get('username'),
-		            	category: data.get('category'),
-		            })
-		        }
-		    }
-		    if(type == 'update'){
-		    	$scope.check($scope.updts, $scope.users);
-		    }
-		    localStorage.setItem('users', JSON.stringify($scope.users));
-
-		  },
-		  error: function(error) {
-	  			$scope.users = JSON.parse(localStorage['users'] || '[]');
-		  }
-		})
-	}
-
-	$scope.getUsers('user');
 
 	$scope.check = function(updt, arr){
 		var x = false;
@@ -216,40 +205,41 @@ angular.module('cdr.AppCtrl', [])
 	}
 	
 
-
 	//change password
-	//this scope variable will hold the data from pass from the form
+	//this scope variable used in form at users_info.html
 	$scope.password = {};
 
   	$scope.changePass = function(newPassword, userInfo){
-	    // var User = Parse.Object.extend("User");
-	    console.log(userInfo.name);
-	    var user = new Parse.Query(User);
-	    user.equalTo("objectId", userInfo.id);
-	    user.first({
-	    success: function(object) {
-	    	console.log("change pass");
-	        object.set("password",newPassword);
-	        // object.set("temp_password",newPassword);
-	        object.save()
-	        .then(
-	          function(user) {
-	          	Parse.User.logOut();
-	            alert("Password is been Changed, Please LogIn Again");
-	            $state.go('HomeTabs.Rates');
-	    
-	          },
-	          function(error) {
-	            console.log('Something went wrong');
-	          }
-	        );
-	    },
-	    error: function(error){
-	      console.log(error);
-	    }
-    });
-
+  		if(newPassword.new_password == newPassword.confirm_password){
+		    var user = new Parse.Query(User);
+		    user.equalTo("objectId", userInfo.id);
+		    user.first({
+		    success: function(object) {
+		    	console.log("change pass");
+		        object.set("password",newPassword);
+		        // object.set("temp_password",newPassword);
+		        object.save()
+		        .then(
+		          function(user) {
+		          	Parse.User.logOut();
+		            alert("Password is been Changed, Please LogIn Again");
+		            $state.go('HomeTabs.Rates');
+		    
+		          },
+		          function(error) {
+		            console.log('Something went wrong');
+		          }
+		        );
+		    },
+		    error: function(error){
+		      console.log(error);
+		    }
+    		});
+		}else{
+			alert("Password is not match");
+		}
 		$scope.password.new_password = "";
+		$scope.password.confirm_password = "";
   	}
 
 	$scope.hide = {
@@ -266,7 +256,6 @@ angular.module('cdr.AppCtrl', [])
 	$scope.fp_title = 'User\'s Info';
 	//toggle function to show the current option/view that user choose
 	$scope.toggle = function(type){
-		// console.log($scope.hide.user);
 		$scope.activeTab = type;
 		if(type == 'fp'){
 			$scope.hide.hidden = !$scope.hide.hidden;
