@@ -1,29 +1,9 @@
 angular.module('cdr.AppCtrl', [])
 
-.controller('AppCtrl', function($scope, $ionicHistory,
- $window, $cordovaDialogs, $ionicPopup, $ionicPopover, ModalService, CordovaService, LoadingService, $filter, $http){
-
-	//Function to call modal at services.js by passing html file name as parameter
-	$scope.open = function(getUrl, user) {
-		ModalService
-	      .mod('templates/'+getUrl, $scope)
-	      .then(function(modal) {
-	      	if(user != null){
-	      		$scope.userInfo = user;
-	  		}
-	      	modal.show();	     
-	      });		
-
-	      $scope.closePopover();
-	};
+.controller('AppCtrl', function($scope, $ionicHistory, $timeout,
+ $window, $cordovaDialogs, $ionicPopup, $ionicPopover, ModalService, CordovaService, LoadingService, $filter, $http, $interval, $ionicLoading){
 
 
-	//close the modal from controller :since close the modal at Html can be done by directly call the function in services.js
-	$scope.close = function(){
-		ModalService
-	      .mod('', $scope)
-	      .catch($scope.closeModal())		
-	}
 
 	$scope.GoBack = function() {
 	    $ionicHistory.goBack();
@@ -34,11 +14,14 @@ angular.module('cdr.AppCtrl', [])
 	$scope.DelUpdtUser = function(uid, type){
 		CordovaService.cordova(uid, type);
 		if(type == 'delete'){
-			var i = $scope.users.indexOf(uid);
-			$scope.users.splice(i, 1);
+			// var i = $scope.users.indexOf(uid);
+			// $scope.users.splice(i, 1);
 			$scope.close();
 		}
 	}
+
+	//call table User at database
+	var User = Parse.Object.extend("User");
 
 	//this 'data' is and object -use for to get Sign Up and In done
 	$scope.data = {};
@@ -51,8 +34,8 @@ angular.module('cdr.AppCtrl', [])
 		if($scope.data.password == $scope.data.confirm_password){
 
 		  //Create a new user on Parse
-		  var Adduser = Parse.Object.extend("User");
-		  var add_user = new Adduser();
+		  // var Adduser = Parse.Object.extend("User");
+		  var add_user = new User();
 		  add_user.set("name", $scope.data.name);
 		  add_user.set("username", $scope.data.username);
 		  add_user.set("password", $scope.data.password);
@@ -61,11 +44,11 @@ angular.module('cdr.AppCtrl', [])
 
 		  add_user.save(null, {
 			success: function(user) {
-			    $scope.users.push({
-		        	name: $scope.data.name,
-		        	username: $scope.data.username,
-		        	category: $scope.data.category
-		        });
+			    // $scope.users.push({
+		     //    	name: $scope.data.name,
+		     //    	username: $scope.data.username,
+		     //    	category: $scope.data.category
+		     //    });
 		    	alert("User is Successfully Added");
 			},
 			error: function(user, error) {
@@ -115,35 +98,17 @@ angular.module('cdr.AppCtrl', [])
       }else{}
     };
 
-	// A confirm dialog to logout
-	$scope.showPopup = function() {
-		var confirmPopup = $ionicPopup.confirm({
-		 title: 'Sign Out',
-		 template: 'Are you sure you want to Sign Out?'
-		});
-		confirmPopup.then(function(res) {
-		 if(res) {
-		   	Parse.User.logOut();  
-		 } else {	}
-		});
-
-		$scope.closePopover();
-	};
-
-	$scope.load = function(){
-		LoadingService
-		.load($scope);
-	}
+	$scope.Timer = $interval( function() {
+		$scope.getUsers('update');
+	}, 10000);
 
 	//get all user 
-
 	$scope.users = [];
-	$scope.Users = [];
 	$scope.updts = [];
 	var counter = 0;
 	$scope.getUsers = function(type){
-		var getUsers = Parse.Object.extend("User");
-		var get_users = new Parse.Query(getUsers);
+		// var getUsers = Parse.Object.extend("User");
+		var get_users = new Parse.Query(User);
 		get_users.find({
 		  success: function(results) {
 		    for (var i = 0; i < results.length; i++) {
@@ -155,112 +120,121 @@ angular.module('cdr.AppCtrl', [])
 		            	name: data.get('name'),
 		            	username: data.get('username'),
 		            	category: data.get('category'),
-		            	updt: data.get('updatedAt')
 		            })
 		        }
-	            else if (type == 'update'){
+
+	            if (type == 'update'){
 		            $scope.updts.push({
 		            	id: data.id,
-		            	updt: data.get('updatedAt')
+		            	name: data.get('name'),
+		            	username: data.get('username'),
+		            	category: data.get('category'),
 		            })
 		        }
 		    }
-		    if(type == 'user'){
-		    	localStorage.setItem('users', JSON.stringify($scope.users));
-		    	$scope.load();
-		    	// $scope.refresh();
+		    if(type == 'update'){
+		    	$scope.check($scope.updts, $scope.users);
 		    }
-
-		    $scope.check($scope.updts);
+		    localStorage.setItem('users', JSON.stringify($scope.users));
 
 		  },
 		  error: function(error) {
-
+	  			$scope.users = JSON.parse(localStorage['users'] || '[]');
 		  }
 		})
 	}
 
-	$scope.Users = JSON.parse(localStorage['users'] || '[]');
+	$scope.getUsers('user');
 
-	$scope.refresh = function(){
-		$window.location.reload(true);
-	}
-
-	$scope.check = function(updt){
+	$scope.check = function(updt, arr){
 		var x = false;
-		if(counter == 0){
-			for(var z=0; z<updt.length; z++){
-
-				if(updt.length < $scope.Users.length || updt.length > $scope.Users.length){
-					x = true;
-				}else{
-					var getUpdt = $filter('date')(updt[z].updt , 'dd/MM/yyyy HH:mm');
-					var getDate = $filter('date')($scope.Users[z].updt , 'dd/MM/yyyy HH:mm');
-					
-					if(getUpdt > getDate){
-						console.log("updated");
-						x = true;
+		var a;	var b = 1;	var c;
+		if(updt.length > arr.length){
+			a = updt.length;
+			c = updt[(updt.length-1)];
+			x = true;
+		}else if(updt.length < arr.length){
+			var get = false;
+			var remove;
+			for(var z=0; z<arr.length; z++){
+				if(get == false){
+					for(var y=0; y<updt.length; y++){
+						if(arr[z].id == updt[y].id){
+							get = false;
+							y = updt.length;
+						}
+						else{
+							get = true;
+							remove = z;
+						}
 					}
 				}
 			}
+				
+				if(get == true){
+					a = remove;
+					c = null;
+					x = true;
+				}
 
-			if(x == true){
-				$scope.clearLS();
-				counter++;
-				$scope.getUsers('user');
+		}else{
+			for(var z=0; z<updt.length; z++){
+				var updtName = updt[z].name;
+				var updtUName = updt[z].username;
+				var updtCategory = updt[z].category;
+				var arrName = arr[z].name;
+				var arrUName = arr[z].username;
+				var arrCategory = arr[z].category;
+				if(updtName != arrName || updtUName != arrUName || updtCategory != arrCategory){
+					a = z;
+					c = updt[z];
+					x = true;
+				}
 			}
-			
 		}
+
+		if(x == true){
+		    $ionicLoading.show({
+		      content: 'Loading',
+		      animation: 'fade-in',
+		      showBackdrop: true,
+		      maxWidth: 200,
+		      showDelay: 500
+		    });
+
+		    if(c != null){	arr.splice(a, b, c); }
+		    else if(c == null){	arr.splice(a, b);	}
+
+			$timeout(function () {
+				$ionicLoading.hide();
+			}, 2000);	
+		}		
+		x = false;
+		updt.splice(0, updt.length);	
 	}
 	
-	$scope.clearLS = function (){
-		localStorage.removeItem('users');
-		console.log("Clear LS pressed");
-	}
 
-
-	// all function related to delete user
-
-	$scope.data = {
-		showDelete: false
-	};
-
-	$scope.edit = function(item) {
-		alert('Edit Item: ' + item.id);
-	};
-	$scope.share = function(item) {
-		alert('Share Item: ' + item.id);
-	};
-
-	$scope.moveItem = function(item, fromIndex, toIndex) {
-		$scope.users.splice(fromIndex, 1);
-		$scope.users.splice(toIndex, 0, item);
-	};
-
-	$scope.onItemDelete = function(item) {
-		var i = $scope.users.indexOf(item);
-		$scope.deleteUser(item);
-		$scope.users.splice(i, 1);
-		alert("User "+item.name+" is deleted!");
-	};
-	// end for delete user
 
 	//change password
 	//this scope variable will hold the data from pass from the form
 	$scope.password = {};
 
   	$scope.changePass = function(newPassword, userInfo){
-	    var User = Parse.Object.extend("User");
+	    // var User = Parse.Object.extend("User");
+	    console.log(userInfo.name);
 	    var user = new Parse.Query(User);
 	    user.equalTo("objectId", userInfo.id);
 	    user.first({
 	    success: function(object) {
+	    	console.log("change pass");
 	        object.set("password",newPassword);
-	        object.set("temp_password",newPassword);
+	        // object.set("temp_password",newPassword);
 	        object.save()
 	        .then(
 	          function(user) {
-	            alert("The Password is been Changed");
+	          	Parse.User.logOut();
+	            alert("Password is been Changed, Please LogIn Again");
+	            $state.go('HomeTabs.Rates');
 	    
 	          },
 	          function(error) {
@@ -342,10 +316,74 @@ angular.module('cdr.AppCtrl', [])
     	$scope.popover.hide();
   	};
 
-	if(!localStorage['users']){
-		$scope.getUsers('user');
-	}else{	
-		$scope.getUsers('update');
 
+	// A confirm dialog to logout
+	$scope.showPopup = function() {
+		var confirmPopup = $ionicPopup.confirm({
+		 title: 'Sign Out',
+		 template: 'Are you sure you want to Sign Out?'
+		});
+		confirmPopup.then(function(res) {
+		 if(res) {
+		   	Parse.User.logOut();  
+		 } else {	}
+		});
+
+		$scope.closePopover();
+	};
+
+
+	$scope.clearLS = function (){
+		localStorage.removeItem('users');
+		console.log("Clear LS pressed");
 	}
+
+	// all function related to delete user
+
+	$scope.data = {
+		showDelete: false
+	};
+
+	$scope.edit = function(item) {
+		alert('Edit Item: ' + item.id);
+	};
+	$scope.share = function(item) {
+		alert('Share Item: ' + item.id);
+	};
+
+	$scope.moveItem = function(item, fromIndex, toIndex) {
+		$scope.users.splice(fromIndex, 1);
+		$scope.users.splice(toIndex, 0, item);
+	};
+
+	$scope.onItemDelete = function(item) {
+		var i = $scope.users.indexOf(item);
+		$scope.deleteUser(item);
+		$scope.users.splice(i, 1);
+		alert("User "+item.name+" is deleted!");
+	};
+	// end for delete user
+
+	//Function to call modal at services.js by passing html file name as parameter
+	$scope.open = function(getUrl, user) {
+		ModalService
+	      .mod('templates/'+getUrl, $scope)
+	      .then(function(modal) {
+	      	if(user != null){
+	      		$scope.userInfo = user;
+	  		}
+	      	modal.show();	     
+	      });		
+
+	      $scope.closePopover();
+	};
+
+
+	//close the modal from controller :since close the modal at Html can be done by directly call the function in services.js
+	$scope.close = function(){
+		ModalService
+	      .mod('', $scope)
+	      .catch($scope.closeModal())		
+	}
+
 })

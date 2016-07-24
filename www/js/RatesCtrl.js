@@ -43,7 +43,7 @@
 		  	$scope.length = results.length;
 		    for (var i = 0; i < results.length; i++) {
 		    	//get updatedAt and currency column from table
-	    		var Updt = results[i].get('updatedAt');
+	    		// var Updt = results[i].get('updatedAt');
 		    	var data = results[i].get('currency');		    	
 		    	if(type == 'rate'){
 				    $scope.arr.push({
@@ -52,7 +52,6 @@
 		            	amount: data.amount,
 		            	sell: data.sell,
 		            	buy: data.buy,
-		            	Updt: Updt
 		            })
 				} 
 
@@ -63,7 +62,6 @@
 		            	amount: data.amount,
 		            	sell: data.sell,
 		            	buy: data.buy,
-		            	Updt: Updt
 		            })
 		        }
 		    }		   
@@ -130,6 +128,7 @@
 			}
 		}
 
+		console.log(": "+x);
 		if(x == true){
 		    $ionicLoading.show({
 		      content: 'Loading',
@@ -146,6 +145,7 @@
 				$ionicLoading.hide();
 			}, 2000);	
 		}		
+		x = false;
 		$scope.updt.splice(0, updt.length);	
 	}
 

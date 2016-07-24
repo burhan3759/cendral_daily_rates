@@ -8,17 +8,16 @@
     </ion-header-bar>
   
 	<ion-content class="padding has-header" overflow-scroll="true">
-		<div class="list" ng-hide="!hide.user">
+		<div class="list" ng-if="hide.user">
 
-			<a class="item item" ng-repeat="user in Users" ng-click="open('User_Info.html', user)">
+			<a class="item item" ng-repeat="user in users" ng-click="open('User_Info.html', user)">
 			  <h2>Name: {{user.name}}</h2>
 			  <p>Level: {{user.category}}</p>
 			</a>
-			<div class="button button-full button-clear button-energized" ng-click="refresh()">Refresh</div>
 		</div>
 
 
-    <ion-list ng-hide="hide.user">
+    <ion-list ng-if="!hide.user">
         <div class="list card">
             <div class="item" id='UnitCurrency'>
               <center><b>Fill up all the Details</b></center>
@@ -51,7 +50,8 @@
         </label>
         <button class="button button-stable button-block button-dark" ng-click="signup()">Sign Up</button>
     </ion-list>
-            
+    <!-- if a lot of content need to use <br> at last to make the scrollign smooth -->
+    <br>
 	</ion-content>
 </ion-modal-view>
 
