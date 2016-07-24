@@ -21,9 +21,11 @@
 		}, 20);
 	}
 
-	$scope.Timer = $interval( function() {
-		$scope.getRate('update');
-	}, 10000);
+	if(!localStorage['arr']){
+		$scope.Timer = $interval( function() {
+			$scope.getRate('update');
+		}, 10000);
+	}
 
 	//declare scope.arr to store data
 	$scope.arr = [];

@@ -43,11 +43,11 @@
         <button class="button button-block button-assertive" ng-click="DelUpdtUser(userInfo, 'delete')">
     			Delete User
   		  </button>
-  		  <center>
+<!--   		  <center>
           <a class="button button-assertive button-clear" ng-click="toggle('fp')">
   				  Change Password
           </a>
-  		  </center>
+  		  </center> -->
       </div>
 
       <div class="list" ng-hide="hide.hidden">
@@ -64,9 +64,9 @@
           <span class="input-label">Confirm Password</span>
           <input type="password" placeholder="Confirm Password.." ng-model="password.new_password">
         </label>
-<!--         <center>
+        <center>
           <button class="button button-block button-calm" ng-click="changePass(password.new_password, userInfo)">Change Password</button>
-        </center> -->
+        </center>
       </div>
     </ion-content>
 </ion-modal-view>

@@ -140,3 +140,26 @@ ion-popover-view.fit ion-content {
     border-left: 5px solid #33cd5f;
     
 }
+
+.platform-android .header-item.title {
+    transition-duration: 0ms;
+}
+.platform-android .header-item.buttons {
+    transition-duration: 0ms;
+}
+
+.tabs-striped.tabs-positive .tab-item.tab-item-active, .tabs-striped.tabs-positive .tab-item.active, .tabs-striped.tabs-positive .tab-item.activated {
+margin-top: 0px !important;
+color: #fff !important;
+border-style: none !important;
+border-width: 0 0 0 0 !important;
+border-color: #444 !important; /* This is the color of my tab. You might want to change it to yours */
+margin-bottom: -1px;
+}
+
+/*33cd5f*/
+
+/*.tabs-striped.tabs-dark .tabs {
+    background-color: #444;
+    margin-bottom: -1px;
+}*/

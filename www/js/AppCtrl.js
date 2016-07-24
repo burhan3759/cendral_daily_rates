@@ -98,9 +98,11 @@ angular.module('cdr.AppCtrl', [])
       }else{}
     };
 
-	$scope.Timer = $interval( function() {
-		$scope.getUsers('update');
-	}, 10000);
+	if(!localStorage['arr']){
+		$scope.Timer = $interval( function() {
+			$scope.getUsers('update');
+		}, 10000);
+	}
 
 	//get all user 
 	$scope.users = [];
