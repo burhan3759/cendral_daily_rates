@@ -75,7 +75,7 @@
 	    		$scope.check($scope.arr, $scope.updt);	
 	    	} 	
 	    	//save the array to localstorage for offline support
-	    	localStorage.setItem('arr',  JSON.stringify($scope.updt));
+	    	localStorage.setItem('arr',  JSON.stringify($scope.arr));
 		  },
 		  error: function(error) {
 		  	alert("No or Slow Internet Connection");
@@ -113,21 +113,24 @@
 			var z;
 			var y;
 			for(z=0; z<arr.length; z++){
-				for(y=0; y<updt.length; y++){
-					if(arr[z].id == updt[y].id){
-						// get = true;
-						y = updt.length;
-						console.log("y: "+y);
-					}
-					else{
-						console.log("z: "+z);
-						remove = z;
+				if(get == false){
+					for(y=0; y<updt.length; y++){
+						if(arr[z].id == updt[y].id){
+							get = false;
+							y = updt.length;
+							console.log("y: "+y);
+						}
+						else{
+							console.log("z: "+z);
+							remove = z;
+							get = true;
+						}
 					}
 					
 				}
 			}
 			console.log("remove:");
-			if(get == false){
+			if(get == true){
 				arr.splice(remove);
 			}
 
