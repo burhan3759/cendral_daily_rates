@@ -230,8 +230,8 @@
 					sell: data.sell,
 					buy: data.buy
 				});
-	 			$scope.GoBack();
 	 			alert('Successfully add New Currency');
+	 			$scope.GoBack();
 			},
 			error: function(rates, error) {
 			    // error is a Parse.Error with an error code and message.
@@ -254,7 +254,6 @@
           if (btnIndex === 1) {
           	var index = $scope.arr.indexOf(data);
 			$scope.arr.splice(index, 1);
-			// var Delete = Parse.Object.extend("Rates");
 			var query = new Parse.Query(getRates);
 			query.get(data.id, {
 			  success: function(myObj) {
