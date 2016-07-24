@@ -107,7 +107,7 @@
 			}, 2000);
 			// x = true;
 		}else if(updt.length < arr.length){
-			console.log("updt: " + updt.length + " arr: " + arr.length);
+			// console.log("updt: " + updt.length + " arr: " + arr.length);
 			var get = false;
 			var remove;
 			var z;
@@ -122,6 +122,7 @@
 						}
 						else{
 							console.log("z: "+z);
+							// console.log("remove: "+remove);
 							remove = z;
 							get = true;
 
@@ -129,16 +130,12 @@
 					}
 					
 				}else if(get == true){
-					arr.splice(remove);
+					console.log("remove: "+remove);
+					arr.splice(remove, 1);
 					z = arr.length;
 
 				}
 			}
-			// console.log(get);
-			// if(get == true){
-			// 	arr.splice(remove);
-			// }
-
 
 		}else{
 			for(var z=0; z<updt.length; z++){
@@ -148,8 +145,8 @@
 				var arrBuy = arr[z].buy;
 				var arrSell = arr[z].sell;
 				var arrAmount = arr[z].amount;
-				console.log(updtSell);
-				console.log(arrSell);
+				// console.log(updtSell);
+				// console.log(arrSell);
 				if(updtBuy > arrBuy || updtBuy < arrBuy || updtSell > arrSell || updtSell < arrSell || updtAmount > arrAmount || updtAmount < arrAmount){
 					// console.log(z + " :" + (z+1));
 					// var y = z;
