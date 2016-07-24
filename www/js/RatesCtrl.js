@@ -124,15 +124,20 @@
 							console.log("z: "+z);
 							remove = z;
 							get = true;
+
 						}
 					}
 					
+				}else if(get == true){
+					arr.splice(remove);
+					z = arr.length;
+
 				}
 			}
-			console.log("remove:");
-			if(get == true){
-				arr.splice(remove);
-			}
+			// console.log(get);
+			// if(get == true){
+			// 	arr.splice(remove);
+			// }
 
 
 		}else{
