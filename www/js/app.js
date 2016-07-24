@@ -27,10 +27,14 @@ angular.module('cdr', ['ionic', 'cdr.Services', 'cdr.AppCtrl', 'cdr.RatesCtrl', 
     });
 })
 
+.config(function($ionicConfigProvider){
+        $ionicConfigProvider.tabs.position('top');
+})
+
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider){
 
   //set the tab for this app at bottom
-  $ionicConfigProvider.tabs.position('bottom');
+  // $ionicConfigProvider.tabs.position('bottom');
 
   //set the default route/page
   $urlRouterProvider.otherwise('/Home/Rates');
@@ -100,6 +104,23 @@ angular.module('cdr', ['ionic', 'cdr.Services', 'cdr.AppCtrl', 'cdr.RatesCtrl', 
     controller: 'RatesCtrl'
   });
 })
+
+.directive('dragBack', function($ionicGesture, $state) {
+  return {
+    restrict : 'A',
+    link : function(scope, elem, attr) {
+      
+      $ionicGesture.on('swipe', function(event) {
+      
+        console.log('Got swiped!');
+        event.preventDefault();
+        window.history.back();
+        
+      }, elem);
+      
+    }
+  }  
+});
 
 
 

@@ -13,15 +13,12 @@
 		var interval = setInterval(function() {
 				// Increment the value by 1
 				$scope.progressPercent++
-					if ($scope.progressPercent == 10) {
-						// $scope.clearLS();
-						$scope.getRate('update');
-						// $state.go($state.current, {}, {reload: true}); 
+					if ($scope.progressPercent == 100) {
 						clearInterval(interval);
 						$scope.progressPercent = 0
 					}
 				$scope.$apply()
-		}, 80);
+		}, 20);
 	}
 
 	$scope.Timer = $interval( function() {
@@ -32,8 +29,11 @@
 	$scope.arr = [];
 	$scope.updt = [];
 
+
 	//get table Rates from database
 	var getRates = Parse.Object.extend("Rates");
+
+	//use for getRates function
 	var get_rates = new Parse.Query(getRates);
 
 	//get Data from database
@@ -82,8 +82,6 @@
 	}
 
 	$scope.getRate('rate');
-
-	// $scope.cache = true;
 	
 	$scope.check = function(arr, updt){	
 		var x = false;
@@ -117,7 +115,6 @@
 			}
 
 		}else{
-			console.log("other");
 			for(var z=0; z<updt.length; z++){
 				var updtBuy = updt[z].buy;
 				var updtSell = updt[z].sell;
@@ -134,20 +131,20 @@
 		}
 
 		if(x == true){
-		    $ionicLoading.show({
-		      content: 'Loading',
-		      animation: 'fade-in',
-		      showBackdrop: true,
-		      maxWidth: 200,
-		      showDelay: 500
-		    });
+		    // $ionicLoading.show({
+		    //   content: 'Loading',
+		    //   animation: 'fade-in',
+		    //   showBackdrop: true,
+		    //   maxWidth: 200,
+		    //   showDelay: 500
+		    // });
 
 		    if(c != null){	arr.splice(a, b, c); }
 		    else {	arr.splice(a, b);	}
 
-			$timeout(function () {
-				$ionicLoading.hide();
-			}, 2000);	
+			// $timeout(function () {
+			// 	$ionicLoading.hide();
+			// }, 2000);	
 		}		
 		$scope.updt.splice(0, updt.length);	
 	}
@@ -157,9 +154,6 @@
 	$scope.GoBack = function() {
 	    $ionicHistory.goBack();
   	};
-
-  	// object variable for update rates page
-	$scope.rates = {};
 
 	$scope.openRate = function(rate){
 		var Url = "";
@@ -202,26 +196,20 @@
 	//function for update the rates 
 	$scope.updateRates = function(data){
 		$scope.update = {'name': data.name, 'amount':data.amount, 'sell':data.sell, 'buy':data.buy};
-		var update_Rates = Parse.Object.extend("Rates");
-		var update_rates = new Parse.Query(update_Rates);
+		// var update_Rates = Parse.Object.extend("Rates");
+		var update_rates = new Parse.Query(getRates);
+		$scope.close();
 		update_rates.equalTo("objectId",data.id);
 		update_rates.first({
 		  success: function(results) {
 		    results.set("currency", $scope.update);
 		    results.save();
 		    alert('Currency Updated');
-
-		    // $scope.getRate();
-		    // $state.go($state.current, {}, {reload: true}); 
-
 		  },
 		  error: function(error) {
 		    alert('Currently cannot update the rates. Sorry, Please try in a moment');
 		  }
 		})
-		
-		//close the modal after update success or failure
-		$scope.close();
 	}
 
 	//function to add currency it will add inside and array - to save in database function is been implemented on html page it self
@@ -231,8 +219,8 @@
 	$scope.addCurrency = function(data){
 		data = $scope.add_rate;
 		$scope.new_Currency = {'name': data.name, 'amount':data.amount, 'sell':data.sell, 'buy':data.buy};
-		var add_currency = new Parse.Object.extend("Rates");
-		var add = new add_currency();
+		// var add_currency = new Parse.Object.extend("Rates");
+		var add = new getRates();
 		add.set("currency", $scope.new_Currency);	 
 		add.save(null, {
 			success: function(rates) {
@@ -266,8 +254,8 @@
           if (btnIndex === 1) {
           	var index = $scope.arr.indexOf(data);
 			$scope.arr.splice(index, 1);
-			var Delete = Parse.Object.extend("Rates");
-			var query = new Parse.Query(Delete);
+			// var Delete = Parse.Object.extend("Rates");
+			var query = new Parse.Query(getRates);
 			query.get(data.id, {
 			  success: function(myObj) {
 			  	$scope.close();
