@@ -73,7 +73,7 @@
 			
 			for(var z=0; z<arr.length; z++){
 				if(arr[z].updt > set){
-					latest = $scope.arr[z].updt;
+					latest = arr[z].updt;
 					set = latest;
 				}
 
