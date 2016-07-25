@@ -87,7 +87,7 @@
 	    	} 	
 	    	//save the array to localstorage for offline support
 	    	localStorage.setItem('arr',  JSON.stringify($scope.arr));
-	    	$scope.alert = 'red';
+	    	$scope.alert = 'black';
 	    	$scope.msg  = "Last Updated: " + latest;
 		  },
 		  error: function(error) {
@@ -101,6 +101,7 @@
 	$scope.getRate('rate');
 	
 	$scope.$on('$ionicView.beforeEnter', function(){
+		$scope.alert = 'green';
 		$scope.msg = "Loading...";
 	});
 	
