@@ -100,6 +100,9 @@
 	// $scope.msg  = "No Internet Connection - This is not the Latest Rate!!";
 	$scope.getRate('rate');
 	
+	$scope.$on('$ionicView.beforeEnter', function(){
+		$scope.msg = "Loading...";
+	});
 	
 	$scope.check = function(arr, updt){	
 		var x = false;
