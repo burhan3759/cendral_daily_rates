@@ -1,7 +1,6 @@
 angular.module('cdr.AppCtrl', [])
 
 .controller('AppCtrl', function($scope, $ionicHistory, $timeout, $cordovaDialogs, $ionicPopup, $ionicPopover, ModalService, CordovaService, $interval, $ionicLoading){
-
 	$scope.GoBack = function() {
 	    $ionicHistory.goBack();
   	};
@@ -83,6 +82,7 @@ angular.module('cdr.AppCtrl', [])
 		  add_user.save(null, {
 			success: function(user) {
 		    	alert("User is Successfully Added");
+		    	$scope.toggle('user');
 			},
 			error: function(user, error) {
 			  // Show the error message somewhere and let the user try again.
@@ -114,8 +114,10 @@ angular.module('cdr.AppCtrl', [])
     $scope.loggedIn = function() {
       user = Parse.User.current();
       if (user) {
+      	$scope.icon = "icon ion-edit";
         return true;
       } else {
+      	$scope.icon = "icon ion-calculator";
         return false;
       }
     };
@@ -306,6 +308,9 @@ angular.module('cdr.AppCtrl', [])
 	$scope.closePopover = function() {
     	$scope.popover.hide();
   	};
+  	$scope.$on('$destroy', function() {
+    	$scope.popover.remove();
+  	});
 
 
 	// A confirm dialog to logout
@@ -321,6 +326,9 @@ angular.module('cdr.AppCtrl', [])
 		});
 
 		$scope.closePopover();
+		$scope.$on('$destroy', function() {
+    		$scope.popover.remove();
+  		});
 	};
 
 
@@ -356,10 +364,11 @@ angular.module('cdr.AppCtrl', [])
 	// end for delete user
 
 	//Function to call modal at services.js by passing html file name as parameter
-	$scope.open = function(getUrl, user) {
+	$scope.opens = function(getUrl, user) {
 		ModalService
 	      .mod('templates/'+getUrl, $scope)
 	      .then(function(modal) {
+	      	$scope.modals = modal;
 	      	if(user != null){
 	      		$scope.userInfo = user;
 	  		}
@@ -367,6 +376,9 @@ angular.module('cdr.AppCtrl', [])
 	      });		
 
 	      $scope.closePopover();
+    	$scope.$on('$destroy', function() {
+    		$scope.popover.remove();
+  		});
 	};
 
 
@@ -375,6 +387,11 @@ angular.module('cdr.AppCtrl', [])
 		ModalService
 	      .mod('', $scope)
 	      .catch($scope.closeModal())		
+    	$scope.$on('$destroy', function() {
+			$scope.modals.remove();
+		})	
 	}
+
+	
 
 })

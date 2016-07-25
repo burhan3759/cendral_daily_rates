@@ -10,7 +10,7 @@
 	<ion-content class="padding has-header" overflow-scroll="true">
 		<div class="list" ng-if="hide.user">
 
-			<a class="item item" ng-repeat="user in users" ng-click="open('User_Info.html', user)">
+			<a class="item item" ng-repeat="user in users" ng-click="opens('User_Info.html', user)">
 			  <h2>Name: {{user.name}}</h2>
 			  <p>Level: {{user.category}}</p>
 			</a>

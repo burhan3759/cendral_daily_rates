@@ -15,7 +15,7 @@
 		}, 20);
 	}
 
-	if(!localStorage['arr']){
+	if(localStorage['arr']){
 		$scope.Timer = $interval( function() {
 			$scope.getRate('update');
 		}, 10000);
@@ -161,6 +161,7 @@
 		ModalService
 		.mod('templates/'+Url, $scope)
 		.then(function(modal){
+			$scope.modal = modal;
 			$scope.rates = rate;
 			modal.show();
 		});		
@@ -169,9 +170,14 @@
 	//close the modal from controller 
 	//:since close the modal at Html can be done by directly call the function in services.js
 	$scope.close = function(){
+		console.log(ModalService
+	      .mod('', $scope));
 		ModalService
 	      .mod('', $scope)
 	      .catch($scope.closeModal())		
+      	$scope.$on('$destroy', function() {
+  			$scope.modal.remove();
+  		})		
 	}
 
 	$scope.clearLS = function (){
