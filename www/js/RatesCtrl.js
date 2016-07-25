@@ -73,9 +73,7 @@
 			
 			for(var z=0; z<arr.length; z++){
 				if(arr[z].updt > set){
-					latest = arr[z].updt;
-					// if(type == 'rate'){	latest = $scope.arr[z].updt;}
-					// else if(type == 'update'){	latest = $scope.updt[z].updt;}
+					latest = $scope.arr[z].updt;
 					set = latest;
 				}
 
@@ -98,7 +96,7 @@
 		  }
 		});
 	}
-	// $scope.msg  = "No Internet Connection - This is not the Latest Rate!!";
+	
 	$scope.getRate('rate');
 	
 	$scope.$on('$ionicView.beforeEnter', function(){
