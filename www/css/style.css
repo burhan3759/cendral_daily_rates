@@ -133,6 +133,13 @@ ion-popover-view.fit ion-content {
     font-family: Montserrat;
 }
 
+#msg{
+    color: #ef473a;
+}
+#msg2{
+    color: #fff;
+}
+
 #border{
     border-style: solid;
     border-color: #28a54c;

@@ -15,11 +15,11 @@
 		}, 20);
 	}
 
-	if(localStorage['arr']){
+	// if(localStorage['arr']){
 		$scope.Timer = $interval( function() {
 			$scope.getRate('update');
 		}, 10000);
-	}
+	// }
 
 	//declare scope.arr to store data
 	$scope.arr = [];
@@ -66,16 +66,18 @@
 	    	} 	
 	    	//save the array to localstorage for offline support
 	    	localStorage.setItem('arr',  JSON.stringify($scope.arr));
+	    	var alert = false;
 		  },
 		  error: function(error) {
-		  	alert("No or Slow Internet Connection");
+		  	var alert = true;
+		  	$scope.msg  = "No Internet Connection - This is not the Latest Rate!!";
 			$scope.arr = JSON.parse(localStorage['arr'] || '{}');	
 		  }
 		});
 	}
-
+	// $scope.msg  = "No Internet Connection - This is not the Latest Rate!!";
 	$scope.getRate('rate');
-	
+
 	$scope.check = function(arr, updt){	
 		var x = false;
 		var a;	var b = 1;	var c;

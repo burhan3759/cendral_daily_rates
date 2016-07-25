@@ -3455,7 +3455,8 @@ a.subdued {
 .bar-subheader {
   top: 44px;
   display: block;
-  height: 44px; }
+  height: 44px; 
+  border-radius: 6px}
 
 .bar-subfooter {
   bottom: 44px;

@@ -2,10 +2,10 @@
 
 	<div class="bar bar-subheader">
 		<!-- <h1 class="title">bar-calm</h1> -->
-		<div class="row item">
-			<div class="col">Currency</div>
-		</div>
-		<br>
+
+		<center ng-if="alert" id="msg">{{msg}}</center>
+		<center ng-if="!alert" style="color: white;">Perfect</center>
+
 		<div  id="title" class="row item">
 			<div class="col col-33">Currency</div>
 			<div class="col">Unit</div>
@@ -28,7 +28,7 @@
 		</div> -->
 
 	<!-- Data fetch from database -->
-		<br><br><br>
+		<br>
 		<div ng-repeat="rate in arr">
 			<ion-item class="row item item-icon-right" ng-click="openRate(rate)"  id="border">
 				<div class="col col-33">{{rate.name}}</div>
@@ -40,7 +40,7 @@
 				</div>
 			</ion-item>
 		</div>
-		<!-- <h2 style="text-align: center;">Used touch gesture: {{gesture.used}}</h2>   -->
+
 		<br>
 
 	</ion-content>
