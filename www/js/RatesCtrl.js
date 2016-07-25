@@ -125,7 +125,6 @@
 			}
 		}
 
-		// console.log(": "+x);
 		if(x == true){
 		    // $ionicLoading.show({
 		    //   content: 'Loading',
