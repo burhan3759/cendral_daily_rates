@@ -133,11 +133,11 @@ angular.module('cdr.AppCtrl', ['ionic', 'ui.router'])
       }else{}
     };
 
-	if(!localStorage['arr']){
+	// if(!localStorage['arr']){
 		$scope.Timer = $interval( function() {
 			$scope.getUsers('update');
 		}, 10000);
-	}
+	// }
 
 	$scope.check = function(updt, arr){
 		var x = false;

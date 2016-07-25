@@ -66,18 +66,18 @@
 	    	} 	
 	    	//save the array to localstorage for offline support
 	    	localStorage.setItem('arr',  JSON.stringify($scope.arr));
-	    	var alert = false;
+	    	$scope.alert = 'white';
 		  },
 		  error: function(error) {
-		  	var alert = true;
-		  	$scope.msg  = "No Internet Connection - This is not the Latest Rate!!";
+		  	$scope.alert = 'red';
+		  	
 			$scope.arr = JSON.parse(localStorage['arr'] || '{}');	
 		  }
 		});
 	}
 	// $scope.msg  = "No Internet Connection - This is not the Latest Rate!!";
 	$scope.getRate('rate');
-
+	$scope.msg  = "No Internet Connection - This is not the Latest Rate!!";
 	$scope.check = function(arr, updt){	
 		var x = false;
 		var a;	var b = 1;	var c;
