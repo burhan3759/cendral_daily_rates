@@ -1,6 +1,6 @@
  angular.module('cdr.RatesCtrl', ['ionic'])
 
-.controller('RatesCtrl', function($scope, $ionicModal, $cordovaDialogs, ModalService, $ionicHistory, $state, $timeout, $interval, $ionicLoading, $ionicGesture, $window){  
+.controller('RatesCtrl', function($scope, $ionicModal, $cordovaDialogs, ModalService, $ionicHistory, $state, $timeout, $interval, $ionicLoading, $ionicGesture, $window, $filter){  
 
 	$scope.progressPercent = 0
 	$scope.simulateLoad = function() {
@@ -38,7 +38,7 @@
 		  	$scope.length = results.length;
 		    for (var i = 0; i < results.length; i++) {
 		    	//get updatedAt and currency column from table
-	    		// var Updt = results[i].get('updatedAt');
+	    		var Updt = results[i].get('updatedAt');
 		    	var data = results[i].get('currency');		    	
 		    	if(type == 'rate'){
 				    $scope.arr.push({
@@ -47,7 +47,8 @@
 		            	amount: data.amount,
 		            	sell: data.sell,
 		            	buy: data.buy,
-		            	c_name: data.c_name
+		            	c_name: data.c_name,
+		            	updt: Updt
 		            })
 				} 
 
@@ -58,18 +59,36 @@
 		            	amount: data.amount,
 		            	sell: data.sell,
 		            	buy: data.buy,
-		            	c_name: data.c_name
+		            	c_name: data.c_name,
+		            	updt: Updt
 		            })
 		        }
 		    }		   
+
+		    var set;
+		    var arr;
+		    var latest;
+			if(type == 'rate'){	set = $scope.arr[0].updt;	arr = $scope.arr}
+			else if(type == 'update'){	set = $scope.arr[0].updt; arr = $scope.updt}
+			
+			for(var z=0; z<arr.length; z++){
+				if(arr[z].updt > set){
+					latest = arr[z].updt;
+					// if(type == 'rate'){	latest = $scope.arr[z].updt;}
+					// else if(type == 'update'){	latest = $scope.updt[z].updt;}
+					set = latest;
+				}
+
+				latest = $filter('date')(latest , ' EEEE, dd/MM/yyyy HH:mm');
+			}
 
 	    	if(type == 'update'){
 	    		$scope.check($scope.arr, $scope.updt);	
 	    	} 	
 	    	//save the array to localstorage for offline support
 	    	localStorage.setItem('arr',  JSON.stringify($scope.arr));
-	    	$scope.alert = 'white';
-	    	$scope.msg  = "Load Content";
+	    	$scope.alert = 'red';
+	    	$scope.msg  = "Last Updated: " + latest;
 		  },
 		  error: function(error) {
 		  	$scope.alert = 'red';
@@ -80,6 +99,7 @@
 	}
 	// $scope.msg  = "No Internet Connection - This is not the Latest Rate!!";
 	$scope.getRate('rate');
+	
 	
 	$scope.check = function(arr, updt){	
 		var x = false;
