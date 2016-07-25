@@ -123,22 +123,22 @@
 			}
 		}
 
-		console.log(": "+x);
+		// console.log(": "+x);
 		if(x == true){
-		    $ionicLoading.show({
-		      content: 'Loading',
-		      animation: 'fade-in',
-		      showBackdrop: true,
-		      maxWidth: 200,
-		      showDelay: 500
-		    });
+		    // $ionicLoading.show({
+		    //   content: 'Loading',
+		    //   animation: 'fade-in',
+		    //   showBackdrop: true,
+		    //   maxWidth: 200,
+		    //   showDelay: 500
+		    // });
 
 		    if(c != null){	arr.splice(a, b, c); }
 		    else if(c == null){	arr.splice(a, b);	}
 
-			$timeout(function () {
-				$ionicLoading.hide();
-			}, 2000);	
+			// $timeout(function () {
+			// 	$ionicLoading.hide();
+			// }, 2000);	
 		}		
 		x = false;
 		$scope.updt.splice(0, updt.length);	
@@ -254,20 +254,6 @@
           });
 	}
 
-// var element = angular.element(document.querySelector('#eventPlaceholder'));
-//   var events = [{
-//     event: 'dragup',
-//     text: 'You dragged me UP!'
-//   },{
-//     event: 'dragdown',
-//     text: 'You dragged me Down!'
-//   },{
-//     event: 'dragleft',
-//     text: 'You dragged me Left!'
-//   },{
-//     event: 'dragright',
-//     text: 'You dragged me Right!'
-//   }];
 
   $scope.gesture = {
     used: ''
