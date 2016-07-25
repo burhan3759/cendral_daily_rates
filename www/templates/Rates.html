@@ -1,8 +1,11 @@
 <ion-view title="Daily Rates" cache-view="true">
-	<ion-content class="padding animation slide-in" scroll="true"  id="content"
-             on-swipe-left="onGesture('Swipe Left')">
 
-	<!-- The interface to put the content -->
+	<div class="bar bar-subheader">
+		<!-- <h1 class="title">bar-calm</h1> -->
+		<div class="row item">
+			<div class="col">Currency</div>
+		</div>
+		<br>
 		<div  id="title" class="row item">
 			<div class="col col-33">Currency</div>
 			<div class="col">Unit</div>
@@ -10,9 +13,22 @@
 			<div class="col">Sell</div>
 			<div class="col col-10"></div>
 		</div>
+	</div>
+
+	<ion-content class="padding animation slide-in has-subheader" scroll="true"  id="content"
+             on-swipe-left="onGesture('Swipe Left')">
+
+	<!-- The interface to put the content -->
+<!-- 		<div  id="title" class="row item">
+			<div class="col col-33">Currency</div>
+			<div class="col">Unit</div>
+			<div class="col">Buy</div>
+			<div class="col">Sell</div>
+			<div class="col col-10"></div>
+		</div> -->
 
 	<!-- Data fetch from database -->
-
+		<br><br><br>
 		<div ng-repeat="rate in arr">
 			<ion-item class="row item item-icon-right" ng-click="openRate(rate)"  id="border">
 				<div class="col col-33">{{rate.name}}</div>
