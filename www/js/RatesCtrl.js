@@ -47,6 +47,7 @@
 		            	amount: data.amount,
 		            	sell: data.sell,
 		            	buy: data.buy,
+		            	c_name: data.c_name
 		            })
 				} 
 
@@ -57,6 +58,7 @@
 		            	amount: data.amount,
 		            	sell: data.sell,
 		            	buy: data.buy,
+		            	c_name: data.c_name
 		            })
 		        }
 		    }		   
@@ -67,17 +69,18 @@
 	    	//save the array to localstorage for offline support
 	    	localStorage.setItem('arr',  JSON.stringify($scope.arr));
 	    	$scope.alert = 'white';
+	    	$scope.msg  = "Load Content";
 		  },
 		  error: function(error) {
 		  	$scope.alert = 'red';
-		  	
+			$scope.msg  = "No Internet Connection - This is not the Latest Rate!!";	  	
 			$scope.arr = JSON.parse(localStorage['arr'] || '{}');	
 		  }
 		});
 	}
 	// $scope.msg  = "No Internet Connection - This is not the Latest Rate!!";
 	$scope.getRate('rate');
-	$scope.msg  = "No Internet Connection - This is not the Latest Rate!!";
+	
 	$scope.check = function(arr, updt){	
 		var x = false;
 		var a;	var b = 1;	var c;
@@ -187,7 +190,7 @@
 
 	//function for update the rates 
 	$scope.updateRates = function(data){
-		$scope.update = {'name': data.name, 'amount':data.amount, 'sell':data.sell, 'buy':data.buy};
+		$scope.update = {'name': data.name, 'amount':data.amount, 'sell':data.sell, 'buy':data.buy, 'c_name':data.c_name};
 		// var update_Rates = Parse.Object.extend("Rates");
 		var update_rates = new Parse.Query(getRates);
 		$scope.close();
@@ -211,7 +214,7 @@
 	$scope.addCurrency = function(data){
 		$scope.GoBack();
 		data = $scope.add_rate;
-		$scope.new_Currency = {'name': data.name, 'amount':data.amount, 'sell':data.sell, 'buy':data.buy};
+		$scope.new_Currency = {'name': data.name, 'amount':data.amount, 'sell':data.sell, 'buy':data.buy, 'c_name':data.c_name};
 		// var add_currency = new Parse.Object.extend("Rates");
 		var add = new getRates();
 		add.set("currency", $scope.new_Currency);	 
