@@ -1,13 +1,13 @@
-<ion-modal-view cache-view="true">
+<ion-modal-view>
     <ion-header-bar class="bar-balanced">
-        <button class="button button-clear" ui-sref="HomeTabs.Rates" ng-hide="!hide.user">
+        <button class="button button-clear" ui-sref="HomeTabs.Rates" ng-hide="!hide.user" nav-direction="back">
           <i class="icon ion-arrow-left-c"></i>
         </button>
         <h1 class="title">{{title}}</h1>
       <button class="button button-clear" ng-click="toggle('user')">{{name}}</button>
     </ion-header-bar>
   
-	<ion-content class="padding has-header" overflow-scroll="true">
+	<ion-content class="padding has-header" overflow-scroll="true" cache-view="true">
 		<div class="list" ng-if="hide.user">
 
 			<a class="item item" ng-repeat="user in users" ng-click="opens('User_Info.html', user)">

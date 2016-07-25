@@ -148,18 +148,66 @@ ion-popover-view.fit ion-content {
     transition-duration: 0ms;
 }
 
-.tabs-striped.tabs-positive .tab-item.tab-item-active, .tabs-striped.tabs-positive .tab-item.active, .tabs-striped.tabs-positive .tab-item.activated {
-margin-top: 0px !important;
-color: #fff !important;
-border-style: none !important;
-border-width: 0 0 0 0 !important;
-border-color: #444 !important; /* This is the color of my tab. You might want to change it to yours */
-margin-bottom: -1px;
+@-webkit-keyframes slideIn {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 0;
+  }
 }
 
-/*33cd5f*/
+@-webkit-keyframes slideInSmooth {
+  0% {
+    -webkit-transform: translate3d(-100%,0,0);
+  }
+  100% {
+    -webkit-transform: translate3d(0,0,0);
+  }
+}
 
-/*.tabs-striped.tabs-dark .tabs {
-    background-color: #444;
-    margin-bottom: -1px;
-}*/
+@-webkit-keyframes slideOutSmooth {
+  0% {
+    -webkit-transform: translate3d(100%,0,0);
+  }
+  100% {
+    -webkit-transform: translate3d(0,0,0);
+  }
+}
+
+@-webkit-keyframes slideDownSmooth {
+  0% {
+    -webkit-transform: translate3d(0,-100%,0);
+  }
+  100% {
+    -webkit-transform: translate3d(0,0,0);
+  }
+}
+
+
+.slide-in{
+   -webkit-animation: slideInSmooth ease-in 1; 
+  animation: slideInSmooth ease-in 1;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-duration: 250ms;
+  animation-duration: 250ms;
+}
+
+.slide-out{
+   -webkit-animation: slideOutSmooth ease-in 1; 
+  animation: slideOutSmooth ease-in 1;
+  -webkit-animation-fill-mode: backwards;
+  animation-fill-mode: backwards;
+  -webkit-animation-duration: 250ms;
+  animation-duration: 250ms;
+}
+
+.slide-down{
+   -webkit-animation: slideDownSmooth ease-in 1; 
+  animation: slideDownSmooth ease-in 1;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-duration: 250ms;
+  animation-duration: 250ms;
+}
