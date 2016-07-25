@@ -69,7 +69,7 @@
 		    var arr;
 		    var latest;
 			if(type == 'rate'){	set = $scope.arr[0].updt;	arr = $scope.arr}
-			else if(type == 'update'){	set = $scope.arr[0].updt; arr = $scope.updt}
+			else if(type == 'update'){	set = $scope.updt[0].updt; arr = $scope.updt}
 			
 			for(var z=0; z<arr.length; z++){
 				if(arr[z].updt > set){
@@ -79,6 +79,7 @@
 					set = latest;
 				}
 
+				console.log(latest);
 				latest = $filter('date')(latest , ' EEEE, dd/MM/yyyy HH:mm');
 			}
 
