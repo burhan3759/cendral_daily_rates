@@ -1,6 +1,6 @@
-angular.module('cdr.AppCtrl', [])
+angular.module('cdr.AppCtrl', ['ionic', 'ui.router'])
 
-.controller('AppCtrl', function($scope, $ionicHistory, $timeout, $cordovaDialogs, $ionicPopup, $ionicPopover, ModalService, CordovaService, $interval, $ionicLoading){
+.controller('AppCtrl', function($scope, $ionicHistory, $timeout, $cordovaDialogs, $ionicPopup, $ionicPopover, ModalService, CordovaService, $interval, $ionicLoading, $ionicGesture, $state){
 	$scope.GoBack = function() {
 	    $ionicHistory.goBack();
   	};
@@ -11,7 +11,7 @@ angular.module('cdr.AppCtrl', [])
   	//get all user 
 	$scope.users = [];
 	$scope.updts = [];
-	var counter = 0;
+	
 	$scope.getUsers = function(type){
 		var get_users = new Parse.Query(User);
 		get_users.find({
@@ -391,6 +391,19 @@ angular.module('cdr.AppCtrl', [])
 			$scope.modals.remove();
 		})	
 	}
+
+  $scope.gesture = {
+    used: ''
+  };  
+ 
+  $scope.onGesture = function(gesture) {
+  	if(gesture == "Swipe Right"){
+  		$state.go('HomeTabs.Rates');
+  	}
+    $scope.gesture.used = gesture;
+    console.log(gesture);
+  }
+  
 
 	
 

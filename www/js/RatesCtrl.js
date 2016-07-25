@@ -1,6 +1,6 @@
- angular.module('cdr.RatesCtrl', [])
+ angular.module('cdr.RatesCtrl', ['ionic'])
 
-.controller('RatesCtrl', function($scope, $ionicModal, $cordovaDialogs, ModalService, $ionicHistory, $state, $timeout, $interval, $ionicLoading){  
+.controller('RatesCtrl', function($scope, $ionicModal, $cordovaDialogs, ModalService, $ionicHistory, $state, $timeout, $interval, $ionicLoading, $ionicGesture, $window){  
 
 	$scope.progressPercent = 0
 	$scope.simulateLoad = function() {
@@ -24,7 +24,6 @@
 	//declare scope.arr to store data
 	$scope.arr = [];
 	$scope.updt = [];
-
 
 	//get table Rates from database
 	var getRates = Parse.Object.extend("Rates");
@@ -254,6 +253,42 @@
           	}
           });
 	}
+
+// var element = angular.element(document.querySelector('#eventPlaceholder'));
+//   var events = [{
+//     event: 'dragup',
+//     text: 'You dragged me UP!'
+//   },{
+//     event: 'dragdown',
+//     text: 'You dragged me Down!'
+//   },{
+//     event: 'dragleft',
+//     text: 'You dragged me Left!'
+//   },{
+//     event: 'dragright',
+//     text: 'You dragged me Right!'
+//   }];
+
+  $scope.gesture = {
+    used: ''
+  };  
+ 
+  $scope.onGesture = function(gesture) {
+  	if(gesture == "Swipe Left"){
+  		$state.go('HomeTabs.About');
+  	}
+    $scope.gesture.used = gesture;
+    console.log(gesture);
+  }
+  
+var element = angular.element(document.querySelector('#content')); 
+   
+$ionicGesture.on('tap', function(e){
+  $scope.$apply(function() {
+    console.log('Tap');
+    $scope.gesture.used = 'Tap';
+  })    
+}, element);
 
 })
 

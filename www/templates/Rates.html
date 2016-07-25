@@ -1,5 +1,7 @@
 <ion-view title="Daily Rates" cache-view="true">
-	<ion-content class="padding" overflow-scroll="true">
+	<ion-content class="padding" overflow-scroll="true"  id="content"
+             on-swipe-right="onGesture('Swipe Right')"
+             on-swipe-left="onGesture('Swipe Left')">
 
 	<!-- The interface to put the content -->
 		<div  id="title" class="row item">
@@ -23,6 +25,7 @@
 				</div>
 			</ion-item>
 		</div>
+		<!-- <h2 style="text-align: center;">Used touch gesture: {{gesture.used}}</h2>   -->
 		<br>
 
 	</ion-content>
