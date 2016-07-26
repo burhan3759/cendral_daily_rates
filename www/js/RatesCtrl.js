@@ -201,6 +201,7 @@
 		console.log("Clear LS pressed");
 	}
 
+	$scope.rates = {};
 	//function for update the rates 
 	$scope.updateRates = function(data){
 		$scope.update = {'name': data.name, 'amount':data.amount, 'sell':data.sell, 'buy':data.buy, 'c_name':data.c_name};

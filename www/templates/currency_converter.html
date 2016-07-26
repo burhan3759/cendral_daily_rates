@@ -38,10 +38,10 @@
 		    <center><b>{{rates.name}}</b></center>
 		  </div>
 		  <div class="item item-text-wrap" id='size'>
+		  	<center><b>{{sell*rates.amount/rates.sell | number:2}}</b></center>
+		  	<br>
 	  	    <p style="font-size: 16px">{{rates.sell}} Malaysia Ringgit equals</p> 
 	    	<p style="font-size: 22px">{{rates.amount}} {{rates.name}} {{rates.c_name}}</p>
-	    	<br><br>
-		    <center><b>{{sell*rates.amount/rates.sell | number:2}}</b></center>
 		  </div>
 		</div>
 
@@ -65,10 +65,11 @@
 		    <center><b>Malaysia</b></center>
 		  </div>
 		  <div class="item item-text-wrap" id='size'>
+		  	<center><b>{{buy*rates.buy/rates.amount | number:2}}</b></center>
+		  	<br>
 		  	<p style="font-size: 16px">{{rates.amount}} {{rates.name}} {{rates.c_name}} equals</p> 
 	    	<p style="font-size: 22px">{{rates.buy}} Malaysia Ringgit</p>
-	    	<br><br>
-		    <center><b>{{buy*rates.buy/rates.amount | number:2}}</b></center>
+	    	
 		  </div>
 		</div>
 
