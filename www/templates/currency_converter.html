@@ -20,7 +20,7 @@
 	<ion-content class="padding has-subheader">
 	<!-- Sell Form -->	
 
-	<div class="list" ng-hide="hide.sell">
+	<div class="list" ng-if="!hide.sell">
 
 		<center><h4>Malaysia <i class="icon ion-arrow-swap"></i> {{rates.name}}</h4></center>
 		
@@ -48,7 +48,7 @@
 	</div>
 
 	<!-- Buy Form -->
-	<div class="list" ng-hide="hide.buy">
+	<div class="list" ng-if="!hide.buy">
 
 		<center><h4>{{rates.name}} <i class="icon ion-arrow-swap"></i> Malaysia</h4></center>
 		

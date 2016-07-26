@@ -30,7 +30,8 @@
 
 	//use for getRates function
 	var get_rates = new Parse.Query(getRates);
-
+	var set;
+	var latest;
 	//get Data from database
 	$scope.getRate = function(type){
 		get_rates.find({
@@ -65,19 +66,22 @@
 		        }
 		    }		   
 
-		    var set;
+		    
 		    var arr;
-		    var latest;
 			if(type == 'rate'){	set = $scope.arr[0].updt;	arr = $scope.arr}
-			else if(type == 'update'){	set = $scope.updt[0].updt; arr = $scope.updt}
+			else if(type == 'update'){	arr = $scope.updt}
 			
 			for(var z=0; z<arr.length; z++){
 				if(arr[z].updt > set){
 					latest = arr[z].updt;
 					set = latest;
+					if(type == 'update'){
+						console.log("run");
+						$scope.arr.splice(z, 1, arr[z]);
+					}
+					
 				}
 
-				console.log(latest);
 				latest = $filter('date')(latest , ' EEEE, dd/MM/yyyy HH:mm');
 			}
 
@@ -135,21 +139,7 @@
 					x = true;
 				}
 
-		}else{
-			for(var z=0; z<updt.length; z++){
-				var updtBuy = updt[z].buy;
-				var updtSell = updt[z].sell;
-				var updtAmount = updt[z].amount;
-				var arrBuy = arr[z].buy;
-				var arrSell = arr[z].sell;
-				var arrAmount = arr[z].amount;
-				if(updtBuy > arrBuy || updtBuy < arrBuy || updtSell > arrSell || updtSell < arrSell || updtAmount > arrAmount || updtAmount < arrAmount){
-					a = z;
-					c = updt[z];
-					x = true;
-				}
-			}
-		}
+		}else{	}
 
 		if(x == true){
 		    // $ionicLoading.show({
@@ -298,7 +288,6 @@ var element = angular.element(document.querySelector('#content'));
    
 $ionicGesture.on('tap', function(e){
   $scope.$apply(function() {
-    console.log('Tap');
     $scope.gesture.used = 'Tap';
   })    
 }, element);
