@@ -4,12 +4,12 @@
 
 		<center style="color: {{alert}};">{{msg}}</center>
 
-		<div  id="title" class="row item">
+		<div  id="title" class="row button button-small">
 			<div class="col col-33">Currency</div>
 			<div class="col">Unit</div>
 			<div class="col">Buy</div>
 			<div class="col">Sell</div>
-			<div class="col col-10"></div>
+			<!-- <div class="col col-10"></div> -->
 		</div>
 	</div>
 
@@ -19,14 +19,14 @@
 	<!-- Data fetch from database -->
 		<br>
 		<div ng-repeat="rate in arr">
-			<ion-item class="row item item-icon-right" ng-click="openRate(rate)"  id="border">
-				<div class="col col-33">{{rate.name}}</div>
-				<div class="col">{{rate.amount}}</div>
-				<div class="col">{{rate.buy}}</div>	
-				<div class="col">{{rate.sell}}</div>
-				<div class="col col-10">
+			<ion-item class="row button button-small" ng-click="openRate(rate)"  id="border">
+				<div class="col col-33" style="font-size: 18px">{{rate.name}}</div>
+				<div class="col" style="font-size: 18px">{{rate.amount}}</div>
+				<div class="col" style="font-size: 18px">{{rate.buy}}</div>	
+				<div class="col" style="font-size: 18px">{{rate.sell}}</div>
+<!-- 				<div class="col col-10">
 					<i class="{{icon}}"></i>
-				</div>
+				</div> -->
 			</ion-item>
 		</div>
 

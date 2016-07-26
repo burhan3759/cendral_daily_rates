@@ -68,6 +68,7 @@
 
 		    
 		    var arr;
+		    
 			if(type == 'rate'){	set = $scope.arr[0].updt;	arr = $scope.arr}
 			else if(type == 'update'){	arr = $scope.updt}
 			
@@ -76,13 +77,13 @@
 					latest = arr[z].updt;
 					set = latest;
 					if(type == 'update'){
-						console.log("run");
+						console.log(latest);
 						$scope.arr.splice(z, 1, arr[z]);
 					}
 					
 				}
 
-				latest = $filter('date')(latest , ' EEEE, dd/MM/yyyy HH:mm');
+				latest = $filter('date')(set , ' EEEE, dd/MM/yyyy HH:mm');
 			}
 
 	    	if(type == 'update'){

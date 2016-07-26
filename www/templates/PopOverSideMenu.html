@@ -1,8 +1,8 @@
 <ion-popover-view class="fit">
-  <ion-content class="">
+  <ion-content>
     <div class="list">
-      <a class="item" ui-sref="SignIn" ng-if="!loggedIn()" ng-click="closePopover()" nav-direction="forward">
-        <i class="icon ion-log-in"></i> Log In
+      <a class="item" ui-sref="HomeTabs.About" ng-if="!loggedIn()" ng-click="closePopover()" nav-direction="forward">
+        <i class="icon ion-information-circled"></i> About
       </a>
       <div ng-if="loggedIn()">
         <div ng-if="admin()">

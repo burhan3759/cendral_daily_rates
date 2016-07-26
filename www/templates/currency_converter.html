@@ -26,7 +26,7 @@
 		
 	  	<label class="item item-input item-icon-right" ng-class="{'current' : activeTab == 'sell'}">
 			<!-- <input type="tel" placeholder='{{rates.sell}}'> -->
-			<input type="tel" placeholder='{{rates.sell}}' ng-model="sell" maxlength="5">
+			<input type="tel" placeholder='{{rates.sell}}' ng-model="sell" maxlength="15">
 		    <span class="input-label">Malaysia</span>
 		    <div class="col col-10">
 				<i class="icon ion-ios-calculator-outline"></i>
@@ -53,7 +53,7 @@
 		<center><h4>{{rates.name}} <i class="icon ion-arrow-swap"></i> Malaysia</h4></center>
 		
 		<label class="item item-input item-icon-right" ng-class="{'current' : activeTab == 'buy'}">
-			<input type="tel" placeholder='{{rates.amount}}' ng-model="buy" maxlength="5">
+			<input type="tel" placeholder='{{rates.amount}}' ng-model="buy" maxlength="15">
 			<span class="input-label">{{rates.name}}</span>
 			<div class="col col-10">
 				<i class="icon ion-ios-calculator-outline"></i>
