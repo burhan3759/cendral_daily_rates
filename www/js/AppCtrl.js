@@ -25,6 +25,7 @@ angular.module('cdr.AppCtrl', ['ionic', 'ui.router'])
 		            	name: data.get('name'),
 		            	username: data.get('username'),
 		            	category: data.get('category'),
+		            	updt: data.get('updatedAt')
 		            })
 		        }
 
@@ -34,6 +35,7 @@ angular.module('cdr.AppCtrl', ['ionic', 'ui.router'])
 		            	name: data.get('name'),
 		            	username: data.get('username'),
 		            	category: data.get('category'),
+		            	updt: data.get('updatedAt')
 		            })
 		        }
 		    }
@@ -171,19 +173,27 @@ angular.module('cdr.AppCtrl', ['ionic', 'ui.router'])
 				}
 
 		}else{
-			for(var z=0; z<updt.length; z++){
-				var updtName = updt[z].name;
-				var updtUName = updt[z].username;
-				var updtCategory = updt[z].category;
-				var arrName = arr[z].name;
-				var arrUName = arr[z].username;
-				var arrCategory = arr[z].category;
-				if(updtName != arrName || updtUName != arrUName || updtCategory != arrCategory){
-					a = z;
-					c = updt[z];
-					x = true;
+			// for(var z=0; z<updt.length; z++){
+			// 	var updtName = updt[z].name;
+			// 	var updtUName = updt[z].username;
+			// 	var updtCategory = updt[z].category;
+			// 	var arrName = arr[z].name;
+			// 	var arrUName = arr[z].username;
+			// 	var arrCategory = arr[z].category;
+			// 	if(updtName != arrName || updtUName != arrUName || updtCategory != arrCategory){
+			// 		a = z;
+			// 		c = updt[z];
+			// 		x = true;
+			// 	}
+			// }
+
+			for(var z=0; z<arr.length; z++){
+				if(updt[z].updt > arr[z].updt){
+					arr[z].updt = updt[z].updt;
+					$scope.users.splice(z, 1, updt[z]);
 				}
 			}
+
 		}
 
 		if(x == true){
