@@ -104,7 +104,7 @@ angular.module('cdr.AppCtrl', ['ionic', 'ui.router'])
 	    success: function(user) {
 	      $scope.data.username = "";
 	      $scope.data.password = "";	
-	      $scope.GoBack();
+	      $state.go('HomeTabs.Rates');
 	    },
 	    error: function(user, error) {
 	      // The login failed. Check error to see why.
