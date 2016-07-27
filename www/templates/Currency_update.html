@@ -1,7 +1,12 @@
 <ion-modal-view >
     <ion-header-bar class="bar-balanced">
+      <button class="button button-clear" ng-click="closeModal()"> 
+        <i class="icon ion-arrow-left-c"></i>
+      </button>
       <h1 class="title">Currency Update</h1>
-      <button class="button button-clear" ng-click="closeModal()">Close</button>
+      <button class="button button-dark button-clear" ng-click="deleteCurrency(rates)">
+        <i class="icon ion-trash-b"></i>
+      </button>
     </ion-header-bar>
 
     <ion-content class="padding">
@@ -32,9 +37,7 @@
   			Update Currency
 		</button>
 		<center>
-			<button class="button button-assertive button-clear" ng-click="deleteCurrency(rates)">
-				Delete Currency
-			</button>
+
 		</center>
 
     </ion-content>
