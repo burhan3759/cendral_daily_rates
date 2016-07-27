@@ -95,6 +95,11 @@ angular.module('cdr.AppCtrl', ['ionic', 'ui.router'])
 		}else{
 			alert("Password Does Not Match!");
 		}
+		$scope.data.name = "";
+		$scope.data.username = "";
+		$scope.data.password = "";
+		$scope.data.confirm_password = "";
+		$scope.data.category = "";
 	};
 
 
@@ -173,19 +178,6 @@ angular.module('cdr.AppCtrl', ['ionic', 'ui.router'])
 				}
 
 		}else{
-			// for(var z=0; z<updt.length; z++){
-			// 	var updtName = updt[z].name;
-			// 	var updtUName = updt[z].username;
-			// 	var updtCategory = updt[z].category;
-			// 	var arrName = arr[z].name;
-			// 	var arrUName = arr[z].username;
-			// 	var arrCategory = arr[z].category;
-			// 	if(updtName != arrName || updtUName != arrUName || updtCategory != arrCategory){
-			// 		a = z;
-			// 		c = updt[z];
-			// 		x = true;
-			// 	}
-			// }
 
 			for(var z=0; z<arr.length; z++){
 				if(updt[z].updt > arr[z].updt){
@@ -197,20 +189,21 @@ angular.module('cdr.AppCtrl', ['ionic', 'ui.router'])
 		}
 
 		if(x == true){
-		    $ionicLoading.show({
-		      content: 'Loading',
-		      animation: 'fade-in',
-		      showBackdrop: true,
-		      maxWidth: 200,
-		      showDelay: 500
-		    });
+		    // $ionicLoading.show({
+		    //   content: 'Loading',
+		    //   animation: 'fade-in',
+		    //   showBackdrop: true,
+		    //   maxWidth: 200,
+		    //   showDelay: 500
+		    // });
 
 		    if(c != null){	arr.splice(a, b, c); }
 		    else if(c == null){	arr.splice(a, b);	}
+			arr.length = updt.length;
 
-			$timeout(function () {
-				$ionicLoading.hide();
-			}, 2000);	
+			// $timeout(function () {
+			// 	$ionicLoading.hide();
+			// }, 2000);	
 		}		
 		x = false;
 		updt.splice(0, updt.length);	
