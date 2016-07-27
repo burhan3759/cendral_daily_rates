@@ -2,19 +2,6 @@
 
 .controller('RatesCtrl', function($scope, $ionicModal, $cordovaDialogs, ModalService, $ionicHistory, $state, $timeout, $interval, $ionicLoading, $ionicGesture, $window, $filter){  
 
-	$scope.progressPercent = 0
-	$scope.simulateLoad = function() {
-		var interval = setInterval(function() {
-				// Increment the value by 1
-				$scope.progressPercent++
-					if ($scope.progressPercent == 100) {
-						clearInterval(interval);
-						$scope.progressPercent = 0
-					}
-				$scope.$apply()
-		}, 20);
-	}
-
 	// if(localStorage['arr']){
 		$scope.Timer = $interval( function() {
 			$scope.getRate('update');
