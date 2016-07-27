@@ -36,7 +36,7 @@
 		</div>
 	</div>
 
-	<button on-hold="onHold()" class="button button-clear button-block"></button>
+	<button on-hold="onHold()" class="button button-clear button-block" ng-if="!loggedIn()"></button>
 		
 	</ion-content>
 </ion-view>
