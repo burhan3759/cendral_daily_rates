@@ -71,6 +71,7 @@
 				}
 
 				latest = $filter('date')(set , ' EEEE, dd/MM/yyyy HH:mm');
+				
 			}
 
 	    	if(type == 'update'){
@@ -80,6 +81,11 @@
 	    	localStorage.setItem('arr',  JSON.stringify($scope.arr));
 	    	$scope.alert = 'black';
 	    	$scope.msg  = "Last Updated: " + latest;
+
+		    $timeout(function () {
+		 	   $ionicLoading.hide();
+		  	}, 1000);
+
 		  },
 		  error: function(error) {
 		  	$scope.alert = 'red';
@@ -94,8 +100,15 @@
 	$scope.$on('$ionicView.loaded', function(){
 		$scope.alert = 'green';
 		$scope.msg = "Loading...";
+		$ionicLoading.show({
+	      content: 'Loading',
+	      animation: 'fade-in',
+	      showBackdrop: true,
+	      maxWidth: 200,
+	      showDelay: 500
+	    });
 	});
-	
+
 	$scope.check = function(arr, updt){	
 		var x = false;
 		var a;	var b = 1;	var c;
