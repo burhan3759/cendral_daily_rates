@@ -105,15 +105,31 @@ angular.module('cdr.AppCtrl', ['ionic', 'ui.router'])
 
 	//Sign In function
 	$scope.login = function(){
+		$ionicLoading.show({
+	      content: 'Loading',
+	      animation: 'fade-in',
+	      showBackdrop: true,
+	      maxWidth: 200,
+	      showDelay: 500
+	    });
 	  Parse.User.logIn($scope.data.username, $scope.data.password, {
 	    success: function(user) {
 	      $scope.data.username = "";
 	      $scope.data.password = "";	
-	      $state.go('HomeTabs.Rates');
+  		    $timeout(function () {
+		 	   $ionicLoading.hide();
+		 	   $state.go('HomeTabs.Rates');
+		  	}, 1000);
+
 	    },
 	    error: function(user, error) {
 	      // The login failed. Check error to see why.
-	      alert("Username or Password are incorrect, Please try Again");
+		    $timeout(function () {
+		 		$ionicLoading.hide();
+	      		alert("Username or Password are incorrect, Please try Again");
+		  	}, 1000);
+
+
 	    }
 	  });
 	};
