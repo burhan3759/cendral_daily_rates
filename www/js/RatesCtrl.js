@@ -80,7 +80,7 @@
 	    	//save the array to localstorage for offline support
 	    	localStorage.setItem('arr',  JSON.stringify($scope.arr));
 	    	$scope.alert = 'black';
-	    	$scope.msg  = "Last Updated: " + latest;
+	    	
 
 		  },
 		  error: function(error) {
@@ -89,6 +89,7 @@
 			$scope.arr = JSON.parse(localStorage['arr'] || '{}');	
 		  }
 		});
+		$scope.msg  = "Last Updated: " + latest;
 
 	    $timeout(function () {
 	 	   $ionicLoading.hide();
