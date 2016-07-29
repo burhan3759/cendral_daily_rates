@@ -82,10 +82,6 @@
 	    	$scope.alert = 'black';
 	    	$scope.msg  = "Last Updated: " + latest;
 
-		    $timeout(function () {
-		 	   $ionicLoading.hide();
-		  	}, 1000);
-
 		  },
 		  error: function(error) {
 		  	$scope.alert = 'red';
@@ -93,20 +89,27 @@
 			$scope.arr = JSON.parse(localStorage['arr'] || '{}');	
 		  }
 		});
+
+	    $timeout(function () {
+	 	   $ionicLoading.hide();
+	  	}, 1000);
 	}
 	
 	$scope.getRate('rate');
-	
+	var count = 0;
 	$scope.$on('$ionicView.loaded', function(){
-		$scope.alert = 'green';
-		$scope.msg = "Loading...";
-		$ionicLoading.show({
-	      content: 'Loading',
-	      animation: 'fade-in',
-	      showBackdrop: true,
-	      maxWidth: 200,
-	      showDelay: 500
-	    });
+		if(count == 0){
+			$scope.alert = 'green';
+			$scope.msg = "Loading...";
+			$ionicLoading.show({
+		      content: 'Loading',
+		      animation: 'fade-in',
+		      showBackdrop: true,
+		      maxWidth: 200,
+		      showDelay: 500
+		    });
+		}
+		count++;
 	});
 
 	$scope.check = function(arr, updt){	
