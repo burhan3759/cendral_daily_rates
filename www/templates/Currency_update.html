@@ -4,7 +4,7 @@
         <i class="icon ion-arrow-left-c"></i>
       </button>
       <h1 class="title">Currency Update</h1>
-      <button class="button button-dark button-clear" ng-click="deleteCurrency(rates)">
+      <button class="button button-dark button-clear" ng-click="deleteCurrency(rates)" ng-if="admin()">
         <i class="icon ion-trash-b"></i>
       </button>
     </ion-header-bar>

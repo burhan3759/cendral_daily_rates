@@ -91,7 +91,7 @@
 	
 	$scope.getRate('rate');
 	
-	$scope.$on('$ionicView.beforeEnter', function(){
+	$scope.$on('$ionicView.loaded', function(){
 		$scope.alert = 'green';
 		$scope.msg = "Loading...";
 	});
