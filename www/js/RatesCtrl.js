@@ -80,15 +80,22 @@
 	    	//save the array to localstorage for offline support
 	    	localStorage.setItem('arr',  JSON.stringify($scope.arr));
 	    	$scope.alert = 'black';
-	    	$scope.msg  = "Last Updated: " + latest;
+			if(latest == undefined){			
+				var lat = JSON.parse(localStorage['msg'] || '{}');
+				$scope.msg  = lat;
+			}else{
+				$scope.msg  = "Last Updated: " + latest;	
+			}
+	    	
+	    	localStorage.setItem('msg',  JSON.stringify($scope.msg));
 		  },
 		  error: function(error) {
 		  	$scope.alert = 'red';
 			$scope.msg  = "No Internet Connection - This is not the Latest Rate!!";	  	
 			$scope.arr = JSON.parse(localStorage['arr'] || '{}');	
+			
 		  }
 		});
-		$scope.msg  = "Last Updated: " + latest;
 
 	    $timeout(function () {
 	 	   $ionicLoading.hide();
