@@ -114,11 +114,12 @@ angular.module('cdr.AppCtrl', ['ionic', 'ui.router'])
 	    });
 	  Parse.User.logIn($scope.data.username, $scope.data.password, {
 	    success: function(user) {
-	      $scope.data.username = "";
-	      $scope.data.password = "";	
+	      	
   		    $timeout(function () {
-		 	   $ionicLoading.hide();
-		 	   $state.go('HomeTabs.Rates');
+		 	  	$ionicLoading.hide();
+		 	  	$state.go('HomeTabs.Rates');
+		 	 	$scope.data.username = "";
+	      		$scope.data.password = "";
 		  	}, 1000);
 
 	    },
